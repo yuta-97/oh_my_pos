@@ -1,2 +1,3 @@
-# Re_Sol
-Restaurant solution system
+# Oh_My_Pos
+
+convenient POS system
