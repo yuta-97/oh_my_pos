@@ -1,0 +1,10 @@
+[
+    [ {"lname":"Goods Name1"}, {"lcontent":["list1-1", "list2-1","list3-1"]}, {"id":"g01"} ],
+    [ {"lname":"Goods Name2"}, {"lcontent":["list1-2", "list2-2","list3-2"]}, {"id":"g02"} ],
+    [ {"lname":"Goods Name3"}, {"lcontent":["list1-3", "list2-3","list3-3"]}, {"id":"g03"} ],
+    [ {"lname":"Goods Name4"}, {"lcontent":["list1-4", "list2-4","list3-4"]}, {"id":"g04"} ],
+    [ {"lname":"Goods Name5"}, {"lcontent":["list1-5", "list2-5","list3-5"]}, {"id":"g05"} ],
+    [ {"lname":"Goods Name6"}, {"lcontent":["list1-6", "list2-6","list3-6"]}, {"id":"g06"} ],
+    [ {"lname":"Goods Name7"}, {"lcontent":["list1-7", "list2-7","list3-7"]}, {"id":"g07"} ],
+    [ {"lname":"Goods Name8"}, {"lcontent":["list1-8", "list2-8","list3-8"]}, {"id":"g08"} ]
+]
