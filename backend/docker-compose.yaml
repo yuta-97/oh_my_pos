@@ -1,0 +1,32 @@
+version: "3"
+volumes:
+  mongo_container_data: {}
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node_server
+    volumes:
+      - ./:/app
+    ports:
+      - "5000:8080"
+    depends_on:
+      - mongo
+    command:
+      - bash
+      - -c
+      - |
+        /wait-for-it.sh mongo:27017 -t 10
+        npm start
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: passwd
+    volumes:
+      - mongo_container_data:/data/db
+    ports:
+      - '27017:27017' 
