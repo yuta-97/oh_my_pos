@@ -8,8 +8,8 @@ async function main(id, res){
     user = id;
 
     User.findOne({id: user}, function(err, users){
-        if(err) return res.status(500).json({result: 'fail', error: err});
-        if(!users) return res.status(404).json({result: 'fail', error: 'User not found'});
+        if(err) return res.status(500).json({result: 'FAIL', error: err});
+        if(!users) return res.status(404).json({result: 'FAIL', error: 'User not found'});
         res.json({result: 'OK', users});
     })
 }
