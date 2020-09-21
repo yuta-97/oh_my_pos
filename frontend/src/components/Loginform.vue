@@ -31,18 +31,17 @@
 
               </v-toolbar>
               <v-card-text>
-                <v-form>
+                <v-form v-on:submit.prevent="login()">
                   <v-text-field
-                    label="Login"
-                    name="login"
+                    v-model="id"
+                    label="아이디"
                     prepend-icon="mdi-account"
                     type="text"
                   ></v-text-field>
 
                   <v-text-field
-                    id="password"
-                    label="Password"
-                    name="password"
+                    v-model="pw"
+                    label="비밀번호"
                     prepend-icon="mdi-lock"
                     type="password"
                   ></v-text-field>
@@ -50,7 +49,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn @click="$router.push('/ManStore')" color="#ffd700">Login</v-btn>
+                <v-btn type="submit" @click="login" color="#ffd700">Login</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -61,13 +60,36 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Loginform',
   data() {
-
+    return {
+                  id: "",
+                  pw: ""
+          }
   },
   methods: {
+            login() {
 
-  },
-};
+              axios({
+                  method: 'post',
+                  url: '/api/login',
+                  data: {
+                    id: this.id,
+                    pw: this.pw
+                   }
+              })
+              .then(function (response) {
+                    console.log(response);
+                    this.$router.push('/ManStore');
+                })
+              .catch(function (error) {
+                  console.log(error);
+            });
+
+    },
+  }
+}
 </script>

@@ -42,6 +42,11 @@ const routes = [
     path: '/ManQR',
     name: 'ManQR',
     component: () => import(/* webpackChunkName: "about" */ '../views/ManQR.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
   }
 ]
 

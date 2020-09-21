@@ -2,7 +2,6 @@ var express = require('express');
 const mongoose = require('mongoose');
 
 var app = express();
-var path = require('path');
 const bodyParser = require('body-parser');
 
 app.use(express.static('public'));
@@ -12,7 +11,7 @@ app.use(bodyParser.json())
 
 
 // Vue-router & express 연동을위한 모듈.
-app.use(require('connect-history-api-fallback')());
+// app.use(require('connect-history-api-fallback')());
 
 // Node.js의 native Promise 사용
 mongoose.Promise = global.Promise;
@@ -22,7 +21,9 @@ mongoose.connect('mongodb://root:passwd@mongo:27017/admin')
   .then(() => console.log('Successfully connected to mongodb'))
   .catch(e => console.error(e));
 
-var router = express.Router();
+
+
+//var router = express.Router();
 
 var regist = require('./src/regist');
 var login = require('./src/login');
@@ -31,15 +32,12 @@ var getmenu = require('./src/getmenu');
 var setmenu = require('./src/setmenu');
 var shopsetting = require('./src/shopsetting');
 
-var indexrouter = require('./routes/index');
+// var indexrouter = require('./routes/index');
+// var manstore = require('./routes/manstore')
 
 const PORT = 8080;
 //HOST를 localhost로 하니까 response를 보내지 못한다. 왜지?
 const HOST = '0.0.0.0';
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use('/', indexrouter);
 
 // test
 // app.get('/', (req, res) =>{
@@ -47,6 +45,8 @@ app.use('/', indexrouter);
 //     res.json({result: 'OK'});
 // })
 
+// app.use('/', indexrouter);
+// app.use('/api/ManStore', manstore);
 
 // 회원가입
 app.post('/api/regist', (req, res)=>{
@@ -60,6 +60,9 @@ app.post('/api/regist', (req, res)=>{
     regist.main(args, res)
 });
 
+app.get('/ManStore', (req,res)=>{
+    res.send("TEST");
+});
 
 // 로그인
 app.post('/api/login', (req, res)=>{
@@ -112,5 +115,5 @@ app.post('/api/shopsetting', (req,res)=>{
     shopsetting.main(args, res);
 })
 
-app.listen(PORT,HOST);
+app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
