@@ -11,11 +11,11 @@ async function main(args, res){
 
     user.save(function(err, user){
         if(err){
-            res.json({result:'FAIL'});
+            res.status(500).json({result:'FAIL', error: err});
             return console.error(err);
         }
         console.dir(user);
-        res.json({result:'OK'});
+        res.status(200).json({result:'OK', user/*최종 배포시에는 삭제할것*/});
     });
     
 }

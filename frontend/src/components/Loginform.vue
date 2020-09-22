@@ -71,6 +71,7 @@ export default {
           }
   },
   methods: {
+
             login() {
 
               axios({
@@ -81,9 +82,8 @@ export default {
                     pw: this.pw
                    }
               })
-              .then(function (response) {
-                    console.log(response);
-                    this.$router.push('/ManStore');
+              .then(() => {
+                    this.$router.push('/ManStore')
                 })
               .catch(function (error) {
                   console.log(error);

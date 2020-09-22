@@ -24,12 +24,18 @@ mongoose.connect('mongodb://root:passwd@mongo:27017/admin')
 
 var router = express.Router();
 
-var regist = require('./src/regist');
 var login = require('./src/login');
+var regist = require('./src/regist');
 var getuser = require('./src/getusers');
-var getmenu = require('./src/getmenu');
-var setmenu = require('./src/setmenu');
-var shopsetting = require('./src/shopsetting');
+
+var getgoods = require('./src/getgoods');
+var setgoods = require('./src/setgoods');
+
+var setstore = require('./src/setstore');
+var getstore = require('./src/getstore');
+
+var setcategory = require('./src/setcategory');
+var getcategory = require('./src/getcategory');
 
 var indexrouter = require('./routes/index');
 
@@ -82,35 +88,71 @@ app.get('/api/getuser/:id', (req, res)=>{
 
 });
 
-// 메뉴 등록
-app.post('/api/setmenu', (req, res)=>{
-    console.log('set menu');
-    menu = req.body.menu;
+// 상품 등록
+app.post('/api/setgoods', (req, res)=>{
+    console.log('set goods');
+    goodsname = req.body.goodsname;
     type = req.body.type;
     price = req.body.price;
     desc = req.body.desc;
-    args = [menu, price, desc];
 
-    setmenu.main(args, res);
+    args = [goodsname, type, price, desc];
+
+    setgoods.main(args, res);
 });
 
-// 메뉴 검색
-app.post('/api/getmenu', (req, res)=>{
-    console.log('get menu');
-    menu = req.body.menu;
+// 상품 검색
+app.post('/api/getgoods', (req, res)=>{
+    console.log('get goods');
+    goodsname = req.body.goodsname;
 
-    getmenu.main(menu, res);
+    getgoods.main(goodsname, res);
 
 });
 
-app.post('/api/shopsetting', (req,res)=>{
+// 매장 설정
+app.post('/api/setstore', (req,res)=>{
 
-    name = req.body.name;
-    tableNum = req.body.num;
-    
+    storename = req.body.storename;
+    tablenum = req.body.tablenum;
+    discount = req.body.discount;
 
-    shopsetting.main(args, res);
-})
+    args = [storename, tablenum, discount];
+
+    setstore.main(args, res);
+});
+
+// 매장 검색
+app.post('/api/getstore', (req,res)=>{
+
+    storename = req.body.storename;
+
+    getstore.main(storename, res);
+});
+
+// 카테고리 등록
+app.post('/api/setcategory', (req,res)=>{
+    categoryname = req.body.categoryname;
+    options = req.body.options;
+    // optionname = req.body.optionname;
+    // optionprice = req.body.optionprice;
+
+    args = [categoryname, options];
+
+    setcategory.main(args, res);
+});
+
+// 카테고리 검색
+app.post('/api/getcategory', (req,res)=>{
+    categoryname = req.body.categoryname;
+
+    getcategory.main(categoryname, res);
+});
+
+
+
+
+
 
 app.listen(PORT,HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
