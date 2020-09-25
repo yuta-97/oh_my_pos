@@ -27,7 +27,7 @@ async function main(args, res){
                 return console.error(err);
             }
             console.dir(goods);
-            res.json({result:'OK', goods/** 배포 후 삭제할 것 */});
+            res.status(200).json({result:'OK', goods/** 배포 후 삭제할 것 */});
         });
     });
 

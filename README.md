@@ -11,3 +11,6 @@ Restaurant solution system
 3. `npm run build` on frontend directory
 4. `docker-compose up -d --build` on backend directory
 
+# API
+[API doc](./api.md)
+
