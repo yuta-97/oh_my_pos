@@ -50,6 +50,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn type="submit" @click="login" color="#ffd700">Login</v-btn>
+                <v-btn type="submit" @click="regist" color="#ffd700">Join</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -71,6 +72,9 @@ export default {
           }
   },
   methods: {
+            regist() {
+                  // this.$router.push('/Regist')
+            },
 
             login() {
 
@@ -87,6 +91,7 @@ export default {
                 })
               .catch(function (error) {
                   console.log(error);
+                  alert("다시 입력해주세요!");
             });
 
     },

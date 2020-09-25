@@ -5,20 +5,20 @@
       app
     >
       <v-list dense>
-        <v-list-item :key="i" link @click="$router.push('/ManStore')">
+        <v-list-item :key="i" link @click="$router.push('/Pos')">
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title> 매장 관리 </v-list-item-title>
+            <v-list-item-title> 포스 </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item :key="i" link @click="$router.push('/ManCate')">
+        <v-list-item :key="i" link @click="$router.push('/ManStore')">
           <v-list-item-action>
-            <v-icon>mdi-list</v-icon>
+            <v-icon>mdi-what</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title> 카테고리 관리</v-list-item-title>
+            <v-list-item-title> 매장 관리 </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item :key="i" link @click="$router.push('/ManGoods')">
@@ -29,28 +29,20 @@
             <v-list-item-title> 상품 관리</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item :key="i" link @click="$router.push('/ManOption')">
-          <v-list-item-action>
-            <v-icon>mdi-list</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title> 옵션 관리</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item :key="i" link @click="$router.push('/ManDiscount')">
-          <v-list-item-action>
-            <v-icon>mdi-list</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title> 할인 관리</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
         <v-list-item :key="i" link @click="$router.push('/ManQR')">
           <v-list-item-action>
             <v-icon>mdi-list</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title> 큐알코드 관리</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item :key="i" link @click="$router.push('/ManCate')">
+          <v-list-item-action>
+            <v-icon>mdi-list</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title> 카테고리 관리</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -75,7 +67,7 @@
           justify="center"
         >
           <v-col class="text-center">
-
+              <ManCateMain-component></ManCateMain-component>
           </v-col>
         </v-row>
       </v-container>
@@ -90,7 +82,9 @@
 </template>
 
 <script>
+import ManCateMain from '@/components/ManCateMain.vue';
   export default {
+
     name: 'ManCateForm',
     props: {
 
@@ -98,5 +92,8 @@
     data: () => ({
       drawer: null,
     }),
+    components: {
+      'ManCateMain-component': ManCateMain,
+    },
   }
 </script>

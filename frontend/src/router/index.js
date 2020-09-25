@@ -19,24 +19,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/ManStore.vue')
   },
   {
-    path: '/ManCate',
-    name: 'ManCate',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ManCate.vue')
-  },
-  {
     path: '/ManGoods',
     name: 'ManGoods',
     component: () => import(/* webpackChunkName: "about" */ '../views/ManGoods.vue')
-  },
-  {
-    path: '/ManOption',
-    name: 'ManOption',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ManOption.vue')
-  },
-  {
-    path: '/ManDiscount',
-    name: 'ManDiscount',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ManDiscount.vue')
   },
   {
     path: '/ManQR',
@@ -47,6 +32,16 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/Pos',
+    name: 'Pos',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Pos.vue')
+  },
+  {
+    path: '/ManCate',
+    name: 'ManCate',
+    component: () => import(/* webpackChunkName: "about" */ '../views/ManCate.vue')
   }
 ]
 
