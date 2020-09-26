@@ -37,44 +37,9 @@
 
 <script>
 import axios from 'axios';
-import Vue from 'vue';
-import Vuetify from 'vuetify';
-Vue.use(Vuetify);
-
-Vue.component('disform',
-{ template:
-  `<v-form v-on:submit.prevent="addstore()">` +
-  `<v-text-field
-      v-model="discount.disname"
-      name="할인명"
-      label="할인명"
-      type="text"
-    >` +
-    `</v-text-field>` +
-    `<v-text-field
-      v-model="discount.disrate"
-      name="할인율"
-      label="할인율"
-      type="number"
-    >` + `</v-text-field>`+
-    `</v-form>`,
-     data() {
-      return {
-        discount:
-          { disname: '', disrate: ''}
-      }
-
-  },
-    props: ['dis'],
-
-});
-
-
+import disform from '../components/ManStoreDis.vue';
 
 export default {
-
-
-
   data () {
     return {
       storename: '',
@@ -84,24 +49,35 @@ export default {
 
     }
   },
+  components:{
+    disform
+  },
 
   methods: {
+    parents(discount){
+      this.discount = discount
+      console.log(this.discount);
+    },
     adddis() {
       this.discounts.push('disform')
     },
 
     addstore() {
+      var data;
+      data = this.dis.discounts;
+      console.log(data);
+
       axios({
           method: 'post',
           url: '/api/setstore',
           data: {
             storename: this.storename,
             tablenum: this.tablenum,
-            discount: this.dis.discount
+            discount: this.discounts,
            }
       })
-      .then(() => {
-            console.log( this.storename , this.tablenum, this.disname, this.disrate )
+      .then((res) => {
+            console.log( res )
             alert("등록 되었습니다!");
         })
       .catch(function (error) {
