@@ -1,19 +1,19 @@
 <template>
-  <v-list>
-    
-  </v-list>
+  <div>
+    <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
+import QrcodeVue from 'qrcode.vue';
 
 export default {
-  name: 'Loginform',
   data() {
     return {
-                  id: "",
-                  pw: ""
-          }
+      value: 'http://localhost:5000/Pos',
+      size: 300,
+    }
   },
   methods: {
             regist() {
@@ -39,6 +39,9 @@ export default {
             });
 
     },
-  }
+  },
+  components:{
+    QrcodeVue,
+  },
 }
 </script>
