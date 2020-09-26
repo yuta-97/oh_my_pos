@@ -80,6 +80,6 @@ import ManCate from '../components/ManCate.vue'
       ManQR,
       ManGoods,
       ManCate
-    },
+    }
   }
 </script>
