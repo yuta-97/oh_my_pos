@@ -23,7 +23,7 @@
       <v-btn v-on:click="adddis">버튼 추가</v-btn> <br><br>
 
     <div v-on:submit.prevent="addstore()">
-      <component v-for="item in discounts" :is="item" :key="item" v-on:submit.prevent="addstore()"></component><br>
+      <component :dis="discount" v-for="item in discounts" :is="item" :key="item" v-on:submit.prevent="addstore()"></component><br>
     </div>
 
 
@@ -63,21 +63,23 @@ Vue.component('disform',
         discount:
           { disname: '', disrate: ''}
       }
+
   },
+    props: ['dis'],
 
 });
 
 
 
 export default {
-  props: ['dis'],
+
 
 
   data () {
     return {
       storename: '',
       tablenum: '',
-      // discount: { disname: '', disrate: ''},
+      discount: { disname: '', disrate: ''},
       discounts: []
 
     }
@@ -95,7 +97,7 @@ export default {
           data: {
             storename: this.storename,
             tablenum: this.tablenum,
-            disform.discount: this.discount
+            discount: this.dis.discount
            }
       })
       .then(() => {
