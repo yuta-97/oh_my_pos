@@ -14,11 +14,11 @@ async function main(args, res){
 
     category.save(function(err, category){
         if(err){
-            res.satus(500).json({result:'FAIL'});
+            res.status(500).json({result:'FAIL'});
             return console.error(err);
         }
         console.dir(category);
-        res.status(200).json({result:'OK', category/* 배포 후 삭제 */});
+        res.json({result:'OK', category/* 배포 후 삭제 */});
     });
 
 }
