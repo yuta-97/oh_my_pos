@@ -62,7 +62,7 @@ import ManStore from '../components/ManStore.vue'
 import ManQR from '../components/ManQR.vue'
 import ManGoods from '../components/ManGoods.vue'
 import ManCate from '../components/ManCate.vue'
-// import ManQR from '../components/ManQR.vue'
+
 
   export default {
     name: 'ManMain',

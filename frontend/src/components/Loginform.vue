@@ -87,7 +87,7 @@ export default {
                    }
               })
               .then(() => {
-                    this.$router.push('/ManStore')
+                    this.$router.push('/ManMain')
                 })
               .catch(function (error) {
                   console.log(error);
