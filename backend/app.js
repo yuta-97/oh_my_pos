@@ -36,9 +36,11 @@ var updatestore = require('./src/updatestore');
 var getstore = require('./src/getstore');
 
 var setcategory = require('./src/setcategory');
+var updatecategory = require('./src/updatecategory');
 var getcategory = require('./src/getcategory');
 
 var indexrouter = require('./routes/index');
+// const { options } = require('./routes/index');
 
 const PORT = 8080;
 //HOST를 localhost로 하니까 response를 보내지 못한다. 왜지?
@@ -97,8 +99,9 @@ app.post('/api/setgoods', (req, res)=>{
     price = req.body.price;
     desc = req.body.desc;
 
+    
     args = [goodsname, type, price, desc];
-
+    console.log(args);
     setgoods.main(args, res);
 });
 
@@ -153,6 +156,16 @@ app.post('/api/setcategory', (req,res)=>{
 
     setcategory.main(args, res);
 });
+
+// 카테고리 업데이트
+app.post('/api/updatecategory', (req,res)=>{
+    categoryname = req.body.categoryname;
+    options = req.body.options;
+
+    args = [categoryname, options];
+
+    updatecategory.main(args, res);
+})
 
 // 카테고리 검색
 app.post('/api/getcategory', (req,res)=>{

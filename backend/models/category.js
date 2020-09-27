@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const categorySchema = new mongoose.Schema({
   categoryname: { type: String, required: true, unique: true },
   options: [{
-      optionname: { type: String, required: true, unique: true },
+      optionname: { type: String, required: true},
       optionprice: { type: String, required: true }
   }]
 });

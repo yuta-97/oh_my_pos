@@ -1,7 +1,8 @@
 <template>
   <div>
+
     <b-nav id="sidebar-right" no-header right no->
-      <template>
+
         <div class="p-3">
           <nav class="mb-3">
             <b-nav vertical>
@@ -13,11 +14,15 @@
             </b-nav>
           </nav>
         </div>
-      </template>
-    </b-nav>
-    <component v-bind:is="selmenus">
 
-    </component>
+    </b-nav>
+
+    <div class="container-flud">
+      <component v-bind:is="selmenus">
+
+      </component>
+    </div>
+
   </div>
 </template>
 
@@ -35,7 +40,7 @@ import ManCate from '../components/ManCate.vue'
     },
     data: function() {
       return {
-				// quoteTitle: 'The Quote',
+
         selmenus: 'ManStore'
       }
     },
@@ -47,9 +52,28 @@ import ManCate from '../components/ManCate.vue'
     }
   }
 </script>
-<style>
+<style scoped>
 #sidebar-right{
-  width: 20%;
-  position: fixed;
+
+     top:0px;
+
+    width:300px;
+    height:auto;
+    float:left;
+
 }
+#main {
+
+
+  float:left;
+
+
+  width:400px;
+  height:100%;
+  flex: 2;
+
+
+
+}
+
 </style>
