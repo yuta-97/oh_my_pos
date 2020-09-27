@@ -63,7 +63,7 @@ import axios from 'axios';
           method: 'post',
           url: '/api/updatestore',
           data:{
-            store: this.storename,
+            storename: this.storename,
             tablenum: this.tablenum,
             discount: this.discount
           }
@@ -74,7 +74,7 @@ import axios from 'axios';
           console.log(error);
           alert("try again");
         })
-        this.discout.disname = ''
+        this.discount.disname = ''
         this.discount.disrate = ''
       },
       onReset(evt) {
