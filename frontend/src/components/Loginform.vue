@@ -1,100 +1,75 @@
 <template>
-  <v-app id="inspire">
-    <v-main>
-      <v-container
-        class=""
-        fluid
+<div>
+  <div>
+    <b-img src="https://github.com/Cozy-Ho/oh_my_pos/blob/master/frontend/src/assets/logo.png?raw=true" fluid alt="Responsive image"></b-img>
+  </div>
+  <div>
+    <b-form @submit="login" @reset="onReset">
+      <b-form-group
+        id="input-group-id"
+        label="ID :"
+        label-for="input-id"
       >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col
-            cols="12"
-            sm="8"
-            md="4"
-          >
-          <v-img
-            :src="require('../assets/logo.png')"
-            class="my-3"
-            contain
-            height="200"
-          />
-            <v-card class="elevation-12">
-              <v-toolbar
-                color="#ffd700 "
-                dark
-                flat
-              >
-                <v-toolbar-title>로그인</v-toolbar-title>
-                <v-spacer></v-spacer>
+        <b-form-input
+          id="input-id"
+          v-model="form.id"
+          type="id"
+          required
+          placeholder="Enter your ID"
+        ></b-form-input>
+      </b-form-group>
 
-              </v-toolbar>
-              <v-card-text>
-                <v-form v-on:submit.prevent="login()">
-                  <v-text-field
-                    v-model="id"
-                    label="아이디"
-                    prepend-icon="mdi-account"
-                    type="text"
-                  ></v-text-field>
-
-                  <v-text-field
-                    v-model="pw"
-                    label="비밀번호"
-                    prepend-icon="mdi-lock"
-                    type="password"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn type="submit" @click="login" color="#ffd700">Login</v-btn>
-                <v-btn type="submit" @click="regist" color="#ffd700">Join</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
-  </v-app>
+      <b-form-group id="input-group-pw" label="PW :" label-for="input-pw">
+        <b-form-input
+          id="input-pw"
+          v-model="form.pw"
+          type="password"
+          required
+          placeholder="Enter password"
+        ></b-form-input>
+      </b-form-group>
+      <b-button type="submit" variant="primary">Submit</b-button>
+      <b-button type="reset" variant="danger">Reset</b-button>
+    </b-form>
+  </div>
+</div>
+  
 </template>
 
 <script>
 import axios from 'axios';
-
-export default {
-  name: 'Loginform',
-  data() {
-    return {
-                  id: "",
-                  pw: ""
-          }
-  },
-  methods: {
-            regist() {
-                  // this.$router.push('/Regist')
-            },
-
-            login() {
-
-              axios({
-                  method: 'post',
-                  url: '/api/login',
-                  data: {
-                    id: this.id,
-                    pw: this.pw
-                   }
-              })
-              .then(() => {
-                    this.$router.push('/ManMain')
-                })
-              .catch(function (error) {
-                  console.log(error);
-                  alert("다시 입력해주세요!");
-            });
-
+  export default {
+    data() {
+      return {
+        form: {
+          id: '',
+          pw: ''
+        }
+      }
     },
+    methods: {
+      login(evt) {
+        evt.preventDefault()
+        axios({
+          method: 'post',
+          url: '/api/login',
+          data:{
+            id: this.form.id,
+            pw: this.form.pw
+          }
+        }).then(() =>{
+          this.$router.push('/Manage')
+        }).catch(function(error){
+          console.log(error);
+          alert("try again");
+        })
+      },
+      onReset(evt) {
+        evt.preventDefault()
+        // Reset our form values
+        this.form.id = ''
+        this.form.pw = ''
+      }
+    }
   }
-}
 </script>

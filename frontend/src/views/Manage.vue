@@ -29,7 +29,7 @@ import ManCate from '../components/ManCate.vue'
 
 
   export default {
-    name: 'ManMain',
+    name: 'Manage',
     props: {
 
     },
