@@ -23,7 +23,7 @@
       <v-btn v-on:click="adddis">버튼 추가</v-btn> <br><br>
 
     <div v-on:submit.prevent="addstore()">
-      <component :dis="discount" v-for="item in discounts" :is="item" :key="item" v-on:submit.prevent="addstore()"></component><br>
+      <component @update="update" v-for="item in discounts" :is="item" :key="item" v-on:submit.prevent="addstore()"></component><br>
     </div>
 
 
@@ -38,6 +38,10 @@
 <script>
 import axios from 'axios';
 import disform from '../components/ManStoreDis.vue';
+
+// props: {
+//   discount
+// }
 
 export default {
   data () {
@@ -54,18 +58,23 @@ export default {
   },
 
   methods: {
-    parents(discount){
-      this.discount = discount
-      console.log(this.discount);
-    },
+    // update(discount){
+    //   this.discount = discount;
+    //   console.log(this.discount);
+    // },
+
     adddis() {
       this.discounts.push('disform')
     },
 
-    addstore() {
+
+    addstore(discount) {
       var data;
-      data = this.dis.discounts;
+      data = this.discount;
       console.log(data);
+
+      this.discount = discount;
+      console.log(this.discount);
 
       axios({
           method: 'post',
@@ -73,7 +82,7 @@ export default {
           data: {
             storename: this.storename,
             tablenum: this.tablenum,
-            discount: this.discounts,
+            discount: this.discount,
            }
       })
       .then((res) => {

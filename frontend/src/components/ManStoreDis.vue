@@ -14,11 +14,12 @@
     </v-text-field>
     <v-btn color="info" @click="update">적용</v-btn>
 </v-form>
-    
+
 </template>
 <script>
 export default {
-    props:['disname,disrate'],
+  name: "disform",
+    props:['disname,'],
     data(){
         return{
             discount:{}
@@ -27,7 +28,7 @@ export default {
         this.discount.disname = this.disname,
         this.discount.disrate = this.disrate
     },
-    
+
     methods:{
         update(){
             this.$emit("update",this.discount)
