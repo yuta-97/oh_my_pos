@@ -32,6 +32,7 @@ var getgoods = require('./src/getgoods');
 var setgoods = require('./src/setgoods');
 
 var setstore = require('./src/setstore');
+var updatestore = require('./src/updatestore');
 var getstore = require('./src/getstore');
 
 var setcategory = require('./src/setcategory');
@@ -122,6 +123,17 @@ app.post('/api/setstore', (req,res)=>{
     setstore.main(args, res);
 });
 
+// 매장 업데이트
+app.post('/api/updatestore', (req,res)=>{
+    storename = req.body.storename;
+    tablenum = req.body.tablenum;
+    discount = req.body.discount;
+
+    args = [storename, tablenum, discount];
+
+    updatestore.main(args, res);
+});
+
 // 매장 검색
 app.post('/api/getstore', (req,res)=>{
 
@@ -148,6 +160,8 @@ app.post('/api/getcategory', (req,res)=>{
 
     getcategory.main(categoryname, res);
 });
+
+
 
 
 
