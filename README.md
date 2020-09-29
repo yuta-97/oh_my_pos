@@ -20,5 +20,5 @@ Free Pos-system for any device and any place.
 # Dev_Log
 [cozy-ho](./devlog.md)
 
-# TOdo
+# Todo
 [Todo](./todo.md)
