@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <b-form @submit="onSubmit" @reset="onReset">
       <b-form-group id="input-group-storename" label="Your Store Name :" label-for="input-1">
         <b-form-input
