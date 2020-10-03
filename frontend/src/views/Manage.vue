@@ -63,6 +63,7 @@ import ManCate from '../components/ManCate.vue'
     }
   }
 </script>
+
 <style scoped>
 
 .navbar-primary {
