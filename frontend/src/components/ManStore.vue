@@ -61,7 +61,7 @@ import axios from 'axios';
         evt.preventDefault()
         axios({
           method: 'post',
-          url: '/api/updatestore',
+          url: '/api/setstore',
           data:{
             storename: this.storename,
             tablenum: this.tablenum,
