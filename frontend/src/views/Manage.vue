@@ -1,22 +1,6 @@
-<!-- 참고한 사이트
-https://codepen.io/makbash/pen/gZxxMW -->
 
 <template>
   <div>
-    <!-- <nav class="navbar navbar-inverse navbar-global navbar-fixed-top">
-          <div class="container-fluid">
-            <div class="navbar-header">
-
-              <a class="navbar-brand" href="#">Santhosh Vertical Nav Project</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-              <ul class="nav navbar-nav navbar-user navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Santhosh Giridara</a></li>
-                <li><a href="#about"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-              </ul>
-            </div>
-          </div>
-        </nav> -->
     <nav class="navbar-primary">
       <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left"></span></a>
       <ul class="navbar-primary-menu">
@@ -26,6 +10,7 @@ https://codepen.io/makbash/pen/gZxxMW -->
           <a v-on:click="selmenus='ManCate'">카테고리 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManGoods'">상품 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManQR'">QR 관리<span class="nav-label"></span></a>
+          <a v-on:click="logout" @click="$router.push('/')">LogOut<span class="nav-label"></span></a>
         </li>
       </ul>
     </nav>
@@ -42,6 +27,7 @@ import ManStore from '../components/ManStore.vue'
 import ManQR from '../components/ManQR.vue'
 import ManGoods from '../components/ManGoods.vue'
 import ManCate from '../components/ManCate.vue'
+import axios from 'axios';
 
 
   export default {
@@ -54,11 +40,58 @@ import ManCate from '../components/ManCate.vue'
         selmenus: 'ManStore'
       }
     },
+    // 로그인 된 사용자인지 확인.
+    watch:{
+      selmenus: function(){
+        axios({
+          method: 'get',
+          url: '/api/logedin'
+        }).then((res)=>{
+          console.log(res.data);
+          if(res.data==false){
+            alert("로그인이 필요합니다!");
+            this.$router.push('/');
+          }
+        }).catch(function(error){
+          console.log(error);
+          alert("server error!!");
+        });
+      }
+    },
     components: {
       ManStore,
       ManQR,
       ManGoods,
       ManCate
+    },
+    // watch로는 컴포넌트가 처음 마운트될때를 핸들링 하지 못해서.
+    mounted: function(){
+      axios({
+          method: 'get',
+          url: '/api/logedin'
+        }).then((res)=>{
+          if(res.data==false){
+            alert("로그인이 필요합니다!");
+            this.$router.push('/');
+          }
+        }).catch(function(error){
+          console.log(error);
+          alert("server error!!");
+        });
+    },
+    methods:{
+      logout(){
+        axios({
+          method: 'get',
+          url: '/api/logout'
+        }).then(()=>{
+          alert("로그아웃 되었습니다!");
+          this.$router.push('/Login');
+        }).catch(function(error){
+          alert("server error!");
+          console.log(error);
+        })
+      }
     }
   }
 </script>
