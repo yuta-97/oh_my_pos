@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 const bodyParser = require('body-parser');
-
+const cookieParser = require('cookie-parser');
 const models = require('./models');
 
 const PORT = 8080;
@@ -22,9 +22,10 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
+app.use(cookieParser());
+
 // Vue-router & express 연동을위한 모듈.
 app.use(require('connect-history-api-fallback')());
-
 
 
 var indexrouter = require('./routes/index');
@@ -35,41 +36,13 @@ var indexrouter = require('./routes/index');
 // });
 
 
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexrouter);
 
-app.post('/api/regist',(req,res) => {
-    console.log('regist rerquest!!');
-    models.User.create({
-      user_id: req.body.id,
-      user_pw: req.body.pw,
-      user_email: req.body.email
-    }).then((result) =>{
-        res.status(200).json({result});
-    }).catch(function(error){
-        console.log(error);
-        res.status(500).json({error});
-    });
-    
-});
 
-app.post('/api/login',(req,res) => {
-    console.log('login request!!');
-
-    models.User.findOne({
-        where: {
-            user_id: req.body.id,
-            user_pw: req.body.pw
-        }
-    }).then((result) =>{
-        console.log(result);
-        res.status(200).json({result});
-    }).catch(function(error){
-        console.log(error);
-        res.status(500).json({error});
-    });
-})
 
 app.get('/api/getuser/:id', (req,res) => {
     models.User.findAll({

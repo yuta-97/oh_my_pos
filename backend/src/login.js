@@ -1,18 +1,26 @@
-var User = require('../models/user');
-
-async function main(args, res){
-
-    User.findOne( {$and: [{id: args[0]}, {pw: args[1]} ] }, function(err, users){
-        if(err) return res.status(500).json({result: 'FAIL', error: err});
-        if(!users){
-            return res.status(404).json({result: 'FAIL', error: 'User not found'});
-        }
-        else{
-            res.json({result: 'OK', users});
-        }
+var models = require('../models');
+ 
+function login(id,pw,req,res){
+    var responseData;
+    models.User.findOne({
+        where: {user_id: id}
     })
+        .then(function(user){
+            if(user==null || user.dataValues.user_pw!=pw){
+                responseData = {'result':'no','flag':req.session.login};
+                res.status(500).json(responseData);
+                console.log('로그인 실패');
+            } 
+            else{
+                req.session.login = true
+                req.session.idx = user.dataValues.id
+                responseData = {'result' : 'ok','session':req.session.login};
+                res.status(200).json(responseData);
+                console.log('로그인 성공');
+            }
+        }).catch(function(error){
+            console.log(error);
+        });
 }
-
-module.exports = {
-    main:main
-}
+ 
+exports.login = login;
