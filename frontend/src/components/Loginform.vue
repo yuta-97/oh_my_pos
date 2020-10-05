@@ -47,21 +47,8 @@ import axios from 'axios';
         }
       }
     },
-    beforeMount: function(){
-      axios({
-          method: 'get',
-          url: '/api/logedin'
-        }).then((res) =>{
-          if(res){
-            alert("이미 로그인 되어있음!");
-            this.$router.push('/Manage');
-          }
-        }).catch(function(error){
-          console.log(error);
-          alert("server error :(");
-        })
-    },
     methods: {
+      
       login(evt) {
         evt.preventDefault()
         axios({

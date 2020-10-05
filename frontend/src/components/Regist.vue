@@ -70,12 +70,15 @@ import axios from 'axios';
           }
         }).then((res) =>{
             console.log(res);
-            //res 처리 코드 추가해야함. 200 일때만 리디렉트하도록
-            this.$router.push('/Login')
+            // 회원가입 성공하면 상위컴포넌트에 로그인 컴포넌트를 표시하도록 이벤트 호출.
+            if(res){
+              this.$emit('regist');
+              alert("가입되었습니다!");
+            }
         }).catch(function(error){
           console.log(error);
-          alert("try again");
-        })
+          alert("이미 존재하는 계정입니다!");
+        });
       },
       onReset(evt) {
         evt.preventDefault()

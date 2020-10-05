@@ -13,7 +13,6 @@ router.use(session({
 }));
 
 router.get('/', function (req, res) {
-  
   res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
@@ -23,8 +22,8 @@ router.post('/api/regist',(req,res)=>{
       user_id: req.body.id,
       user_pw: req.body.pw,
       user_email: req.body.email
-    }).then((result) =>{
-        res.status(200).json({result});
+    }).then(() =>{
+        res.status(200).json({result: 'OK'});
     }).catch(function(error){
         console.log(error);
         res.status(500).json({error});
@@ -38,40 +37,41 @@ router.post('/api/login',(req,res)=>{
     })
       .then(function(user){
           if(user==null || user.dataValues.user_pw!=req.body.pw){
-              res.send(req.session.login);
+              req.session.login = false;
+              req.session.save();
+              res.status(500).send(req.session.login);
               console.log('로그인 실패');
           } 
           else{
-              req.session.login = true
-              req.session.user_id = user.dataValues.user_id
-              res.send(req.session.login);
+              req.session.user_id = user.dataValues.user_id;
+              req.session.login = true;
+              req.session.save();
+              res.status(200).send(req.session.login);
               console.log('로그인 성공');
           }
       }).catch(function(error){
           console.log(error);
       });
     console.log('session_setted');
-  }else{
-    
   }
-  
 });
 
 // 로그인 되어있는지 확인
 router.get('/api/logedin',(req,res)=>{
-  if(!req.session.login){
+  if(req.session == null || !req.session.login){
     // 로그인 안됨
     res.send(false);
+    console.log('로그인 안됨!!');
   }else{
     // 로그인 되어있음
-    res.send(true);
+    res.json({result: 'OK'});
+    console.log('이미 로그인 됨!!');
   }
-})
+});
 
 router.get('/api/logout',(req,res)=>{
-  req.session.destroy();    //login session 변경
+  req.session.destroy();
   console.log('session deleted!');
-  res.redirect('/');
 });
 
 
