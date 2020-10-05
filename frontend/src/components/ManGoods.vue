@@ -1,69 +1,91 @@
 <template>
-  <div >
-    <b-form @submit="onSubmit" @reset="onReset">
-      <b-form-group id="input-group-goodsname" label="Product name :" label-for="input-1">
-        <b-form-input
-          id="input-1"
-          v-model="goodsname"
-          required
-          placeholder="ex) 커피"
-        ></b-form-input>
-      </b-form-group>
+  <div>
+    <button @click="openModal">상품 등록</button>
 
-      <b-form-group id="input-group-type" label="Category :" label-for="input-2">
-        <b-form-select
-          id="input-3"
-          v-model="type"
-          :options="catelist"
-          required
-        ></b-form-select>
-      </b-form-group>
+    <!-- 상품 등록 모달 -->
+    <MyModal @close="closeModal" v-if="modal">
+      <p> 상품 등록 </p>
+      <b-form @submit="onSubmit" @reset="onReset">
+        <b-form-group id="input-group-goodsname" label="Product name :" label-for="input-1">
+          <b-form-input
+            id="input-1"
+            v-model="goodsname"
+            required
+            placeholder="ex) 커피"
+          ></b-form-input>
+        </b-form-group>
 
-      <b-form-group id="input-group-price" label="가 격 : " label-for="input-3">
-        <b-form-input
-          id="input-3"
-          v-model="price"
-          required
-          placeholder="ex) 2000"
-        ></b-form-input>
-      </b-form-group>
+        <b-form-group id="input-group-type" label="Category :" label-for="input-2">
+          <b-form-select
+            id="input-3"
+            v-model="type"
+            :options="catelist"
+            required
+          ></b-form-select>
+        </b-form-group>
 
-      <b-form-group id="input-group-desc" label="설 명 : " label-for="input-4">
-        <b-form-input
-          id="input-4"
-          v-model="desc"
-          placeholder="ex) 직접 블랜딩한 맛좋은 커피!!"
-        ></b-form-input>
-      </b-form-group>
+        <b-form-group id="input-group-price" label="가 격 : " label-for="input-3">
+          <b-form-input
+            id="input-3"
+            v-model="price"
+            required
+            placeholder="ex) 2000"
+          ></b-form-input>
+        </b-form-group>
 
-      <b-button type="submit" variant="primary">추 가</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
-    </b-form>
+        <b-form-group id="input-group-desc" label="설 명 : " label-for="input-4">
+          <b-form-input
+            id="input-4"
+            v-model="desc"
+            placeholder="ex) 직접 블랜딩한 맛좋은 커피!!"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-button type="submit" variant="primary">추 가</b-button>
+        <b-button type="reset" variant="danger">Reset</b-button>
+      </b-form>
+    </MyModal>
+
+    <!-- 상품 리스트 -->
+
+
+
+
+
+
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import MyModal from '../components/ManGoodsModal.vue';
+
+
   export default {
+    components: { 
+      MyModal
+    },
+
     data() {
       return {
+        modal: false,
         goodsname: '',
         type: null,
         price: '',
         desc: '',
-        catelist:[{text: '카테고리 선택', value: null}]
+        catelist:[{text: '카테고리 선택', value: null}],
+        initArray : []
       }
     },
-    created: function(){
-        axios({
-            method:'post',
-            url: '/api/getcategory'
-        }).then((res)=>{
-            console.log(res);
-            this.catelist = res.data;
-        })
-    },
+   
+
     methods: {
+      openModal() {
+      this.modal = true
+      },
+      closeModal() {
+      this.modal = false
+      },
       onSubmit(evt) {
         evt.preventDefault()
         axios({

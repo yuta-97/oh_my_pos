@@ -51,7 +51,6 @@ import ManCate from '../components/ManCate.vue'
     },
     data: function() {
       return {
-
         selmenus: 'ManStore'
       }
     },
