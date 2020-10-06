@@ -1,9 +1,6 @@
 <template>
 <div>
-  <div>
-    <b-img src="https://github.com/Cozy-Ho/oh_my_pos/blob/master/frontend/src/assets/logo.png?raw=true" fluid alt="Responsive image"></b-img>
-  </div>
-  <div>
+  <div class = "loginform">
     <b-form @submit="login" @reset="onReset">
       <b-form-group
         id="input-group-id"
@@ -28,8 +25,8 @@
           placeholder="Enter password"
         ></b-form-input>
       </b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" variant="primary">Submit</b-button>  &nbsp;&nbsp;
+      <b-button type="reset" variant="danger">Reset</b-button> 
     </b-form>
   </div>
 </div>
@@ -77,3 +74,12 @@ import axios from 'axios';
     }
   }
 </script>
+
+<style scoped>
+
+      .loginform {
+        border: 4px dashed #bcbcbc;
+        padding : 30px;
+      }
+
+</style>

@@ -10,14 +10,19 @@
           <a v-on:click="selmenus='ManCate'">카테고리 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManGoods'">상품 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManQR'">QR 관리<span class="nav-label"></span></a>
-          <a v-on:click="logout" @click="$router.push('/')">LogOut<span class="nav-label"></span></a>
+          <!-- <a v-on:click="logout" @click="$router.push('/')">LogOut<span class="nav-label"></span></a> -->
         </li>
       </ul>
     </nav>
+
     <div class="main-content">
       <component v-bind:is="selmenus">
 
      </component>
+    </div>
+
+    <div class = "footer">
+      <b-button v-on:click="logout" @click="$router.push('/')">LogOut<span class="nav-label"></span></b-button>
     </div>
   </div>
 </template>
@@ -149,6 +154,17 @@ import axios from 'axios';
 
 .collapsed + .main-content {
   margin-left: 60px;
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+	padding: 15px 0;
+	text-align: left;
+	color: white;
+	background: #444;
 }
 
 </style>
