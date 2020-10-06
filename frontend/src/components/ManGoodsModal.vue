@@ -1,5 +1,3 @@
-// 참고 사이트
-// https://rintiantta.github.io/jpub-vue/examples/modal.html#%EC%86%8C%EC%8A%A4-%EC%BD%94%EB%93%9C
 
 <template>
   <transition name="modal" appear>

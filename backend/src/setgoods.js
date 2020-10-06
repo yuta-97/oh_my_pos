@@ -1,8 +1,20 @@
+const models = require('../models');
 
-var Goods = require('../models/goods');
-var Categorys = require('../models/category');
+function setgoods(args, res){
 
-async function main(args, res){
+    models.Goods.create({
+        goods_name: req.body.goods_name,
+        price: req.body.price,
+        desc: req.body.desc,
+        category_name: req.body.type,
+        store_name: req.session.store_name
+    }).then((result) => {
+        console.log(result);
+        console.log("상품 등록 완료!");
+    }).catch(function(error){
+        console.log(error);
+        res.json({error});
+    });
 
     // 입력한 카테고리가 유효한지 검색.
     Categorys.findOne({_id: args[1]}, function(err, category){
@@ -32,5 +44,5 @@ async function main(args, res){
 }
 
 module.exports = {
-    main:main
+    setgoods,
 }

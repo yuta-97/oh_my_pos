@@ -1,24 +1,27 @@
-
 module.exports =(sequelize, DataTypes) => {
     const goods = sequelize.define('Goods', {
-      store_name: {
+      goods_name: {
         type: DataTypes.STRING(20),
         allowNull: false,
       },
-      table_num: {
-          type: DataTypes.STRING(30),
+      price: {
+          type: DataTypes.INTEGER(20),
           allowNull: false
       },
-      dis_name: {
+      desc: {
+        type: DataTypes.STRING(30),
+        allowNull: false
+      },
+      category_name: {
         type: DataTypes.STRING(20),
         allowNull: false
       },
-      dis_rate: {
-        type: DataTypes.FLOAT(5),
+      store_name: {
+        type: DataTypes.STRING(20),
         allowNull: false
       },
     },{
         tableName: 'goods'
     });
-    return store;
+    return goods;
 };

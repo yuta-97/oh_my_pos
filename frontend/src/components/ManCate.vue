@@ -51,13 +51,14 @@ import axios from 'axios';
         evt.preventDefault()
         axios({
           method: 'post',
-          url: '/api/updatecategory',
+          url: '/api/setcategory',
           data:{
-            categoryname: this.categoryname,
-            options: this.options
+            category_name: this.categoryname,
+            option_name: this.options.option_name,
+            option_price: this.options.option_price,
           }
         }).then((res)=>{
-          console.log(res);
+          console.log(res.data);
           alert("추가되었습니다.");
         }).catch(function(error){
           console.log(error);
