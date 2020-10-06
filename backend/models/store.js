@@ -1,4 +1,4 @@
-var user = require('../models/user');
+
 module.exports =(sequelize, DataTypes) => {
     const store = sequelize.define('Store', {
       store_name: {

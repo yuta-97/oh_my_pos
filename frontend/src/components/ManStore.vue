@@ -1,22 +1,5 @@
 <template>
   <div>
-
-    <!-- <div class = "top">
-      <nav class="navbar navbar-inverse navbar-global navbar-fixed-top">
-            <div class="container-fluid">
-              <div class="navbar-header">
-                <a class="navbar-brand" href="#">Santhosh Vertical Nav Project</a>
-              </div>
-              <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-user navbar-right">
-                  <li><a href="#"><span class="glyphicon glyphicon-user"></span> Santhosh Giridara</a></li>
-                  <li><a href="#about"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                </ul>
-              </div>
-            </div>
-        </nav>
-    </div> -->
-
     <b-form @submit="onSubmit" @reset="onReset">
       <b-form-group id="input-group-storename" label="Your Store Name :" label-for="input-1">
         <b-form-input
@@ -105,23 +88,5 @@ import axios from 'axios';
 </script>
 
 <style scoped>
-
-/* .navbar-global {
-  background-color: indigo;
-}
-
-.navbar-global .navbar-brand {
-  color: white;
-}
-
-.navbar-global .navbar-user > li > a
-{
-  color: white;
-}
-
-.top {
-  top : 0px;
-} */
-
 
 </style>

@@ -6,7 +6,13 @@
       <ul class="navbar-primary-menu">
         <li>
           <a link @click="$router.push('/Pos')">Pos<span class="nav-label"></span></a>
-          <a active v-on:click="selmenus='ManStore'">매장 관리<span class="nav-label"></span></a>
+          <a active v-on:click="selmenus='ManStore'">매장 추가<span class="nav-label"></span></a>
+          <b-dropdown dropright text="매장 선택" class="m-md-2">
+            <b-dropdown-item
+              v-model="store_name"
+              :options="store_list"
+            ></b-dropdown-item>
+          </b-dropdown>
           <a v-on:click="selmenus='ManCate'">카테고리 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManGoods'">상품 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManQR'">QR 관리<span class="nav-label"></span></a>
@@ -42,7 +48,9 @@ import axios from 'axios';
     },
     data: function() {
       return {
-        selmenus: 'ManStore'
+        selmenus: 'ManStore',
+        store_name: null,
+        store_list: [{text: '선택해주세요', value: null}],
       }
     },
     // 로그인 된 사용자인지 확인.
@@ -52,7 +60,6 @@ import axios from 'axios';
           method: 'get',
           url: '/api/logedin'
         }).then((res)=>{
-          console.log(res.data);
           if(res.data==false){
             alert("로그인이 필요합니다!");
             this.$router.push('/');
@@ -61,6 +68,7 @@ import axios from 'axios';
           console.log(error);
           alert("server error!!");
         });
+        this.update();
       }
     },
     components: {
@@ -83,6 +91,7 @@ import axios from 'axios';
           console.log(error);
           alert("server error!!");
         });
+      
     },
     methods:{
       logout(){
@@ -96,6 +105,20 @@ import axios from 'axios';
           alert("server error!");
           console.log(error);
         })
+      },
+      update(){
+        // 매장 리스트 받아오기
+        axios({
+          method: 'get',
+          url: '/api/getstore',
+        }).then((res)=>{
+          console.log(res.data);
+          this.store_list=res.data;
+          //처리코드 추가 -> 매장정보 드롭다운데이터 추가
+        }).catch(function(error){
+          console.log(error);
+          alert("server error!!");
+        });
       }
     }
   }
