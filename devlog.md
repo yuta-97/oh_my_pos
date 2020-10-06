@@ -35,3 +35,14 @@ dev_dbtest 브랜치에서 마이그레이션 작업을 진행중이다.
 현재 login, register, setstore기능만 mysql과 연동했다.
 
 이제 로그인 상태 유지를 위해 session과 cookie를 적용 할 예정이다.
+
+---
+
+## 201005
+MongoDB에서 Mysql로 마이그레이션 작업이 끝남.
+
+session, cookie로 로그인상태 유지 기능 추가.
+
+로그인되지 않은 사용자가 다른페이지 접근 시 로그인페이지로 리디렉션.
+
+내일 DB 작업 마무리, UI 업데이트 할 예정.
