@@ -4,7 +4,6 @@
 
     <!-- 상품 등록 모달 -->
     <MyModal @close="closeModal" v-if="modal">
-      <p> 상품 등록 </p>
       <b-form @submit="onSubmit" @reset="onReset">
         <b-form-group id="input-group-goodsname" label="Product name :" label-for="input-1">
           <b-form-input
