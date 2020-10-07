@@ -8,6 +8,7 @@ var session = require('express-session');
 var login = require('../src/login');
 var store = require('../src/store');
 var cate = require('../src/category');
+var goods = require('../src/goods');
 
 // 세션 설정
 router.use(session({
@@ -47,10 +48,14 @@ router.post('/api/setstore', (req,res)=>{
   store.setstore(req,res);
 });
 
-// 매장 검색
-router.get('/api/getstore', (req,res)=>{
-  store.getstore(req,res);
+// 매장 이름 리스트 전송
+router.get('/api/getstorenames', (req,res)=>{
+  store.getstorenames(req,res);
 });
+
+router.post('/api/getstore',(req,res)=>{
+  store.getstore(req,res);
+})
 
 router.post('/api/setcategory', (req,res)=>{
   cate.setcategory(req,res);
@@ -64,7 +69,15 @@ router.post('/api/setstoreSession', (req,res)=>{
   req.session.store_name = req.body.store_name;
   req.session.save();
   res.status(200);
-})
+});
+
+router.post('/api/setgoods',(req,res)=>{
+  goods.setgoods(req,res);
+});
+
+router.get('/api/getgoodsnames',(req,res)=>{
+  goods.getgoodsnames(req,res);
+});
 
 
 

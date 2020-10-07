@@ -87,7 +87,6 @@ import axios from 'axios';
           console.log('store_session saved.')
         }).catch(function(error){
           console.log(error);
-          alert("server error!!");
         });
         this.update();
 
@@ -116,6 +115,20 @@ import axios from 'axios';
           console.log(error);
           alert("server error!!");
         });
+      // 매장 리스트 받아오기
+      axios({
+        method: 'get',
+        url: '/api/getstorenames',
+      }).then((res)=>{
+        // DB에서 받아온 데이터를 인덱스 갯수만큼 추가.
+        var s_list=[]
+        for( var i=0; i < res.data.length; i++){
+          s_list.push(res.data[i].store_name);
+        }
+        this.store_list=s_list;
+      }).catch(function(error){
+        console.log(error);
+      });
       
     },
     methods:{
@@ -135,7 +148,7 @@ import axios from 'axios';
         // 매장 리스트 받아오기
         axios({
           method: 'get',
-          url: '/api/getstore',
+          url: '/api/getstorenames',
         }).then((res)=>{
           // DB에서 받아온 데이터를 인덱스 갯수만큼 추가.
           var s_list=[]
@@ -145,7 +158,6 @@ import axios from 'axios';
           this.store_list=s_list;
         }).catch(function(error){
           console.log(error);
-          alert("server error!!");
         });
       },
       getNow() {

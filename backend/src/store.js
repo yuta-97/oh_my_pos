@@ -23,8 +23,7 @@ function getstore(req,res){
     models.Store.findAll({
         where:{
             user_id: req.session.user_id
-        },
-        attributes: ['store_name']
+        }
     }).then((result) => {
         console.log("find store success.");
         var data = JSON.parse(JSON.stringify(result));
@@ -35,9 +34,29 @@ function getstore(req,res){
         res.json({error});
     });
 }
+
+function getstorenames(req,res){
+    models.Store.findAll({
+        where:{
+            user_id: req.session.user_id
+        },
+        attributes: ['store_name']
+    }).then((result) => {
+        console.log("find storenames success.");
+        var data = JSON.parse(JSON.stringify(result));
+        console.log(data);
+        res.json(data);
+    }).catch(function(error){
+        console.log(error);
+        res.json({error});
+    });
+}
+
+
  
 
 module.exports = {
     setstore,
     getstore,
+    getstorenames,
 }
