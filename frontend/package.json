@@ -15,6 +15,7 @@
     "qrcode.vue": "^1.7.0",
     "vue": "^2.6.11",
     "vue-js-modal": "^2.0.0-rc.6",
+    "vue-moment": "^4.1.0",
     "vue-router": "^3.2.0",
     "vue-template-compiler": "^2.6.12",
     "vuetify": "^2.2.11",

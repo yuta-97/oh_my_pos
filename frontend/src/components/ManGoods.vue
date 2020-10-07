@@ -41,7 +41,7 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">추 가</b-button>
+        <b-button type="submit" variant="primary">추 가</b-button>  &nbsp;&nbsp;
         <b-button type="reset" variant="danger">Reset</b-button>
       </b-form>
     </MyModal>
