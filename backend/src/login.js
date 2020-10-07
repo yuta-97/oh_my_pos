@@ -46,7 +46,7 @@ function islogin(req,res){
         res.send(false);
       }else{
         // 로그인 되어있음
-        res.json({result: 'OK'});
+        res.send(true);
       }
 }
  

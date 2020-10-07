@@ -44,6 +44,21 @@ import axios from 'axios';
         }
       }
     },
+    mounted: function(){
+      axios({
+        method: 'get',
+        url: '/api/logedin',
+      }).then((res) =>{
+        if(res.data){
+          // 로그인 되어있는 경우
+          alert("이미 로그인 되어있습니다!");
+          this.$router.push('/manage');
+        }
+      }).catch(function(error){
+        alert("try again");
+        console.log(error);
+      });
+    },
     methods: {
       
       login(evt) {
