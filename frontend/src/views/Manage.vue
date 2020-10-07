@@ -16,19 +16,19 @@
           <a v-on:click="selmenus='ManCate'">카테고리 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManGoods'">상품 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManQR'">QR 관리<span class="nav-label"></span></a>
-          <!-- <a v-on:click="logout" @click="$router.push('/')">LogOut<span class="nav-label"></span></a> -->
+          <a v-on:click="logout" @click="$router.push('/')">LogOut<span class="nav-label"></span></a>
         </li>
       </ul>
     </nav>
 
     <div class="main-content">
       <component v-bind:is="selmenus">
-
+ 
      </component>
     </div>
 
     <div class = "footer">
-      <b-button v-on:click="logout" @click="$router.push('/')">LogOut<span class="nav-label"></span></b-button>
+      {{ time }}
     </div>
   </div>
 </template>
@@ -48,6 +48,7 @@ import axios from 'axios';
         selmenus: 'ManStore',
         store_name: null,
         store_list: [],
+        time: ''
       }
     },
     computed: {
@@ -98,6 +99,9 @@ import axios from 'axios';
       ManGoods,
       ManCate
     },
+    created() {
+      setInterval(this.getNow, 1000);
+    },
     // watch로는 컴포넌트가 처음 마운트될때를 핸들링 하지 못해서.
     mounted: function(){
       axios({
@@ -143,7 +147,21 @@ import axios from 'axios';
           console.log(error);
           alert("server error!!");
         });
+      },
+      getNow() {
+          const today = new Date();
+          const year = today.getFullYear()+'년';
+          const month = today.getMonth()+1+'월';
+          const day = today.getDate()+'일';
+
+          const hour = today.getHours() + "시";
+          const minute = today.getMinutes() + "분";
+          const second = today.getSeconds() + "초";
+          const dateTime = year + month + day +' '+ hour + minute + second;
+          this.time = dateTime;
       }
+
+
     }
   }
 </script>
@@ -212,6 +230,7 @@ import axios from 'axios';
 	text-align: center;
 	color: white;
 	background: #444;
+  font-size : Medium;
 }
 
 </style>
