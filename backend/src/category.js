@@ -23,11 +23,12 @@ function getcategory(req,res){
     models.Category.findAll({
         where:{
             store_name: req.session.store_name,
-        }
+        },
+        attributes: ['category_name']
     }).then((result)=>{
-        console.log(result);
         console.log("카테고리 검색!");
-        res.status(200).json(result);
+        var data = JSON.parse(JSON.stringify(result));
+        res.status(200).json(data);
     }).catch(function(error){
         console.log(error);
         res.status(500).json({error});
