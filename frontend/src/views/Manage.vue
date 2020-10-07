@@ -7,12 +7,12 @@
         <li>
           <a link @click="$router.push('/Pos')">Pos<span class="nav-label"></span></a>
           <a active v-on:click="selmenus='ManStore'">매장 추가<span class="nav-label"></span></a>
-          <b-dropdown dropright text="매장 선택" class="m-md-2">
-            <b-dropdown-item
+          <b-form-group label="매장 선택">
+            <b-form-select
               v-model="store_name"
               :options="store_list"
-            ></b-dropdown-item>
-          </b-dropdown>
+            ></b-form-select>
+          </b-form-group>
           <a v-on:click="selmenus='ManCate'">카테고리 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManGoods'">상품 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManQR'">QR 관리<span class="nav-label"></span></a>
@@ -43,14 +43,21 @@ import axios from 'axios';
 
   export default {
     name: 'Manage',
-    props: {
-
-    },
     data: function() {
       return {
         selmenus: 'ManStore',
         store_name: null,
-        store_list: [{text: '선택해주세요', value: null}],
+        store_list: [],
+      }
+    },
+    computed: {
+      storename: {
+        get () {
+          return this.$store.state.obj.store_name
+        },
+        set (value) {
+          this.$store.commit('setStorename', value)
+    }
       }
     },
     // 로그인 된 사용자인지 확인.
@@ -69,6 +76,20 @@ import axios from 'axios';
           alert("server error!!");
         });
         this.update();
+      },
+      store_name: function(){
+        axios({
+          method: 'post',
+          url: '/api/setstoreSession',
+          data: {store_name: this.store_name}
+        }).then(()=>{
+          console.log('store_session saved.')
+        }).catch(function(error){
+          console.log(error);
+          alert("server error!!");
+        });
+        this.update();
+
       }
     },
     components: {
@@ -112,9 +133,12 @@ import axios from 'axios';
           method: 'get',
           url: '/api/getstore',
         }).then((res)=>{
-          console.log(res.data);
-          this.store_list=res.data;
-          //처리코드 추가 -> 매장정보 드롭다운데이터 추가
+          // DB에서 받아온 데이터를 인덱스 갯수만큼 추가.
+          var s_list=[]
+          for( var i=0; i < res.data.length; i++){
+            s_list.push(res.data[i].store_name);
+          }
+          this.store_list=s_list;
         }).catch(function(error){
           console.log(error);
           alert("server error!!");

@@ -66,7 +66,7 @@ import MyModal from '../components/ManGoodsModal.vue';
         price: '',
         desc: '',
         catelist:[{text: '카테고리 선택', value: null}],
-        initArray : []
+
       }
     },
     mounted(){

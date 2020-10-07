@@ -54,8 +54,8 @@ import axios from 'axios';
           url: '/api/setcategory',
           data:{
             category_name: this.categoryname,
-            option_name: this.options.option_name,
-            option_price: this.options.option_price,
+            option_name: this.options.optionname,
+            option_price: this.options.optionprice,
           }
         }).then((res)=>{
           console.log(res.data);

@@ -58,6 +58,12 @@ router.post('/api/setcategory', (req,res)=>{
 
 router.get('/api/getcategory', (req,res)=>{
   cate.getcategory(req,res);
+});
+
+router.post('/api/setstoreSession', (req,res)=>{
+  req.session.store_name = req.body.store_name;
+  req.session.save();
+  res.status(200);
 })
 
 
