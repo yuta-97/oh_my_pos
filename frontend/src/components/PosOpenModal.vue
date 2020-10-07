@@ -26,8 +26,8 @@
     z-index: 30;
     top: 0;
     left: 0;
-    width: 200;
-    height: 200;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.5);
   }
 
@@ -38,7 +38,8 @@
   }
 
   &-content {
-    padding: 10px 20px;
+    padding: 100px 200px;
+    width: 900px;
   }
 
   &-footer {

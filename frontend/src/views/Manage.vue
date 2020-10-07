@@ -227,7 +227,7 @@ import axios from 'axios';
   bottom: 0;
   width: 100%;
 	padding: 15px 0;
-	text-align: center;
+	text-align: right;
 	color: white;
 	background: #444;
   font-size : Medium;
