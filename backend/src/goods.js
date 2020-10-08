@@ -49,10 +49,25 @@ function getgoods (req, res){
         res.json({error});
     });
 }
+
+function deletegoods(req,res){
+    models.Goods.destroy({
+        where:{
+            goods_name: req.body.goods_names
+        },
+    }).then((result)=>{
+        console.log("delete goods.");
+        res.json(result);
+    }).catch(function(error){
+        console.log(error);
+        res.json({error});
+    });
+}
  
 
 module.exports = {
     setgoods,
     getgoodsnames,
-    getgoods
+    getgoods,
+    deletegoods
 }

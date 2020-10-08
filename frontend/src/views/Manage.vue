@@ -46,7 +46,7 @@ import axios from 'axios';
     data: function() {
       return {
         selmenus: 'ManStore',
-        store_name: null,
+        store_name: this.storename,
         store_list: [],
         time: ''
       }
