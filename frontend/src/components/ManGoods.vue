@@ -68,21 +68,23 @@ import MyModal from '../components/ManGoodsModal.vue';
 
       }
     },
-    mounted(){
-      axios({
-        method: 'get',
-        url: '/api/getcategory',
-      }).then((res)=>{
-        console.log(res.data);
-        //처리코드 추가 -> 카테고리 드롭다운데이터에 추가하기
-        var s_list=[];
-        for( var i=0;i<res.data.length; i++){
-          s_list.push(res.data[i].category_name)
-        }
-        this.catelist=s_list;
-      }).catch(function(error){
-        console.log(error);
-      });
+    watch:{
+      modal: function(){
+        axios({
+          method: 'get',
+          url: '/api/getcategory',
+        }).then((res)=>{
+          console.log(res.data);
+          //처리코드 추가 -> 카테고리 드롭다운데이터에 추가하기
+          var s_list=[];
+          for( var i=0;i<res.data.length; i++){
+            s_list.push(res.data[i].category_name)
+          }
+          this.catelist=s_list;
+        }).catch(function(error){
+          console.log(error);
+        });
+      }
     },
    
 

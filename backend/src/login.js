@@ -8,15 +8,14 @@ function login(req,res){
           .then(function(user){
               if(user==null || user.dataValues.user_pw!=req.body.pw){
                   req.session.login = false;
-                  req.session.save();
-                  res.status(500).send(req.session.login);
+                  res.status(500).send(false);
                   console.log('로그인 실패');
               } 
               else{
                   req.session.user_id = user.dataValues.user_id;
                   req.session.login = true;
                   req.session.save();
-                  res.status(200).send(req.session.login);
+                  res.status(200).send(true);
                   console.log('로그인 성공');
               }
           }).catch(function(error){

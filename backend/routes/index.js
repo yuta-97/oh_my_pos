@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-const models = require('../models');
 var router = express.Router();
 var session = require('express-session');
 
@@ -14,7 +13,7 @@ var goods = require('../src/goods');
 router.use(session({
 	secret:'session_secret!',
 	resave:false,
-	saveUninitialize:true
+  saveUninitialize:false,
 }));
 
 // vue-router 연동
@@ -68,7 +67,8 @@ router.get('/api/getcategory', (req,res)=>{
 router.post('/api/setstoreSession', (req,res)=>{
   req.session.store_name = req.body.store_name;
   req.session.save();
-  res.status(200);
+  console.log("store session saved.");
+  res.status(200).send(req.session.store_name);
 });
 
 router.post('/api/setgoods',(req,res)=>{

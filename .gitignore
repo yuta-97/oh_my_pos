@@ -6,9 +6,12 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
+# 서버 실행 시 생성 데이터들
 .DS_Store
 backend/public/*
 backend/db
+backend/sessions
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 

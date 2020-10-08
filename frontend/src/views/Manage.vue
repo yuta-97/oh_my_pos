@@ -76,7 +76,6 @@ import axios from 'axios';
           console.log(error);
           alert("server error!!");
         });
-        this.update();
       },
       store_name: function(){
         axios({
@@ -84,11 +83,10 @@ import axios from 'axios';
           url: '/api/setstoreSession',
           data: {store_name: this.store_name}
         }).then(()=>{
-          console.log('store_session saved.')
+          console.log('store_session saved.');
         }).catch(function(error){
           console.log(error);
         });
-        this.update();
 
       }
     },
@@ -113,7 +111,6 @@ import axios from 'axios';
           }
         }).catch(function(error){
           console.log(error);
-          alert("server error!!");
         });
       // 매장 리스트 받아오기
       axios({
