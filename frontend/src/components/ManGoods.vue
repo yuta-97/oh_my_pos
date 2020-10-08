@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="openModal">상품 등록</button>
+    <button @click="openModal">상품 등록</button><br><br>
 
     <!-- 상품 등록 모달 -->
     <MyModal @close="closeModal" v-if="modal">
@@ -44,23 +44,32 @@
         <b-button type="reset" variant="danger">Reset</b-button>
       </b-form>
     </MyModal>
+
+    <!-- 상품 리스트로 보여주기 -->
+    <div class = "goodslist" v-if="goodslist">
+        <!-- 컴포넌트 부착 -->
+      <ManGoodsList></ManGoodsList>
+ 
+    </div> 
+
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import MyModal from '../components/ManGoodsModal.vue';
-
+import ManGoodsList from  '../components/ManGoodsList.vue';
 
   export default {
     components: { 
-      MyModal
+      MyModal,
+      ManGoodsList
     },
 
     data() {
       return {
         modal: false,
-        goodsname: '',
+        goodslist : [{text: ' goods list', value: null}],
         type: null,
         price: '',
         desc: '',
@@ -68,7 +77,25 @@ import MyModal from '../components/ManGoodsModal.vue';
 
       }
     },
-    mounted(){
+
+// 실시간으로 반영해야하므로 CREATED  사용
+    created() {
+      axios({
+        methods: 'get',
+        url: '/api/getgoodsnames',
+      }).then((res)=> {
+        console.log(res.data);
+        // var g_list=[];
+        // for( var i=0; i<res.data.length; i++ ) {
+        //   g_list.push(res.data[i].goods_name)
+        // }
+        // this.goodslist=g_list;
+      }).catch(function(error) {
+        console.log(error);
+      });
+    },
+
+    mounted() {
       axios({
         method: 'get',
         url: '/api/getcategory',
@@ -88,11 +115,13 @@ import MyModal from '../components/ManGoodsModal.vue';
 
     methods: {
       openModal() {
-      this.modal = true
+        this.modal = true
       },
+
       closeModal() {
-      this.modal = false
+        this.modal = false
       },
+      
       onSubmit(evt) {
         evt.preventDefault()
         axios({
@@ -120,7 +149,17 @@ import MyModal from '../components/ManGoodsModal.vue';
         this.goodsname = ''
         this.price = ''
         this.desc = ''
-      }
+      },
+      getData(){
+          axios.get('/api/getgoods')
+          .then(function(res){
+            console.log(res);
+          }).catch(function(e){
+            console.error(e);
+          })
+        },
+        
     }
+
   }
 </script>

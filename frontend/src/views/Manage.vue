@@ -5,14 +5,15 @@
       <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left"></span></a>
       <ul class="navbar-primary-menu">
         <li>
-          <a link @click="$router.push('/Pos')">Pos<span class="nav-label"></span></a>
-          <a active v-on:click="selmenus='ManStore'">매장 추가<span class="nav-label"></span></a>
-          <b-form-group label="매장 선택">
+          <b-form-group style="color: white" label="매장 선택">
             <b-form-select
               v-model="store_name"
               :options="store_list"
             ></b-form-select>
           </b-form-group>
+          <a link @click="$router.push('/Pos')">Pos<span class="nav-label"></span></a>
+          <a active v-on:click="selmenus='ManStore'">매장 추가<span class="nav-label"></span></a>
+          
           <a v-on:click="selmenus='ManCate'">카테고리 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManGoods'">상품 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='ManQR'">QR 관리<span class="nav-label"></span></a>

@@ -1,116 +1,27 @@
 <template>
-    <div class = "list">
-
-        <div class = "list-title">
-                <div class = "title no"> 상품명 </div>
-                <div class = "title contents"> 카테고리 </div>
-                <div class = "title id"> 가격 </div>
-                <div class = "title id"> 설명 </div>
-        </div>
-        
-        <ManGoodsItem v-for="goods in pageItem" :item = "goods" :key="goods.no"> </ManGoodsItem>
-        
-        <div class = "btn">
-            <button class = "page-btn" v-bind:disabled="pageNum === 0" v-on:click="prevPage"> 이전 </button>
-            <span class = "page-count"> {{ pageNum +1}} / {{ pageCount}} </span>            
-            <button class = "page-btn" v-bind:disabled="pageNum >= pageCount -1" v-on:click="nextPage" > 이후 </button>
-        </div>
-
-    </div>
+  <div>
+    <h1> 상품 목록 </h1>
+    <table class="table table-hover table-bordered"> 
+      <thead>
+        <tr>
+            <th>카테고리</th>
+            <th>상품명</th>
+            <th>설명</th>
+            <th>가격</th>
+            <th>      </th>
+            <th>      </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td>커피</td>
+            <td>아이스 아메리카</td>
+            <td>노는 빼주세요</td>
+            <td>5000</td>
+            <td><b-button> 수정 </b-button></td>
+            <td><b-button> 삭제 </b-button></td>
+        </tr>
+        </tbody> 
+      </table>
+  </div>
 </template>
-
-<script>
-import ManGoodsItem from '../components/ManGoodsItem.vue'
-
-export default {
-    name : 'ManGoodsList',
-    components : {
-        ManGoodsItem
-    },
-
-    data () {
-        return {
-            pageNum : 0,
-            pageSize : 5
-        }
-    },
-
-    props : {
-        initArray : {
-            type : Object,
-            required : true
-        }
-    },
-
-        computed: {
-        pageCount() {
-            let listLeng = this.initArray.length
-            let listSize = this.pageSize
-            let page = Math.floor(listLeng / listSize)
-
-            if(listLeng % listSize > 0) page += 1
-
-            return page
-        },
-        pageItem() {
-            const start = this.pageNum * this.pageSize
-            const end = start + this.pageSize
-
-            return this.listArray.slice(start,end)
-        }
-    },
-
-    methods: {
-        nextPage () {
-            this.pageNum += 1;
-        },
-        prevPage () {
-            this.pageNum -= 1;
-        }
-    }
-}
-
-</script>
-
-<style scoped>
-    .list {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .list-title {
-        font-size: 2rem;
-        display : flex;
-        border-bottom : 2px solid #454545;
-    }
-    .title {
-        border-top : 2px solid #404040;
-        width: 100%;
-    }
-
-    .id {
-        flex :1;
-    }
-
-    .no {
-        flex : 1
-    }
-
-    .contents{
-        flex : 7
-    }
-
-    .btn-cover {
-      margin-top: 1.5rem;
-      text-align: center;
-    }
-    .btn-cover .page-btn {
-      width: 5rem;
-      height: 2rem;
-      letter-spacing: 0.5px;
-    }
-    .btn-cover .page-count {
-      padding: 0 1rem;
-    }
-
-</style>

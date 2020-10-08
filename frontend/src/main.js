@@ -5,6 +5,13 @@ import store from './store'
 import VModal from 'vue-js-modal'
 import vueMoment from 'vue-moment'
 
+
+
+
+
+
+
+
 //Register BootstrapVue in entry point
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -16,6 +23,7 @@ Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VModal, { dynamic: true })
 Vue.use(vueMoment)
+
 
 new Vue({
     router,

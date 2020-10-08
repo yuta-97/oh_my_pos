@@ -7,7 +7,7 @@
 
           <div class="modal-header">
             <slot name="header">
-              <h2> 상품 등록 </h2>
+              <h2> 카테고리 등록 </h2>
             </slot>
           </div>
 
