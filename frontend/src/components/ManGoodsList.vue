@@ -15,7 +15,7 @@
         <b-button pill variant="outline-danger" @click="deleteGoods">삭제</b-button>
       </div>
       <div slot="table-actions">
-        <b-button pill variant="success" @click="addgoods">상품 추가</b-button>
+        <b-button pill variant="success" @click="openModal">상품 추가</b-button>
       </div>
       </vue-good-table>
     </div>
@@ -117,7 +117,7 @@ export default {
         });
       },
       
-      addgoods() {
+      openModal() {
         this.$emit('openModal')
       }
 

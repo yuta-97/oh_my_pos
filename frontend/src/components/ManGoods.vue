@@ -3,9 +3,9 @@
     <div>
       <h2>상품 관리 페이지</h2>
     </div>
-
+    <!-- 상품 목록 테이블 -->
     <div>
-      <ManGoodsList @addgoods="openModal"></ManGoodsList>
+      <ManGoodsList @openModal="openModal"></ManGoodsList>
     </div>
 
     <!-- 상품 등록 모달 -->
@@ -75,28 +75,6 @@ import ManGoodsList from '../components/ManGoodsList.vue'
         price: '',
         desc: '',
         catelist:[{text: '카테고리 선택', value: null}],
-        rowselected:[],
-        columns: [
-        {
-          label: '상품 명',
-          field: 'goods_name',
-        },
-        {
-          label: '가 격',
-          field: 'price',
-          type: 'number',
-        },
-        {
-          label: '설 명',
-          field: 'desc',
-        },
-        {
-          label: '카테고리',
-          field: 'category_name',
-        },
-        ],
-        
-        rows:[],
       }
     },
 
