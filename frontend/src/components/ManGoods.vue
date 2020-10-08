@@ -74,7 +74,29 @@ import ManGoodsList from '../components/ManGoodsList.vue'
         type: null,
         price: '',
         desc: '',
-        catelist:[{text: '카테고리 선택', value: null}]
+        catelist:[{text: '카테고리 선택', value: null}],
+        rowselected:[],
+        columns: [
+        {
+          label: '상품 명',
+          field: 'goods_name',
+        },
+        {
+          label: '가 격',
+          field: 'price',
+          type: 'number',
+        },
+        {
+          label: '설 명',
+          field: 'desc',
+        },
+        {
+          label: '카테고리',
+          field: 'category_name',
+        },
+        ],
+        
+        rows:[],
       }
     },
 
@@ -93,7 +115,7 @@ import ManGoodsList from '../components/ManGoodsList.vue'
       modal: function(){
         axios({
           method: 'get',
-          url: '/api/getcategory',
+          url: '/api/getcategoryname',
         }).then((res)=>{
           console.log(res.data);
           var s_list=[];

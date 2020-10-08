@@ -63,9 +63,19 @@ router.post('/api/setcategory', (req,res)=>{
 });
 
 // 카테고리 이름 전송
-router.get('/api/getcategory', (req,res)=>{
+router.get('/api/getcategoryname', (req,res)=>{
+  cate.getcategoryname(req,res);
+});
+
+// 카테고리 정보 전송
+router.get('/api/getcategory',(req,res)=>{
   cate.getcategory(req,res);
 });
+
+// 카테고리 삭제
+router.delete('/api/category', (req,res)=>{
+  cate.deletecategory(req,res);
+})
 
 // 매장정보 세션에 저장
 router.post('/api/setstoreSession', (req,res)=>{

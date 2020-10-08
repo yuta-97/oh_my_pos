@@ -1,15 +1,28 @@
 <template>
   <div>
-    <div class = "button">
-      <button @click="openModal">카테고리 등록</button><br><br>
+    <div>
+      <h2>카테고리 관리 페이지</h2>
     </div>
-
-      <!-- 카테고리 리스트 -->
+      <!-- 카테고리 목록 테이블 -->
     <div>
       <vue-good-table
+      @on-selected-rows-change="selectionChanged"
       :line-numbers="true"
       :columns="columns"
-      :rows="rows"/>
+      :rows="rows"
+      :select-options="{ 
+        enabled: true,
+      }
+      "
+      :search-options="{ enabled: true }">
+      <div slot="selected-row-actions">
+        <b-button pill variant="outline-primary" v-if="rowselected.length===1">수정</b-button>
+        <b-button pill variant="outline-danger" @click="deleteCategory">삭제</b-button>
+      </div>
+      <div slot="table-actions">
+        <b-button pill variant="success" @click="openModal">카테고리 추가</b-button>
+      </div>
+      </vue-good-table>
     </div>
 
     <!-- 카테고리 등록 모달 -->
@@ -42,7 +55,7 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">추가</b-button>  &nbsp;&nbsp;
+        <b-button type="submit" variant="primary">추 가</b-button>  &nbsp;&nbsp;
         <b-button type="reset" variant="danger">Reset</b-button>
       </b-form>
     </MyModal>
@@ -62,47 +75,81 @@ import { VueGoodTable } from 'vue-good-table';
       MyModal,
       VueGoodTable
     },
+    mounted: function(){
+      axios({
+        method: 'get',
+        url: '/api/getcategory',
+      }).then((res)=>{
+        // DB에서 받아온 데이터를 인덱스 갯수만큼 추가, 인덱스 제거
+        var s_list=[]
+        for( var i=0; i < res.data.length; i++){
+          s_list.push(res.data[i]);
+        }
+        this.rows=s_list;
+      }).catch(function(error){
+        console.log(error);
+      });
+    },
 
     data() {
       return {
         modal: false,
+        store_name: this.storename,
         type: null,
         categoryname: '',
         options:{
             optionname: '',
             optionprice: ''
             },
+        rowselected:[],
         columns: [
         {
-          label: '카테고리명',
+          label: '카테고리 명',
           field: 'category_name',
-          tyep: 'string'
         },
         {
-          label: '옵 션',
-          field: 'option_price',
-          tyep: 'string'
+          label: '옵션 명',
+          field: 'option_name',
+          type: 'number',
         },
         {
           label: '옵션 가격',
           field: 'option_price',
-          type: 'number'
-        }
+        },
         ],
-        catelist:[
-
-        ],
+        
+        rows:[],
       }
     },
 
     computed: {
-      rows() {
-        return this.catelist;
+      storename:{
+        get () {
+          return this.$store.state.obj.store_name
+        },
+        set (value) {
+          this.$store.commit('setStorename', value)
+        }
       }
     },
 
-    created() {
-      this.getcatelist()
+    watch:{
+      store_name: function(){
+        // 매장 명이 바뀌면 그에따른 카테고리 정보 받아오기.
+        axios({
+          method: 'get',
+          url: '/api/getcategory',
+        }).then((res)=>{
+          // DB에서 받아온 데이터를 인덱스 갯수만큼 추가, 인덱스 제거
+          var s_list=[]
+          for( var i=0; i < res.data.length; i++){
+            s_list.push(res.data[i]);
+          }
+          this.rows=s_list;
+        }).catch(function(error){
+          console.log(error);
+        });
+      }
     },
 
     
@@ -142,21 +189,27 @@ import { VueGoodTable } from 'vue-good-table';
         this.options.optionname = ''
         this.options.optionprice = ''
       },
-
-// 참고 : https://stackoverflow.com/questions/49586548/how-to-append-axios-data-with-good-table-in-vue
-      
-      getcatelist() {
+      selectionChanged(params) {
+          this.rowselected = params.selectedRows;
+          console.log(this.rowselected);
+      },
+      deleteCategory(){
+        var s_list=[];
+        for( var i=0;i<this.rowselected.length; i++){
+          s_list.push(this.rowselected[i].category_name);
+        }
         axios({
-          method: 'get',
-          url: '/api/getcategory',
+          method: 'delete',
+          url: '/api/category',
+          data: {category_name: s_list}
         }).then((res)=>{
-          this.catelist = res.data
           console.log(res.data);
         }).catch(function(error){
           console.log(error);
         });
-      }
-    }
+      },
+    },
+    
   }
 </script>
 
