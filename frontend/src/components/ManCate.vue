@@ -1,6 +1,16 @@
 <template>
   <div>
-    <button @click="openModal">카테고리 등록</button><br><br>
+    <div class = "button">
+      <button @click="openModal">카테고리 등록</button><br><br>
+    </div>
+
+      <!-- 카테고리 리스트 -->
+    <div>
+      <vue-good-table
+      :line-numbers="true"
+      :columns="columns"
+      :rows="rows"/>
+    </div>
 
     <!-- 카테고리 등록 모달 -->
     <MyModal @close="closeModal" v-if="modal">
@@ -43,21 +53,60 @@
 <script>
 import axios from 'axios';
 import MyModal from '../components/ManCateModal.vue';
+
+import 'vue-good-table/dist/vue-good-table.css'
+import { VueGoodTable } from 'vue-good-table';
+
   export default {
     components: { 
-      MyModal
+      MyModal,
+      VueGoodTable
     },
 
     data() {
       return {
         modal: false,
+        type: null,
         categoryname: '',
         options:{
             optionname: '',
             optionprice: ''
-            }
+            },
+        columns: [
+        {
+          label: '카테고리명',
+          field: 'category_name',
+          tyep: 'string'
+        },
+        {
+          label: '옵 션',
+          field: 'option_price',
+          tyep: 'string'
+        },
+        {
+          label: '옵션 가격',
+          field: 'option_price',
+          type: 'number'
         }
+        ],
+        catelist:[
+
+        ],
+      }
     },
+
+    computed: {
+      rows() {
+        return this.catelist;
+      }
+    },
+
+    created() {
+      this.getcatelist()
+    },
+
+    
+
     methods: {
       openModal() {
         this.modal = true
@@ -92,7 +141,27 @@ import MyModal from '../components/ManCateModal.vue';
         this.options.categoryname = ''
         this.options.optionname = ''
         this.options.optionprice = ''
+      },
+
+// 참고 : https://stackoverflow.com/questions/49586548/how-to-append-axios-data-with-good-table-in-vue
+      
+      getcatelist() {
+        axios({
+          method: 'get',
+          url: '/api/getcategory',
+        }).then((res)=>{
+          this.catelist = res.data
+          console.log(res.data);
+        }).catch(function(error){
+          console.log(error);
+        });
       }
     }
   }
 </script>
+
+<style scoped>
+  .button{
+    float: "rigth";
+  }
+</style>

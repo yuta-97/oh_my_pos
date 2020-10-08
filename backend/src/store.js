@@ -27,7 +27,6 @@ function getstore(req,res){
     }).then((result) => {
         console.log("find store success.");
         var data = JSON.parse(JSON.stringify(result));
-        console.log(data);
         res.json(data);
     }).catch(function(error){
         console.log(error);
@@ -44,7 +43,6 @@ function getstorenames(req,res){
     }).then((result) => {
         console.log("find storenames success.");
         var data = JSON.parse(JSON.stringify(result));
-        console.log(data);
         res.json(data);
     }).catch(function(error){
         console.log(error);

@@ -32,9 +32,27 @@ function getgoodsnames(req,res){
         res.json({error});
     });
 }
+
+function getgoods (req, res){
+    models.Goods.findAll({
+        where:{
+            store_name: req.session.store_name
+        },
+        attributes: ['goods_name', 'price', 'desc', 'category_name']
+    }).then((result) => {
+        console.log("get Goods data success.");
+        var data = JSON.parse(JSON.stringify(result));
+        console.log(data);
+        res.json(data);
+    }).catch(function(error){
+        console.log(error);
+        res.json({error});
+    });
+}
  
 
 module.exports = {
     setgoods,
     getgoodsnames,
+    getgoods
 }

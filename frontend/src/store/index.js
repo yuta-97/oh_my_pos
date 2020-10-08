@@ -8,9 +8,6 @@ export default new Vuex.Store({
     store_name: '',
   },
   mutations: {
-    reset (state){
-      state.store_name = '';
-    },
     setStorename (state, name){
       state.store_name = name;
     }

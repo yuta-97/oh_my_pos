@@ -1,6 +1,16 @@
 <template>
   <div>
-    <button @click="openModal">상품 등록</button><br><br>
+    <div>
+      <button @click="openModal">상품 등록</button> <br><br>
+    </div>
+
+      <!-- 상품 리스트 -->
+    <div>
+      <vue-good-table
+      :line-numbers="true"
+      :columns="columns"
+      :rows="rows"/>
+    </div>
 
     <!-- 상품 등록 모달 -->
     <MyModal @close="closeModal" v-if="modal">
@@ -58,58 +68,80 @@
 <script>
 import axios from 'axios';
 import MyModal from '../components/ManGoodsModal.vue';
-import ManGoodsList from  '../components/ManGoodsList.vue';
+
+import 'vue-good-table/dist/vue-good-table.css'
+import { VueGoodTable } from 'vue-good-table';
+
 
   export default {
     components: { 
       MyModal,
-      ManGoodsList
+      VueGoodTable
+    },
+    mounted: function(){
+      // 상품 데이터 받아오기
+      axios({
+        method: 'get',
+        url: '/api/getgoods',
+      }).then((res)=>{
+        // DB에서 받아온 데이터를 인덱스 갯수만큼 추가, 인덱스 제거
+        var s_list=[]
+        for( var i=0; i < res.data.length; i++){
+          s_list.push(res.data[i]);
+        }
+        this.rows=s_list;
+      }).catch(function(error){
+        console.log(error);
+      });
+
     },
 
     data() {
       return {
         modal: false,
-        goodslist : [{text: ' goods list', value: null}],
         type: null,
         price: '',
         desc: '',
         catelist:[{text: '카테고리 선택', value: null}],
+        columns: [
+        {
+          label: '상품 명',
+          field: 'goods_name',
+        },
+        {
+          label: '가 격',
+          field: 'price',
+          type: 'number',
+        },
+        {
+          label: '설 명',
+          field: 'desc',
+        },
+        {
+          label: '카테고리',
+          field: 'category_name',
+        },
+      ],
+      rows:[],
 
       }
     },
-
-// 실시간으로 반영해야하므로 CREATED  사용
-    created() {
-      axios({
-        methods: 'get',
-        url: '/api/getgoodsnames',
-      }).then((res)=> {
-        console.log(res.data);
-        // var g_list=[];
-        // for( var i=0; i<res.data.length; i++ ) {
-        //   g_list.push(res.data[i].goods_name)
-        // }
-        // this.goodslist=g_list;
-      }).catch(function(error) {
-        console.log(error);
-      });
-    },
-
-    mounted() {
-      axios({
-        method: 'get',
-        url: '/api/getcategory',
-      }).then((res)=>{
-        console.log(res.data);
-        //처리코드 추가 -> 카테고리 드롭다운데이터에 추가하기
-        var s_list=[];
-        for( var i=0;i<res.data.length; i++){
-          s_list.push(res.data[i].category_name)
-        }
-        this.catelist=s_list;
-      }).catch(function(error){
-        console.log(error);
-      });
+    watch:{
+      modal: function(){
+        axios({
+          method: 'get',
+          url: '/api/getcategory',
+        }).then((res)=>{
+          console.log(res.data);
+          var s_list=[];
+          for( var i=0;i<res.data.length; i++){
+            s_list.push(res.data[i].category_name)
+          }
+          this.catelist=s_list;
+        }).catch(function(error){
+          console.log(error);
+        });
+      }
     },
    
 
@@ -121,7 +153,7 @@ import ManGoodsList from  '../components/ManGoodsList.vue';
       closeModal() {
         this.modal = false
       },
-      
+
       onSubmit(evt) {
         evt.preventDefault()
         axios({
