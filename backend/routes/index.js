@@ -88,7 +88,12 @@ router.get('/api/getgoodsnames',(req,res)=>{
 // 상품 데이터 전송
 router.get('/api/getgoods', (req,res)=>{
   goods.getgoods(req,res);
-})
+});
+
+// 상품 삭제
+router.delete('/api/goods', (req,res)=>{
+  goods.deletegoods(req,res);
+});
 
 
 

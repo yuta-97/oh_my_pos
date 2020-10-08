@@ -1,15 +1,28 @@
 <template>
   <div>
     <div>
-      <button @click="openModal">상품 등록</button> <br><br>
+      <h2>상품 관리 페이지</h2>
     </div>
-
-      <!-- 상품 리스트 -->
+    <!-- 상품 목록 테이블 -->
     <div>
       <vue-good-table
+      @on-selected-rows-change="selectionChanged"
       :line-numbers="true"
       :columns="columns"
-      :rows="rows"/>
+      :rows="rows"
+      :select-options="{ 
+        enabled: true,
+      }
+      "
+      :search-options="{ enabled: true }">
+      <div slot="selected-row-actions">
+        <b-button pill variant="outline-primary" v-if="rowselected.length===1">수정</b-button>
+        <b-button pill variant="outline-danger" @click="deleteGoods">삭제</b-button>
+      </div>
+      <div slot="table-actions">
+        <b-button pill variant="success" @click="openModal">상품 추가</b-button>
+      </div>
+      </vue-good-table>
     </div>
 
     <!-- 상품 등록 모달 -->
@@ -99,10 +112,13 @@ import { VueGoodTable } from 'vue-good-table';
     data() {
       return {
         modal: false,
+        store_name: this.storename,
+        goodsname: '',
         type: null,
         price: '',
         desc: '',
         catelist:[{text: '카테고리 선택', value: null}],
+        rowselected:[],
         columns: [
         {
           label: '상품 명',
@@ -122,8 +138,18 @@ import { VueGoodTable } from 'vue-good-table';
           field: 'category_name',
         },
       ],
+      
       rows:[],
-
+      }
+    },
+    computed:{
+      storename:{
+        get () {
+          return this.$store.state.obj.store_name
+        },
+        set (value) {
+          this.$store.commit('setStorename', value)
+        }
       }
     },
     watch:{
@@ -138,6 +164,22 @@ import { VueGoodTable } from 'vue-good-table';
             s_list.push(res.data[i].category_name)
           }
           this.catelist=s_list;
+        }).catch(function(error){
+          console.log(error);
+        });
+      },
+      store_name: function(){
+        // 상품 데이터 받아오기
+        axios({
+          method: 'get',
+          url: '/api/getgoods',
+        }).then((res)=>{
+          // DB에서 받아온 데이터를 인덱스 갯수만큼 추가, 인덱스 제거
+          var s_list=[]
+          for( var i=0; i < res.data.length; i++){
+            s_list.push(res.data[i]);
+          }
+          this.rows=s_list;
         }).catch(function(error){
           console.log(error);
         });
@@ -182,15 +224,27 @@ import { VueGoodTable } from 'vue-good-table';
         this.price = ''
         this.desc = ''
       },
-      getData(){
-          axios.get('/api/getgoods')
-          .then(function(res){
-            console.log(res);
-          }).catch(function(e){
-            console.error(e);
-          })
-        },
-        
+      selectionChanged(params) {
+          this.rowselected = params.selectedRows;
+          console.log(this.rowselected);
+      },
+      deleteGoods(){
+        var s_list=[];
+        for( var i=0;i<this.rowselected.length; i++){
+          s_list.push(this.rowselected[i].goods_name);
+        }
+        axios({
+          method: 'delete',
+          url: '/api/goods',
+          data: {goods_names: s_list}
+        }).then((res)=>{
+          console.log(res.data);
+          
+        }).catch(function(error){
+          console.log(error);
+        });
+      },
+
     }
 
   }
