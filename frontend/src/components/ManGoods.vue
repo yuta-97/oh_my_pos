@@ -1,7 +1,14 @@
 <template>
   <div>
-    <button @click="openModal">상품 등록</button>
-
+    <div>
+      <button @click="openModal">상품 등록</button>
+    </div>
+    <div>
+      <vue-good-table
+      :line-numbers="true"
+      :columns="columns"
+      :rows="rows"/>
+    </div>
     <!-- 상품 등록 모달 -->
     <MyModal @close="closeModal" v-if="modal">
       <b-form @submit="onSubmit" @reset="onReset">
@@ -50,11 +57,29 @@
 <script>
 import axios from 'axios';
 import MyModal from '../components/ManGoodsModal.vue';
-
+import 'vue-good-table/dist/vue-good-table.css'
+import { VueGoodTable } from 'vue-good-table';
 
   export default {
     components: { 
-      MyModal
+      MyModal,
+      VueGoodTable
+    },
+    mounted: function(){
+      // 상품 데이터 받아오기
+      axios({
+        method: 'get',
+        url: '/api/getgoods',
+      }).then((res)=>{
+        // DB에서 받아온 데이터를 인덱스 갯수만큼 추가, 인덱스 제거
+        var s_list=[]
+        for( var i=0; i < res.data.length; i++){
+          s_list.push(res.data[i]);
+        }
+        this.rows=s_list;
+      }).catch(function(error){
+        console.log(error);
+      });
     },
 
     data() {
@@ -65,6 +90,26 @@ import MyModal from '../components/ManGoodsModal.vue';
         price: '',
         desc: '',
         catelist:[{text: '카테고리 선택', value: null}],
+        columns: [
+        {
+          label: '상품 명',
+          field: 'goods_name',
+        },
+        {
+          label: '가 격',
+          field: 'price',
+          type: 'number',
+        },
+        {
+          label: '설 명',
+          field: 'desc',
+        },
+        {
+          label: '카테고리',
+          field: 'category_name',
+        },
+      ],
+      rows:[],
 
       }
     },
@@ -75,7 +120,6 @@ import MyModal from '../components/ManGoodsModal.vue';
           url: '/api/getcategory',
         }).then((res)=>{
           console.log(res.data);
-          //처리코드 추가 -> 카테고리 드롭다운데이터에 추가하기
           var s_list=[];
           for( var i=0;i<res.data.length; i++){
             s_list.push(res.data[i].category_name)

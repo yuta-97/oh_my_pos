@@ -52,18 +52,22 @@ router.get('/api/getstorenames', (req,res)=>{
   store.getstorenames(req,res);
 });
 
+// 매장 정보 전송
 router.post('/api/getstore',(req,res)=>{
   store.getstore(req,res);
 })
 
+// 카테고리 정보 저장
 router.post('/api/setcategory', (req,res)=>{
   cate.setcategory(req,res);
 });
 
+// 카테고리 이름 전송
 router.get('/api/getcategory', (req,res)=>{
   cate.getcategory(req,res);
 });
 
+// 매장정보 세션에 저장
 router.post('/api/setstoreSession', (req,res)=>{
   req.session.store_name = req.body.store_name;
   req.session.save();
@@ -71,13 +75,20 @@ router.post('/api/setstoreSession', (req,res)=>{
   res.status(200).send(req.session.store_name);
 });
 
+// 상품 등록
 router.post('/api/setgoods',(req,res)=>{
   goods.setgoods(req,res);
 });
 
+// 상품 명 출력
 router.get('/api/getgoodsnames',(req,res)=>{
   goods.getgoodsnames(req,res);
 });
+
+// 상품 데이터 전송
+router.get('/api/getgoods', (req,res)=>{
+  goods.getgoods(req,res);
+})
 
 
 
