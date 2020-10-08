@@ -22,11 +22,37 @@ db.Goods = require('./goods')(sequelize, Sequelize);
 // User, Store 일대 다 관계
 db.User.hasMany(db.Store, {
   foreignKey: 'user_id',
-  sourceKey: 'user_id'
+  sourceKey: 'user_id',
+  onDelete: 'CASCADE'
 });
 db.Store.belongsTo(db.User, {
   foreignKey: 'user_id',
-  targetKey: 'user_id'
+  targetKey: 'user_id',
+  onDelete: 'CASCADE'
+});
+
+// Store, Category 일대 다 관계
+db.Store.hasMany(db.Category, {
+  foreignKey: 'store_name',
+  sourceKey: 'store_name',
+  onDelete: 'CASCADE'
+});
+db.Category.belongsTo(db.Store, {
+  foreignKey: 'store_name',
+  targetKey: 'store_name',
+  onDelete: 'CASCADE'
+});
+
+// Category, Goods 일대 다 관계
+db.Category.hasMany(db.Goods, {
+  foreignKey: 'category_name',
+  sourceKey: 'category_name',
+  onDelete: 'CASCADE'
+});
+db.Goods.belongsTo(db.Category, {
+  foreignKey: 'category_name',
+  targetKey: 'category_name',
+  onDelete: 'CASCADE'
 });
 
 

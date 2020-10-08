@@ -137,9 +137,9 @@ import { VueGoodTable } from 'vue-good-table';
           label: '카테고리',
           field: 'category_name',
         },
-      ],
-      
-      rows:[],
+        ],
+        
+        rows:[],
       }
     },
     computed:{
@@ -156,7 +156,7 @@ import { VueGoodTable } from 'vue-good-table';
       modal: function(){
         axios({
           method: 'get',
-          url: '/api/getcategory',
+          url: '/api/getcategoryname',
         }).then((res)=>{
           console.log(res.data);
           var s_list=[];
