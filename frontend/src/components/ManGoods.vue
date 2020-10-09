@@ -19,8 +19,17 @@
             placeholder="ex) 커피"
           ></b-form-input>
         </b-form-group>
+        <b-form-group id="input-group-goodsimage" label="Goods Image :" label-for="input-2">
+          <b-form-file
+            v-model="uploadData"
+            :state="Boolean(uploadData)"
+            placeholder="Choose a file or drop it here..."
+            drop-placeholder="Drop file here..."
+          ></b-form-file>
+          <div class="mt-3">Selected file: {{ uploadData ? uploadData.name : '' }}</div>
+        </b-form-group>
 
-        <b-form-group id="input-group-type" label="Category :" label-for="input-2">
+        <b-form-group id="input-group-type" label="Category :" label-for="input-3">
           <b-form-select
             id="input-3"
             v-model="type"
@@ -29,18 +38,18 @@
           ></b-form-select>
         </b-form-group>
 
-        <b-form-group id="input-group-price" label="가 격 : " label-for="input-3">
+        <b-form-group id="input-group-price" label="가 격 : " label-for="input-4">
           <b-form-input
-            id="input-3"
+            id="input-4"
             v-model="price"
             required
             placeholder="ex) 2000"
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="input-group-desc" label="설 명 : " label-for="input-4">
+        <b-form-group id="input-group-desc" label="설 명 : " label-for="input-5">
           <b-form-input
-            id="input-4"
+            id="input-5"
             v-model="desc"
             placeholder="ex) 직접 블랜딩한 맛좋은 커피!!"
           ></b-form-input>
@@ -71,6 +80,8 @@ import ManGoodsList from '../components/ManGoodsList.vue'
         modal: false,
         //component reload key
         reload: 0,
+
+        uploadData:null,
         store_name: this.storename,
         goodsname: '',
         type: null,
@@ -140,6 +151,7 @@ import ManGoodsList from '../components/ManGoodsList.vue'
 
       onSubmit(evt) {
         evt.preventDefault()
+        // save goods API
         axios({
           method: 'post',
           url: '/api/setgoods',
@@ -151,10 +163,24 @@ import ManGoodsList from '../components/ManGoodsList.vue'
           }
         }).then((res)=>{
           console.log(res);
-          alert("상품이 추가되었습니다.");
         }).catch(function(error){
           console.log(error);
           alert("실패!! 다시 시도하세요");
+        });
+        // save image API
+        var frmdata = new FormData();
+        frmdata.append('image', this.uploadData);
+        frmdata.append('goods_name', this.goods_name);
+        axios({
+          method:'post',
+          url:'/profile',
+          headers: {'Content-Type': 'multipart/form-data' },
+          data: frmdata
+        }).then(()=>{
+          console.log('saved image!');
+          alert("상품이 추가되었습니다.");
+        }).catch(function(error){
+          console.log(error);
         })
         this.goodsname = ''
         this.price = ''

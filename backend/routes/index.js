@@ -3,14 +3,27 @@ var path = require('path');
 var router = express.Router();
 var session = require('express-session');
 
-var multer  = require('multer')
-//upload 데이터 디렉토리 설정
-var goodsupload = multer({ dest: '../uploads/goods' })
+var multer  = require('multer');
+
+// multer setting
+const upload = multer({
+  storage: multer.diskStorage({
+    // set a localstorage destination
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/goods');
+    },
+    // file name 중복을 피하기위해 date() 추가.
+    filename: (req, file, cb) => {
+      cb(null, new Date().valueOf() + path.extname(file.originalname));
+    },
+  }),
+});
 
 var login = require('../src/login');
 var store = require('../src/store');
 var cate = require('../src/category');
 var goods = require('../src/goods');
+var image = require('../src/image');
 
 // 세션 설정
 router.use(session({
@@ -113,6 +126,18 @@ router.delete('/api/goods', (req,res)=>{
   goods.deletegoods(req,res);
 });
 
+// image upload test
+router.post('/profile', upload.single('image'), function (req, res, next) {
+  // req.file 은 `avatar` 라는 필드의 파일 정보입니다.
+  // 텍스트 필드가 있는 경우, req.body가 이를 포함할 것입니다.
+  image.saveimage(req,res);
+  res.send('Uploaded! : '+req.file);
+  console.log(req.file);
+});
+
+router.post('/getimage', (req,res)=>{
+  image.getimage(req,res);
+})
 
 
 

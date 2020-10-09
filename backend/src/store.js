@@ -88,8 +88,6 @@ function deletestore(req,res){
 }
 
 
- 
-
 module.exports = {
     setstore,
     getstore,
