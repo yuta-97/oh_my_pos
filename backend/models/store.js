@@ -4,7 +4,6 @@ module.exports =(sequelize, DataTypes) => {
       store_name: {
         type: DataTypes.STRING(20),
         allowNull: false,
-        unique: true,
       },
       table_num: {
           type: DataTypes.STRING(30),

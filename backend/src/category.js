@@ -24,7 +24,7 @@ function getcategoryname(req,res){
         where:{
             store_name: req.session.store_name,
         },
-        attributes: ['category_name']
+        attributes: [models.sequelize.fn('DISTINCT', models.sequelize.col('category_name')), 'category_name']
     }).then((result)=>{
         var data = JSON.parse(JSON.stringify(result));
         res.status(200).json(data);

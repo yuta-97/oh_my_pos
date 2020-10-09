@@ -5,11 +5,23 @@
       :line-numbers="true"
       :columns="columns"
       :rows="rows"
+      max-height="600px"
+      :fixed-header="true"
       :select-options="{ 
         enabled: true,
       }
       "
       :search-options="{ enabled: true }">
+
+      <template slot="table-row" slot-scope="props">
+        <span v-if="props.column.field == 'img'">
+          <b-img thumbnail fluid src="http://localhost:5000/api/getimage/test.jpeg" alt="Image 1"></b-img> 
+        </span>
+        <span v-else>
+          {{props.formattedRow[props.column.field]}}
+        </span>
+      </template>
+
       <div slot="selected-row-actions">
         <b-button pill variant="outline-primary" v-if="rowselected.length===1">수정</b-button>
         <b-button pill variant="outline-danger" @click="deleteGoods">삭제</b-button>
@@ -33,6 +45,8 @@ export default {
   
    mounted: function(){
       // 상품 데이터 받아오기
+      
+      // 이미지 테이블이랑 조인한 결과를 가져오도록 수정할것.
       axios({
         method: 'get',
         url: '/api/getgoods',
@@ -53,6 +67,10 @@ export default {
     return {
           rowselected:[],
           columns: [
+          {
+            label: '상품 이미지',
+            field: 'img',
+          },
           {
             label: '상품 명',
             field: 'goods_name',
