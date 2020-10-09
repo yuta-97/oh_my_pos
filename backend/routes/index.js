@@ -3,6 +3,9 @@ var path = require('path');
 var router = express.Router();
 var session = require('express-session');
 
+var multer  = require('multer')
+//upload 데이터 디렉토리 설정
+var goodsupload = multer({ dest: '../uploads/goods' })
 
 var login = require('../src/login');
 var store = require('../src/store');
@@ -59,7 +62,7 @@ router.get('/api/getstore',(req,res)=>{
 
 // 매장 삭제
 router.delete('/api/store', (req,res)=>{
-  store.deletestsore(req,res);
+  store.deletestore(req,res);
 })
 
 // 카테고리 정보 저장
