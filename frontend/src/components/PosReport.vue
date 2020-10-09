@@ -1,6 +1,7 @@
 <!-- 포스 매출 관리 -->
 <template>
-  <div>
+  <div class = "animate__animated animate__bounce animate__delay-2s">
+    ex
   </div>
 </template>
 

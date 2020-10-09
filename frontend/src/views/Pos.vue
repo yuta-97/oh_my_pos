@@ -9,8 +9,8 @@
         <li>
           <a active v-on:click="selmenus='PosTable'">테이블<span class="nav-label"></span></a>
           <a v-on:click="selmenus='PosOpenClose'">영업 개시 / 마감<span class="nav-label"></span></a>
-          <a v-on:click="selmenus='PosJoin'">합석<span class="nav-label"></span></a>
-          <a v-on:click="selmenus='PosMove'">좌석 이동<span class="nav-label"></span></a>
+          <!-- <a v-on:click="selmenus='PosJoin'">합석<span class="nav-label"></span></a>
+          <a v-on:click="selmenus='PosMove'">좌석 이동<span class="nav-label"></span></a> -->
           <a v-on:click="selmenus='PosInven'">재고 관리<span class="nav-label"></span></a>
           <a v-on:click="selmenus='PosReport'">매출 현황<span class="nav-label"></span></a>
           <a link @click="$router.push('/Manage')"> 상세 매장 관리<span class="nav-label"></span></a>
@@ -27,8 +27,8 @@
 
 <script>
 import PosOpenClose from '@/components/PosOpenClose.vue';
-import PosJoin from '@/components/PosJoin.vue';
-import PosMove from '@/components/PosMove.vue';
+// import PosJoin from '@/components/PosJoin.vue';
+// import PosMove from '@/components/PosMove.vue';
 import PosInven from '@/components/PosInven.vue';
 import PosTable from '../components/PosTable.vue'
 import PosReport from '../components/PosReport.vue'
@@ -47,8 +47,8 @@ import PosReport from '../components/PosReport.vue'
     components: {
 
       PosOpenClose,
-      PosJoin,
-      PosMove,
+      // PosJoin,
+      // PosMove,
       PosTable,
       PosReport,
       PosInven

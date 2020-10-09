@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="joinform">
-      <div>
+      <div class = "animate__animated animate__bounce animate__delay-10s">
         <h1>회원가입</h1>
       </div>
     <b-form @submit="regist" @reset="onReset">

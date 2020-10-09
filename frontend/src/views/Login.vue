@@ -1,7 +1,7 @@
 <template>
 <div>
-  <div class= "logo">
-    <b-img src="https://github.com/Cozy-Ho/oh_my_pos/blob/master/frontend/src/assets/logo.png?raw=true" fluid alt="Responsive image"></b-img>
+  <div class= "animate__animated animate__bounce animate__delay-10s">
+      <b-img src="https://github.com/Cozy-Ho/oh_my_pos/blob/master/frontend/src/assets/logo.png?raw=true" fluid alt="Responsive image"></b-img>
   </div>
   <!-- 로그인 or 회원가입 컴포넌트 삽입점 -->
   <div class = "main-content">
@@ -10,7 +10,7 @@
       <br><br>
       <!-- 로그인 컴포넌트로 가는 버튼 굳이 필요 없을듯 -->
       <!-- <b-button v-on:click="sel='Loginform'">Login</b-button>  &nbsp;&nbsp; -->
-      
+      <b-button v-on:click="sel='Loginform'">Login</b-button>  &nbsp;&nbsp;
       <b-button v-on:click="sel='Regist'">Regist</b-button> <br>
   </div>
 
@@ -66,4 +66,15 @@ import Regist from '../components/Regist.vue';
     margin-top: 0px;
   }
 
+  .slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
 </style>

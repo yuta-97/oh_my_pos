@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import VModal from 'vue-js-modal'
 import vueMoment from 'vue-moment'
+import 'animate.css'
 
 
 
