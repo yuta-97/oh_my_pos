@@ -4,6 +4,9 @@ var router = express.Router();
 var session = require('express-session');
 
 var multer  = require('multer');
+var fs = require('fs');
+// mime 모듈 추가. 서비스하려는 파일의 타입을 알아내기 위해서 필요
+var mime = require('mime');
 
 // multer setting
 const upload = multer({
@@ -14,7 +17,8 @@ const upload = multer({
     },
     // file name 중복을 피하기위해 date() 추가.
     filename: (req, file, cb) => {
-      cb(null, new Date().valueOf() + path.extname(file.originalname));
+      // cb(null, new Date().valueOf() + path.extname(file.originalname));
+      cb(null, file.originalname);
     },
   }),
 });
@@ -31,6 +35,9 @@ router.use(session({
 	resave:false,
   saveUninitialize:false,
 }));
+
+// upload path setting.
+// router.use('/upload', express.static('uploads'));
 
 // vue-router 연동
 router.get('/', function (req, res) {
@@ -126,18 +133,29 @@ router.delete('/api/goods', (req,res)=>{
   goods.deletegoods(req,res);
 });
 
-// image upload test
-router.post('/profile', upload.single('image'), function (req, res, next) {
-  // req.file 은 `avatar` 라는 필드의 파일 정보입니다.
-  // 텍스트 필드가 있는 경우, req.body가 이를 포함할 것입니다.
+// 상품 이미지 업로드
+router.post('/api/saveimage', upload.single('image'), function (req, res, next) {
+  console.log(req);
   image.saveimage(req,res);
-  res.send('Uploaded! : '+req.file);
-  console.log(req.file);
 });
 
 router.post('/getimage', (req,res)=>{
-  image.getimage(req,res);
-})
+  image.getimagename(req,res);
+});
+
+router.get('/api/getimage/:imgname',(req,res)=>{
+  var imgPath = 'uploads/goods/'+req.params.imgname;
+  console.log('imgPath='+imgPath);
+  
+  fs.readFile(imgPath, function(error, data) {
+    if(error){
+      res.writeHead(500, {'Content-Type':'text/html'});
+      res.end('500 Internal Server '+error);
+    }else{
+      res.end(data);
+    }
+  });
+});
 
 
 

@@ -26,7 +26,7 @@
             placeholder="Choose a file or drop it here..."
             drop-placeholder="Drop file here..."
           ></b-form-file>
-          <div class="mt-3">Selected file: {{ uploadData ? uploadData.name : '' }}</div>
+          <div class="mt-3">*** 반드시 업로드 파일 명을 상품 명으로 해 주세요 ***: {{ uploadData ? uploadData.name : '' }}</div>
         </b-form-group>
 
         <b-form-group id="input-group-type" label="Category :" label-for="input-3">
@@ -170,15 +170,16 @@ import ManGoodsList from '../components/ManGoodsList.vue'
         // save image API
         var frmdata = new FormData();
         frmdata.append('image', this.uploadData);
-        frmdata.append('goods_name', this.goods_name);
+        frmdata.append('goods_name', this.goodsname);
         axios({
           method:'post',
-          url:'/profile',
-          headers: {'Content-Type': 'multipart/form-data' },
+          url:'/api/saveimage',
           data: frmdata
-        }).then(()=>{
-          console.log('saved image!');
-          alert("상품이 추가되었습니다.");
+        }).then((res)=>{
+          if(res.data){
+            console.log('saved image!');
+            alert("상품이 추가되었습니다.");
+          }
         }).catch(function(error){
           console.log(error);
         })

@@ -34,6 +34,7 @@ function getgoodsnames(req,res){
 }
 
 function getgoods (req, res){
+    
     models.Goods.findAll({
         where:{
             store_name: req.session.store_name

@@ -1,16 +1,10 @@
 module.exports =(sequelize, DataTypes) => {
     const image = sequelize.define('Image', {
-        type: {
-            type: DataTypes.STRING,
-        },
-        name: {
-            type: DataTypes.STRING,
-        },
-        goods_name:{
+        path:{
             type:DataTypes.STRING,
         },
-        data: {
-            type: DataTypes.BLOB("long"),
+        goods_name: {
+            type:DataTypes.STRING,
         },
     },{
         tableName: 'image',
