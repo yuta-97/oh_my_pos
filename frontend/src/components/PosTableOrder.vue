@@ -49,7 +49,8 @@
 }
 
 .modal-container {
-  width: 500px;
+  width: 100%;
+  height: 100%;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -61,11 +62,16 @@
 
 .modal-header h3 {
   margin-top: 0;
+  height: 10%;
   color: #42b983;
 }
 
 .modal-body {
-  margin: 20px 0;
+  height: 80%;
+}
+
+.modal-footer {
+  height: 10%;
 }
 
 .modal-default-button {

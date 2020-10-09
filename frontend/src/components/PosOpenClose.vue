@@ -30,14 +30,7 @@ import MyModal from '../components/PosOpenModal.vue';
        return {
         modal: false,
         time: '',
-        year: '',
-        month: '',
-        day: '',
-        hour: '',
-        minute: '',
-        second: '',
-        dataTime: ''
-        
+      
       }
     },
 
@@ -57,14 +50,14 @@ import MyModal from '../components/PosOpenModal.vue';
 
       getNow() {
           const today = new Date();
-          this.year = today.getFullYear()+'년';
-          this.month = today.getMonth()+1+'월';
-          this.day = today.getDate()+'일';
+          const year = today.getFullYear()+'년';
+          const month = today.getMonth()+1+'월';
+          const day = today.getDate()+'일';
 
-          this.hour = today.getHours() + "시";
-          this.minute = today.getMinutes() + "분";
-          this.second = today.getSeconds() + "초";
-          dateTime = year + month + day +' '+ hour + minute + second;
+          const hour = today.getHours() + "시";
+          const minute = today.getMinutes() + "분";
+          const second = today.getSeconds() + "초";
+          const dateTime = year + month + day +' '+ hour + minute + second;
           this.time = dateTime;
       }
     }

@@ -7,9 +7,9 @@
       :rows="rows"
       :select-options="{ 
         enabled: true,
-      }
-      "
+      }"
       :search-options="{ enabled: true }">
+      
       <div slot="selected-row-actions">
         <b-button pill variant="outline-primary" v-if="rowselected.length===1">수정</b-button>
         <b-button pill variant="outline-danger" @click="deleteStore">삭제</b-button>

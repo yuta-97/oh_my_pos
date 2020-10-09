@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div>
       <h2> 매장 등록 페이지 </h2>
 
       <div>

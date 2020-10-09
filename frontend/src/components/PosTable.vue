@@ -1,71 +1,181 @@
 <!--  포스 테이블  -->
 <template>
   <div>
-      <!-- <div style="border: 1px solid gold; float: left; width: 33%; height: 33%;">
-        dfdsfsdfdsfdfsdfsdfsdfsdf<br>
-        sdf<br>
-        dsf<br>
-        sd<br>
-        fsdfsdf<br>
-      </div>
-      <br>
-      <div style="border: 1px solid gold; float: left; width: 33%; height: 33%">
-      </div>
-      <br>
-      <div style="border: 1px solid gold; float: left; width: 33%; height: 33%">
-      </div>
-      <br>
-      <div style="border: 1px solid gold; float: left; width: 33%; height: 33%">
-      </div>
-      <br>
-      <div style="border: 1px solid gold; float: left; width: 33%; height: 33%">
-      </div>
-      <br>
-      <div style="border: 1px solid gold; float: left; width: 33%; height: 33%">
-      </div>
-      <br>
-      <div style="border: 1px solid gold; float: left; width: 33%; height: 33%">
-      </div>
-      <br>
-      <div style="border: 1px solid gold; float: left; width: 33%; height: 33%">
-      </div> -->
       <div class="square">
         <div class="inner">
           1번<br>
+          치킨 1<br>
+          콜라 2<br><br><br>
 
+          <b-button @click="openModal">
+          </b-button>  
         </div>
       </div>
 
       <div class="square">
         <div class="inner">
           2번<br>
-          <b-button >
+          치킨 1<br>
+          콜라 2<br><br><br>
+
+          <b-button @click="openModal">
           </b-button>  
         </div>
       </div>
 
       <div class="square">
-        <div class="inner">3번</div>
+        <div class="inner">
+          3번<br>
+          치킨 1<br>
+          콜라 2<br><br><br>
+
+          <b-button @click="openModal">
+          </b-button>  
+          </div>
       </div>
 
       <div class="square">
-        <div class="inner">4번</div>
+        <div class="inner">
+          4번<br>
+          치킨 1<br>
+          콜라 2<br><br><br>
+
+          <b-button @click="openModal">
+          </b-button>  
+        </div>
       </div>
 
       <div class="square">
-        <div class="inner">5번</div>
+        <div class="inner">
+          5번<br>
+          치킨 1<br>
+          콜라 2<br><br><br>
+
+          <b-button @click="openModal">
+          </b-button>  
+        </div>
       </div>
 
       <div class="square">
-        <div class="inner">6번</div>
+        <div class="inner">
+          6번<br>
+          치킨 1<br>
+          콜라 2<br><br><br>
+
+          <b-button @click="openModal">
+          </b-button>  
+        </div>
       </div>
 
       <div class="square">
-        <div class="inner">7번</div>
+        <div class="inner">
+          7번<br>
+          치킨 1<br>
+          콜라 2<br><br><br>
+
+          <b-button @click="openModal">
+          </b-button>    
+        </div>
       </div>
 
-      <MyModal>
+      <MyModal @close="closeModal" v-if="modal">
 
+        <div style="float: left; width: 50%;">
+          <vue-good-table
+            @on-selected-rows-change="selectionChanged"
+            :line-numbers="true"
+            :columns="columns"
+            :rows="rows"
+            :select-options="{ 
+            enabled: true,
+            }"
+            :pagination-options="{
+            enabled: true,
+            mode: 'records',
+            perPage: 5,
+            position: 'top',
+            perPageDropdown: [3, 7, 9],
+            dropdownAllowAll: false,
+            setCurrentPage: 2,
+            nextLabel: 'next',
+            prevLabel: 'prev',
+            rowsPerPageLabel: 'Rows per page',
+            ofLabel: 'of',
+            pageLabel: 'page', // for 'pages' mode
+            allLabel: 'All',
+            }"
+          >
+
+          <div slot="selected-row-actions">
+            <b-button pill variant="outline-primary" v-if="rowselected.length===1">삭제</b-button>
+          </div>
+        </vue-good-table>
+
+          <div style="float: left; width: 100%; margin-top: 40px;">
+            <table align="center" border="1" cellspacing="0" cellpadding="1" width="450">
+              <tr height="40">
+                <th bgcolor="yellow" width="225">할 인 율</th>
+                <td width="200" align="center">
+                  0
+                </td>
+              </tr>
+
+              <tr height="40">
+                <th bgcolor="yellow" width="225">총 합 계</th>
+                <td width="200" align="center">
+                 65000
+                </td>
+              </tr>
+
+              <tr height="40">
+                <th bgcolor="yellow" width="225">받 을 금 액</th>
+                <td width="200" align="center">
+                  65000
+                </td>
+              </tr>
+
+            </table>
+          </div>
+
+         
+
+        </div>
+
+        <div sytle="float: right; width: 50%; margin-right: 50px;">
+          <div class="menuselect">
+            <span class="badge badge-warning">coffee</span><br>
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button><br><br>
+            <span class="badge badge-warning">coffee</span><br>
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button><br><br>
+            <span class="badge badge-warning">coffee</span><br>
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button><br><br>
+            <span class="badge badge-warning">option</span><br>
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button> 
+            <b-button> 치킨<br>18000원</b-button><br><br>
+          </div>
+
+          <div style = "float: right; margin-top: 50px;">
+            <b-button type="button" class="btn btn-default btn-lg">주문</b-button>
+            <b-button type="button" class="btn btn-default btn-lg">현금</b-button>
+            <b-button type="button" class="btn btn-default btn-lg">카드</b-button>
+          </div>  
+          
+        </div>
       </MyModal>  
 
   </div>
@@ -73,21 +183,49 @@
 
 <script>
 import MyModal from "../components/PosTableOrder.vue";
+import 'vue-good-table/dist/vue-good-table.css'
+import { VueGoodTable } from 'vue-good-table';
 
   export default {
     components : {
       MyModal,
+      VueGoodTable
     },
 
     data() {
       return {
-        modal: false
-      }
-    },
-
-    watch:{
-      modal: function(){
-        this.forceReload();
+        modal: false,
+        rowselected:[],
+          columns: [
+          {
+            label: '메 뉴 명',
+            field: 'goods_name',
+          },
+          {
+            label: '단 가',
+            field: 'price',
+            type: 'number',
+          },
+          {
+            label: '수 량',
+            field: 'num',
+            type: 'number',
+          },
+          {
+            label: '합 계',
+            field: 'sum',
+            type: 'number'
+          },
+        ],
+        
+        rows:[
+           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
+           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
+           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
+           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
+           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
+        ],
+        
       }
     },
 
@@ -98,6 +236,11 @@ import MyModal from "../components/PosTableOrder.vue";
 
       closeModal() {
         this.modal = false
+      },
+
+      selectionChanged(params) {
+          this.rowselected = params.selectedRows;
+          console.log(this.rowselected);
       },
     }
   }
@@ -127,5 +270,18 @@ import MyModal from "../components/PosTableOrder.vue";
   position: absolute;
   width: 100%;
   height: 100%;
+  text-align: left;
 }
+
+/* .left {
+  background: red;
+  float: left;
+  width: 50%;
+}
+
+.right {
+  background: blue;
+  float: right;
+  width: 50%;
+} */
 </style>
