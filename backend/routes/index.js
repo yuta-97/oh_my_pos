@@ -135,11 +135,10 @@ router.delete('/api/goods', (req,res)=>{
 
 // 상품 이미지 업로드
 router.post('/api/saveimage', upload.single('image'), function (req, res, next) {
-  console.log(req);
   image.saveimage(req,res);
 });
 
-router.post('/getimage', (req,res)=>{
+router.post('/api/getimagename', (req,res)=>{
   image.getimagename(req,res);
 });
 

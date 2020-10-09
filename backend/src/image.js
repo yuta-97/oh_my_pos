@@ -3,7 +3,7 @@ const models = require('../models');
 function saveimage(req, res){
     
     models.Image.create({
-        path: req.file.path,
+        file_name: req.file.filename,
         goods_name: req.body.goods_name
     }).then(()=>{
         res.send(true);
@@ -18,11 +18,11 @@ function getimagename(req,res){
         where:{
             goods_name: req.body.goods_name
         },
-        attributes: ['path']
+        attributes: ['file_name']
     }).then((result) => {
-        var imgpath = JSON.parse(JSON.stringify(result));
-        console.log(imgpath);
-        res.send(imgpath[0].path);
+        var fname = JSON.parse(JSON.stringify(result));
+        console.log(fname);
+        res.send(fname[0].file_name);
         console.log("find Image success.");
     }).catch(function(error){
         console.log(error);

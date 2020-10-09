@@ -83,7 +83,7 @@ import ManGoodsList from '../components/ManGoodsList.vue'
 
         uploadData:null,
         store_name: this.storename,
-        goodsname: '',
+        goodsname: "",
         type: null,
         price: '',
         desc: '',

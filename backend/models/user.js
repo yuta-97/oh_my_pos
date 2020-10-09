@@ -14,7 +14,7 @@ module.exports =(sequelize, DataTypes) => {
           allowNull: false
       }
     },{
-        tableName: 'user',
+        tableName: 'User',
     });
     
     return user;
