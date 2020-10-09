@@ -3,7 +3,6 @@ module.exports =(sequelize, DataTypes) => {
       category_name: {
         type: DataTypes.STRING(20),
         allowNull: false,
-        unique: true,
       },
       option_name: {
           type: DataTypes.STRING(30),
