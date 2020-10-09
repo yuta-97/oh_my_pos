@@ -213,16 +213,8 @@ import axios from 'axios';
   color: white;
 }
 
-.navbar-primary-menu li a .glyphicon {
-  margin-right: 6px;
-}
-
-.navbar-primary-menu li a:hover .glyphicon {
-  color: orchid;
-}
-
 .main-content {
-  margin-top: 60px;
+  height: 100%;
   margin-left: 200px;
   padding: 20px;
 }
