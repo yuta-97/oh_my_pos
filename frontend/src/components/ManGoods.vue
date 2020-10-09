@@ -5,7 +5,7 @@
     </div>
     <!-- 상품 목록 테이블 -->
     <div>
-      <ManGoodsList @openModal="openModal"></ManGoodsList>
+      <ManGoodsList @openModal="openModal" :key="reload"></ManGoodsList>
     </div>
 
     <!-- 상품 등록 모달 -->
@@ -69,6 +69,8 @@ import ManGoodsList from '../components/ManGoodsList.vue'
     data() {
       return {
         modal: false,
+        //component reload key
+        reload: 0,
         store_name: this.storename,
         goodsname: '',
         type: null,
@@ -104,6 +106,8 @@ import ManGoodsList from '../components/ManGoodsList.vue'
         }).catch(function(error){
           console.log(error);
         });
+
+        this.forceReload();
       },
       
     },
@@ -145,6 +149,9 @@ import ManGoodsList from '../components/ManGoodsList.vue'
         this.goodsname = ''
         this.price = ''
         this.desc = ''
+      },
+      forceReload(){
+        this.reload += 1;
       },
 
     }

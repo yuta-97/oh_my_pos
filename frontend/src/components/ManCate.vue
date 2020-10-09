@@ -5,7 +5,7 @@
     </div>
       <!-- 카테고리 목록 테이블 -->
     <div>
-      <ManCateList @openModal="openModal"></ManCateList>
+      <ManCateList @openModal="openModal" :key="reloaded"></ManCateList>
     </div>
 
     <!-- 카테고리 등록 모달 -->
@@ -60,6 +60,8 @@ import ManCateList from '../components/ManCateList.vue'
     data() {
       return {
         modal: false,
+        // 컴포넌트 reload 용 key
+        reloaded: 0,
         store_name: this.storename,
         type: null,
         categoryname: '',
@@ -78,6 +80,12 @@ import ManCateList from '../components/ManCateList.vue'
         set (value) {
           this.$store.commit('setStorename', value)
         }
+      }
+    },
+
+    watch:{
+      modal: function(){
+        this.forceReload();
       }
     },
 
@@ -116,6 +124,9 @@ import ManCateList from '../components/ManCateList.vue'
         this.options.optionname = ''
         this.options.optionprice = ''
       },
+      forceReload(){
+        this.reloaded += 1;
+      }
     }
      
     
