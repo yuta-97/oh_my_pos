@@ -15,7 +15,7 @@
 
       <template slot="table-row" slot-scope="props">
         <span v-if="props.column.field == 'img'">
-          <b-img thumbnail fluid src="http://localhost:5000/api/getimage/test.jpeg" alt="Image 1"></b-img> 
+          <b-img :src="getImgUrl(props.row.goods_name)" alt="Image 1"></b-img> 
         </span>
         <span v-else>
           {{props.formattedRow[props.column.field]}}
@@ -57,6 +57,7 @@ export default {
           s_list.push(res.data[i]);
         }
         this.rows=s_list;
+        // console.log(this.rows[0].goods_name);
       }).catch(function(error){
         console.log(error);
       });
@@ -65,32 +66,33 @@ export default {
 
   data() {
     return {
-          rowselected:[],
-          columns: [
-          {
-            label: '상품 이미지',
-            field: 'img',
-          },
-          {
-            label: '상품 명',
-            field: 'goods_name',
-          },
-          {
-            label: '가 격',
-            field: 'price',
-            type: 'number',
-          },
-          {
-            label: '설 명',
-            field: 'desc',
-          },
-          {
-            label: '카테고리',
-            field: 'category_name',
-          },
-        ],
-        
-        rows:[],
+      retval:'',
+      rowselected:[],
+      columns: [
+      {
+        label: '상품 이미지',
+        field: 'img',
+      },
+      {
+        label: '상품 명',
+        field: 'goods_name',
+      },
+      {
+        label: '가 격',
+        field: 'price',
+        type: 'number',
+      },
+      {
+        label: '설 명',
+        field: 'desc',
+      },
+      {
+        label: '카테고리',
+        field: 'category_name',
+      },
+    ],
+    
+    rows:[],
     }
   },
 
@@ -118,6 +120,20 @@ export default {
     
     openModal() {
       this.$emit('openModal')
+    },
+
+    getImgUrl(goodsname) {
+      axios({
+        method: 'post',
+        url: '/api/getimagename',
+        data: {goods_name: goodsname},
+      }).then((res)=>{
+        console.log(res.data);
+        this.retval=res.data;
+      }).catch(function(error){
+        console.log(error)
+      });
+      return `http://localhost:5000/api/getimage/${this.retval}`
     }
 
   }

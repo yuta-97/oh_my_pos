@@ -21,7 +21,7 @@ module.exports =(sequelize, DataTypes) => {
         allowNull: false
       },
     },{
-        tableName: 'goods',
+        tableName: 'Goods',
     });
     return goods;
 };

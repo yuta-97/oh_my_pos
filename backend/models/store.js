@@ -21,7 +21,7 @@ module.exports =(sequelize, DataTypes) => {
         type: DataTypes.STRING(20)
       }
     },{
-        tableName: 'store',
+        tableName: 'Store',
     });
     
     return store;

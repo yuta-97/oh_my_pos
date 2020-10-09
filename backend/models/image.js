@@ -1,13 +1,13 @@
 module.exports =(sequelize, DataTypes) => {
     const image = sequelize.define('Image', {
-        path:{
+        file_name:{
             type:DataTypes.STRING,
         },
         goods_name: {
             type:DataTypes.STRING,
         },
     },{
-        tableName: 'image',
+        tableName: 'Image',
     });
     return image;
 };
