@@ -1,6 +1,6 @@
 const models = require('../models');
- 
-function setgoods(req,res){
+
+function setgoods(req, res) {
     models.Goods.create({
         goods_name: req.body.goods_name,
         price: req.body.price,
@@ -9,16 +9,16 @@ function setgoods(req,res){
         store_name: req.session.store_name
     }).then((result) => {
         console.log("set Goods success.");
-        res.status(200).json({result});
-    }).catch(function(error){
+        res.status(200).json({ result });
+    }).catch(function(error) {
         console.log(error);
-        res.status(500).json({error});
+        res.status(500).json({ error });
     });
 }
 
-function getgoodsnames(req,res){
+function getgoodsnames(req, res) {
     models.Goods.findAll({
-        where:{
+        where: {
             store_name: req.session.store_name
         },
         attributes: ['goods_name']
@@ -27,16 +27,16 @@ function getgoodsnames(req,res){
         var data = JSON.parse(JSON.stringify(result));
         console.log(data);
         res.json(data);
-    }).catch(function(error){
+    }).catch(function(error) {
         console.log(error);
-        res.json({error});
+        res.json({ error });
     });
 }
 
-function getgoods (req, res){
-    
+function getgoods(req, res) {
+
     models.Goods.findAll({
-        where:{
+        where: {
             store_name: req.session.store_name
         },
         attributes: ['goods_name', 'price', 'desc', 'category_name']
@@ -45,26 +45,26 @@ function getgoods (req, res){
         var data = JSON.parse(JSON.stringify(result));
         console.log(data);
         res.json(data);
-    }).catch(function(error){
+    }).catch(function(error) {
         console.log(error);
-        res.json({error});
+        res.json({ error });
     });
 }
 
-function deletegoods(req,res){
+function deletegoods(req, res) {
     models.Goods.destroy({
-        where:{
+        where: {
             goods_name: req.body.goods_names
         },
-    }).then((result)=>{
+    }).then((result) => {
         console.log("delete goods.");
         res.json(result);
-    }).catch(function(error){
+    }).catch(function(error) {
         console.log(error);
-        res.json({error});
+        res.json({ error });
     });
 }
- 
+
 
 module.exports = {
     setgoods,
