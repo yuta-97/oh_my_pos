@@ -1,7 +1,21 @@
 <!--  포스 테이블  -->
 <template>
   <div>
-      <div class="square">
+    <div styel="float= left;">
+      <b-button squared variant="outline-secondary" @click="openModal">1번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+      <b-button squared variant="outline-secondary" @click="openModal">2번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+      <b-button squared variant="outline-secondary" @click="openModal">3번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+      <b-button squared variant="outline-secondary" @click="openModal">4번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+      <b-button squared variant="outline-secondary" @click="openModal">5번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+      <b-button squared variant="outline-secondary" @click="openModal">6번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+      <b-button squared variant="outline-secondary" @click="openModal">7번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+      <b-button squared variant="outline-secondary" @click="openModal">8번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+      <b-button squared variant="outline-secondary" @click="openModal">9번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+      <b-button squared variant="outline-secondary" @click="openModal">10번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+      <b-button squared variant="outline-secondary" @click="openModal">11번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+      <b-button squared variant="outline-secondary" @click="openModal">12번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+    </div>
+      <!-- <div class="square">
         <div class="inner">
           1번<br>
           치킨 1<br>
@@ -73,10 +87,10 @@
           치킨 1<br>
           콜라 2<br><br><br>
 
-          <b-button @click="openModal">
+          <b-button >
           </b-button>    
         </div>
-      </div>
+      </div> -->
 
       <MyModal @close="closeModal" v-if="modal">
 
