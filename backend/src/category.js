@@ -60,8 +60,7 @@ function deletecategory(req,res){
     }).catch(function(error){
         console.log(error);
         res.json({error});
-    })
-    ;
+    });
     models.Goods.destroy({
         where:{
             category_name: req.body.category_name

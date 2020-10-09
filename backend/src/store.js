@@ -50,6 +50,43 @@ function getstorenames(req,res){
     });
 }
 
+function deletestore(req,res){
+    models.Store.destroy({
+        where:{
+            category_name: req.body.category_name
+        },
+    }).then(()=>{
+        console.log("delete categorys.");
+    }).catch(function(error){
+        console.log(error);
+        res.json({error});
+    });
+
+    models.Category.destroy({
+        where:{
+            category_name: req.body.category_name
+        },
+    }).then(()=>{
+        console.log("delete Category cascade..");
+    }).catch(function(error){
+        console.log(error);
+        res.json({error});
+    });
+
+    models.Goods.destroy({
+        where:{
+            category_name: req.body.category_name
+        },
+    }).then((result)=>{
+        console.log("delete Goods cascade...");
+        res.json(result);
+    }).catch(function(error){
+        console.log(error);
+        res.json({error});
+    });
+
+}
+
 
  
 
@@ -57,4 +94,5 @@ module.exports = {
     setstore,
     getstore,
     getstorenames,
+    deletestore,
 }

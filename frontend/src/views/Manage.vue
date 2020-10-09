@@ -47,7 +47,7 @@ import axios from 'axios';
     data: function() {
       return {
         selmenus: 'ManStore',
-        store_name: this.storename,
+        store_name: null,
         store_list: [],
         time: ''
       }
@@ -127,7 +127,7 @@ import axios from 'axios';
       }).catch(function(error){
         console.log(error);
       });
-      
+      this.store_name = this.store_list[0];
     },
     methods:{
       logout(){

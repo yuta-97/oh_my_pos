@@ -4,7 +4,7 @@
       <h2> 매장 등록 페이지 </h2>
 
       <div>
-        <ManStoreList @openModal="openModal"></ManStoreList>
+        <ManStoreList @openModal="openModal" :key="reload"></ManStoreList>
       </div>
 
       <!-- 매장 추가 모달 -->
@@ -63,16 +63,26 @@ import ManStoreList from '../components/ManStoreList.vue'
       ManStoreList,
       MyModal
     },
+    mounted: function(){
+      this.forceReload();
+    },
     
     data() {
       return {
         modal: false,
+        // component reload key
+        reload: 0,
         storename: '',
         tablenum: '',
         discount:{
           disname:'',
           disrate:''
         }
+      }
+    },
+    watch:{
+      modal: function(){
+        this.forceReload();
       }
     },
 
@@ -110,7 +120,10 @@ import ManStoreList from '../components/ManStoreList.vue'
         // Reset our form values
         this.discount.disname = ''
         this.discount.disrate = ''
-      }
+      },
+      forceReload(){
+        this.reload+=1;
+      },
     }
   }
 </script>

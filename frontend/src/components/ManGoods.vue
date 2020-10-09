@@ -109,6 +109,22 @@ import ManGoodsList from '../components/ManGoodsList.vue'
 
         this.forceReload();
       },
+      store_name: function(){
+        // 상품 데이터 받아오기
+        axios({
+          method: 'get',
+          url: '/api/getgoods',
+        }).then((res)=>{
+          // DB에서 받아온 데이터를 인덱스 갯수만큼 추가, 인덱스 제거
+          var s_list=[]
+          for( var i=0; i < res.data.length; i++){
+            s_list.push(res.data[i]);
+          }
+          this.rows=s_list;
+        }).catch(function(error){
+          console.log(error);
+        });
+      }
       
     },
    

@@ -76,50 +76,31 @@ export default {
     }
   },
 
-  watch : {
-  store_name: function(){
-        // 상품 데이터 받아오기
-        axios({
-          method: 'get',
-          url: '/api/getgoods',
-        }).then((res)=>{
-          // DB에서 받아온 데이터를 인덱스 갯수만큼 추가, 인덱스 제거
-          var s_list=[]
-          for( var i=0; i < res.data.length; i++){
-            s_list.push(res.data[i]);
-          }
-          this.rows=s_list;
-        }).catch(function(error){
-          console.log(error);
-        });
-      }
-  },
-
   methods: {
     selectionChanged(params) {
           this.rowselected = params.selectedRows;
           console.log(this.rowselected);
       },
-      deleteGoods(){
-        var s_list=[];
-        for( var i=0;i<this.rowselected.length; i++){
-          s_list.push(this.rowselected[i].goods_name);
-        }
-        axios({
-          method: 'delete',
-          url: '/api/goods',
-          data: {goods_names: s_list}
-        }).then((res)=>{
-          console.log(res.data);
-          
-        }).catch(function(error){
-          console.log(error);
-        });
-      },
-      
-      openModal() {
-        this.$emit('openModal')
+    deleteGoods(){
+      var s_list=[];
+      for( var i=0;i<this.rowselected.length; i++){
+        s_list.push(this.rowselected[i].goods_name);
       }
+      axios({
+        method: 'delete',
+        url: '/api/goods',
+        data: {goods_names: s_list}
+      }).then((res)=>{
+        console.log(res.data);
+        
+      }).catch(function(error){
+        console.log(error);
+      });
+    },
+    
+    openModal() {
+      this.$emit('openModal')
+    }
 
   }
   

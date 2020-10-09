@@ -53,8 +53,13 @@ router.get('/api/getstorenames', (req,res)=>{
 });
 
 // 매장 정보 전송
-router.post('/api/getstore',(req,res)=>{
+router.get('/api/getstore',(req,res)=>{
   store.getstore(req,res);
+});
+
+// 매장 삭제
+router.delete('/api/store', (req,res)=>{
+  store.deletestsore(req,res);
 })
 
 // 카테고리 정보 저장
