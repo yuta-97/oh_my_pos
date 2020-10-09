@@ -52,6 +52,7 @@ import PosReport from '../components/PosReport.vue'
       PosTable,
       PosReport,
       PosInven
+ 
 
     }
   }
@@ -62,7 +63,7 @@ import PosReport from '../components/PosReport.vue'
 .navbar-primary {
   background-color: #333;
   bottom: 0px;
-  right: 0px;
+  left: 0px;
   position: absolute;
   top: 0px;
   width: 300px;
@@ -105,7 +106,7 @@ import PosReport from '../components/PosReport.vue'
 
 .main-content {
   margin-top: 60px;
-  margin-right: 300px;
+  margin-left: 300px;
   padding: 20px;
 }
 

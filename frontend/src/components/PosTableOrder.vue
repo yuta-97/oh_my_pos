@@ -7,7 +7,7 @@
 
           <div class="modal-header">
             <slot name="header">
-              <h2> 영업 개시 </h2>
+              <h2> 주 문 </h2>
             </slot>
           </div>
 
