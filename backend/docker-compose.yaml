@@ -1,0 +1,33 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node_server
+    volumes:
+      - ./:/app
+    ports:
+      - "5000:8080"
+    depends_on:
+      - mysql
+    command:
+      - bash
+      - -c
+      - |
+        /wait-for-it.sh mysql:3307 -t 10
+        npm start
+
+  mysql: # 서비스 명
+    image: mysql:8.0.17 # 사용할 이미지
+    container_name: mysql # 컨테이너 이름 설정
+    ports:
+      - "3307:3306" # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+    environment: # -e 옵션
+      MYSQL_ROOT_PASSWORD: "password"  # MYSQL 패스워드 설정 옵션
+      MYSQL_DATABASE: "app"
+    command: # 한글깨짐 방지
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./db:/var/lib/mysql # -v 옵션 (다렉토리 마운트 설정)
