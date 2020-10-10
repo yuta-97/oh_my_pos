@@ -80,29 +80,15 @@ export default {
   components:{
     QrcodeVue,
   },
-
-  methods: {
-    saveImage() {
-      var dataURL = document.getElementById("canvas").toDataURL("order/png");
-  //Create new anchor element
-      var imga = document.createElement("a");
-  //Make its href value be the data URL received from the canvas
-      imga.href = dataURL;
-  //This sets the default filename
-      imga.download = "myImage.png";
-  //Append the anchor to the body
-      document.body.appendChild(imga);
-    }
-  }
 }
 </script>
 
 <style scoped>
   .qr {
-    /* float: left; */
+    float: left;
     height: 100%;
     margin: 0 auto;
-    display: inline-block;
+    /* display: inline-block; */
     vertical-align: top;
    
   }
