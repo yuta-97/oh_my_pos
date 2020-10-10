@@ -104,14 +104,15 @@ import PosReport from '../components/PosReport.vue'
 }
 
 .main-content {
+  top: 0;
   height: 100%;
   margin-left: 300px;
-  /* padding: 20px; */
-}
-
-.header {
-
 
 }
+
+/* .header {
+
+
+} */
 
 </style>
