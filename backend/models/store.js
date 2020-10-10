@@ -6,7 +6,7 @@ module.exports =(sequelize, DataTypes) => {
         allowNull: false,
       },
       table_num: {
-          type: DataTypes.STRING(30),
+          type: DataTypes.INTEGER(30),
           allowNull: false
       },
       dis_name: {

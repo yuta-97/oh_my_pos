@@ -20,6 +20,10 @@ module.exports =(sequelize, DataTypes) => {
         type: DataTypes.STRING(20),
         allowNull: false
       },
+      img_url: {
+        type: DataTypes.STRING(50),
+        allowNull: true
+      }
     },{
         tableName: 'Goods',
     });

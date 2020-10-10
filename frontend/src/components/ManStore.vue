@@ -110,7 +110,7 @@ import ManStoreList from '../components/ManStoreList.vue'
         }).catch(function(error){
           console.log(error);
           alert("try again");
-        })
+        });
         this.discount.disname = ''
         this.discount.disrate = ''
       },

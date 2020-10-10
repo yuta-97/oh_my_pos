@@ -14,8 +14,8 @@
       :search-options="{ enabled: true }">
 
       <template slot="table-row" slot-scope="props">
-        <span v-if="props.column.field == 'img'">
-          <b-img :src="getImgUrl(props.row.goods_name)" alt="Image 1"></b-img> 
+        <span v-if="props.column.field == 'img_url'">
+          <b-img :src="props.row.img_url" alt="Image 1" height="90px" width="120px"></b-img> 
         </span>
         <span v-else>
           {{props.formattedRow[props.column.field]}}
@@ -66,12 +66,12 @@ export default {
 
   data() {
     return {
-      retval:'',
+      retval:{},
       rowselected:[],
       columns: [
       {
         label: '상품 이미지',
-        field: 'img',
+        field: 'img_url',
       },
       {
         label: '상품 명',
@@ -121,20 +121,6 @@ export default {
     openModal() {
       this.$emit('openModal')
     },
-
-    getImgUrl(goodsname) {
-      axios({
-        method: 'post',
-        url: '/api/getimagename',
-        data: {goods_name: goodsname},
-      }).then((res)=>{
-        console.log(res.data);
-        this.retval=res.data;
-      }).catch(function(error){
-        console.log(error)
-      });
-      return `http://localhost:5000/api/getimage/${this.retval}`
-    }
 
   }
   

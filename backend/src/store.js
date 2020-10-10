@@ -11,6 +11,7 @@ function setstore(req,res){
         console.log("set store success.");
         // 현재 매장정보 수정.
         req.session.store_name = req.body.store_name;
+        req.session.table_num = req.body.table_num;
         req.session.save();
         res.status(200).json({result});
     }).catch(function(error){
@@ -33,6 +34,7 @@ function getstore(req,res){
         res.json({error});
     });
 }
+
 
 function getstorenames(req,res){
     models.Store.findAll({

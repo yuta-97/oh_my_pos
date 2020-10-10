@@ -1,20 +1,9 @@
 <template>
   <div>
-    <div>
+    <div :v-for="value in values">
       <qrcode-vue :value="value" :size="size" level="H"></qrcode-vue>
     </div>
     <div>
-      <b-form @submit="onSubmit">
-        <b-form-file
-          v-model="uploadData"
-          :state="Boolean(uploadData)"
-          placeholder="Choose a file or drop it here..."
-          drop-placeholder="Drop file here..."
-        ></b-form-file>
-        <div class="mt-3">Selected file: {{ uploadData ? uploadData.name : '' }}</div>
-        <b-button type="submit" variant="primary">Submit</b-button>
-        <b-button variant="danger" @click="uploadData = null">Reset</b-button>
-      </b-form>
     </div>
   </div>
 </template>
@@ -26,30 +15,28 @@ import QrcodeVue from 'qrcode.vue';
 export default {
   data() {
     return {
-      value: 'http://localhost:5000/Pos',
+      values: [],
       size: 300,
-      uploadData: null,
     }
   },
-  methods: {
-    onSubmit(evt){
-      evt.preventDefault()
-      var frmdata = new FormData();
-      frmdata.append('image', this.uploadData) 
-      axios({
-        method:'post',
-        url: '/profile',
-        headers: {'Content-Type': 'multipart/form-data' },
-        data: frmdata
-      }).then((res)=>{
-        alert("done!")
-        console.log(res);
-      }).catch(function(error){
-        alert("errlr!");
-        console.log(error);
-      });
-    },
+  mounted: function(){
+    axios({
+      method: 'get',
+      url: '/api/getstore',
+    }).then((res)=>{
+      var s_list=[];
+      for(var i=0;i<res.data[0].table_num;i++){
+        s_list.push("http://localhost:5000/order/"+res.data[0].store_name+"/"+i);
+      }
+      this.values=s_list;
+      console.log(s_list);
+    }).catch(function(error){
+      console.log(error);
+    });
 
+  },
+  methods: {
+    //
   },
   components:{
     QrcodeVue,

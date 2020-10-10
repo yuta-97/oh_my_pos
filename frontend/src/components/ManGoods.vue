@@ -159,7 +159,8 @@ import ManGoodsList from '../components/ManGoodsList.vue'
             goods_name: this.goodsname,
             type: this.type,
             price: this.price,
-            desc: this.desc
+            desc: this.desc,
+            img_url: 'http://localhost:5000/api/getimage/'+this.uploadData.name
           }
         }).then((res)=>{
           console.log(res);

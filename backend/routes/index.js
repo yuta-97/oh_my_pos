@@ -5,8 +5,6 @@ var session = require('express-session');
 
 var multer  = require('multer');
 var fs = require('fs');
-// mime 모듈 추가. 서비스하려는 파일의 타입을 알아내기 위해서 필요
-var mime = require('mime');
 
 // multer setting
 const upload = multer({
@@ -27,7 +25,7 @@ var login = require('../src/login');
 var store = require('../src/store');
 var cate = require('../src/category');
 var goods = require('../src/goods');
-var image = require('../src/image');
+
 
 // 세션 설정
 router.use(session({
@@ -135,13 +133,10 @@ router.delete('/api/goods', (req,res)=>{
 
 // 상품 이미지 업로드
 router.post('/api/saveimage', upload.single('image'), function (req, res, next) {
-  image.saveimage(req,res);
+  //
 });
 
-router.post('/api/getimagename', (req,res)=>{
-  image.getimagename(req,res);
-});
-
+// 이미지 보여주기.
 router.get('/api/getimage/:imgname',(req,res)=>{
   var imgPath = 'uploads/goods/'+req.params.imgname;
   console.log('imgPath='+imgPath);
@@ -156,6 +151,10 @@ router.get('/api/getimage/:imgname',(req,res)=>{
   });
 });
 
+// 매뉴 페이지 보여주기.
+router.get('/order/:store_name/:table_num',(req,res)=>{
+  //
+});
 
 
 

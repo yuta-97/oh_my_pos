@@ -18,7 +18,6 @@ db.User = require('./user')(sequelize, Sequelize);
 db.Store = require('./store')(sequelize, Sequelize);
 db.Category = require('./category')(sequelize, Sequelize);
 db.Goods = require('./goods')(sequelize, Sequelize);
-db.Image = require('./image')(sequelize, Sequelize);
 
 // User, Store 일대 다 관계
 db.User.hasMany(db.Store, {

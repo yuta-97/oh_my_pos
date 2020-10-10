@@ -6,7 +6,8 @@ function setgoods(req, res) {
         price: req.body.price,
         desc: req.body.desc,
         category_name: req.body.type,
-        store_name: req.session.store_name
+        store_name: req.session.store_name,
+        img_url: req.body.img_url
     }).then((result) => {
         console.log("set Goods success.");
         res.status(200).json({ result });
@@ -39,7 +40,7 @@ function getgoods(req, res) {
         where: {
             store_name: req.session.store_name
         },
-        attributes: ['goods_name', 'price', 'desc', 'category_name']
+        attributes: ['img_url','goods_name', 'price', 'desc', 'category_name']
     }).then((result) => {
         console.log("get Goods data success.");
         var data = JSON.parse(JSON.stringify(result));
