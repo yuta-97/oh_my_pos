@@ -1,26 +1,20 @@
 <template>
-  <div>
-    <div class="qr">
-    <vue-good-table
-      @on-selected-rows-change="selectionChanged"
-      :line-numbers="true"
-      :columns="columns"
-      :rows="rows"
-      :select-options="{ 
-        enabled: true,
-      }
-      "
-      :search-options="{ enabled: true }">
+  <div style="position:relative; height:900px; overflow-y:scroll;">
+    <div
+    v-for="data in values"
+    v-bind:key="data">
+    <b-card title="Card title" sub-title="Card subtitle" >
+      <qrcode-vue
+      :value="data" 
+      :size="size" 
+      level="H"></qrcode-vue>
 
-        <qrcode-vue
-        v-for="data in values"
-        v-bind:key="data"
-        :value="data" 
-        :size="size" 
-        level="H">
-        </qrcode-vue>
-        
-    </div>
+      <a href="#" class="card-link">Card link</a>
+      <b-link href="#" class="card-link">Another link</b-link>
+    </b-card>
+    
+  </div>
+    
   </div>
 </template>
 
