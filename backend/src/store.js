@@ -23,7 +23,7 @@ function setstore(req,res){
 function getstore(req,res){
     models.Store.findAll({
         where:{
-            user_id: req.session.user_id
+            store_name: req.session.store_name
         }
     }).then((result) => {
         console.log("find store success.");
