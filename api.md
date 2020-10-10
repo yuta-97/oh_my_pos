@@ -3,14 +3,26 @@
 
 <br>
 
-|URL                 |type      |req                                     |res                             |value                           |예시         |
-|:------------------:|:--------:|:--------------------------------------:|:------------------------------:|:------------------------------:|:-----------|
-|/api/regitst        |post      |id, pw, email                           |json{ result }                  |OK, FAIL                        | {<br>&nbsp;"id":"test",<br>&nbsp;"pw":"pw",<br>&nbsp;"email":"test@test.com"<br>}|
-|/api/login          |post      |id, pw                                  |json{ result }                  |OK, FAIL                        |{<br>&nbsp;"id":"test",<br>&nbsp;"pw":"pw"<br>}|
-|/api/getuser        |post      |id                                      |json{ result, user }            |OK/FAIL, user_data              |{<br>&nbsp;"id":"test"<br>}|
-|/api/setgoods       |post      |goods, price, desc                       |json{ result }                  |OK, FAIL                        |{<br>&nbsp;"goodsname":"sample",<br>&nbsp;"type":"coffee",<br>&nbsp;"price":"1000",<br>&nbsp;"desc":"this is best coffee!"<br>}|
-|/api/getgoods       |post      |goods                                    |json{ result, goods }           |OK/FAIL                         |{<br>&nbsp;"goodsname":"sample"<br>&nbsp;}|
-|/api/setstore       |post      |storename, tablenum, [disname, disrate] |json{ result }                  |OK/FAIL                         |{<br>&nbsp;"storename":"test",<br>&nbsp;"tablenum":"30",<br>&nbsp;"discount":[{<br>&nbsp; "disname":"일반할인",<br>&nbsp;"disrate":"3.3"<br>&nbsp;},{<br>&nbsp;"disname":"vip할인",<br>&nbsp;"disrate":"2.0"<br>&nbsp;}]<br>}|
-|/api/getstore       |post      |storename                               |json{ result, store }           |OK/FAIL, store_data             |{<br>&nbsp;"storename":"test"<br>}|
-|/api/setcategory    |post      |categoryname, [optionname, optionprice] |json{ result, category }        |OK/FAIL, category_data          |{<br>&nbsp;"categoryname":"coffee",<br>&nbsp;"options":[{<br>&nbsp; "optionname":"샷추가",<br>&nbsp;"optionprice":"1000",<br>&nbsp;},{<br>&nbsp;"optionname":"연하게",<br>&nbsp;"optionprice":"0"<br>&nbsp;}]<br>}|
-|/api/getcategory    |post      |categoryname                            |json{ result, category }        |OK/FAIL                         |{<br>&nbsp;"categoryname":"coffee"<br>}|
+|URL                 |type      |req                                                   |res                             |value                           |Exception         |
+|:-------------------|:---------|:-----------------------------------------------------|:-------------------------------|:-------------------------------|:-----------------|
+|/api/regitst        |post      |user_id, user_pw, user_email                          |Bool(true, false)               |true, false                     ||
+|/api/login          |post      |user_id, user_pw                                      |Bool(true, false)               |true, false                     ||
+|/api/logedin        |get       |session.login                                         |Bool(true, false)               |true, false                     ||
+|/api/logout         |get       |session                                               |None, error                     |None, error                     ||
+|/api/setstore       |post      |storename, session                                    |None, error                     |None, error                     ||
+|/api/setstoreSession|post      |storename,tablenum,{ discount: { disname, disrate } } |Bool(true, false)               |true, false                     ||
+|/api/getstorenames  |get       |session.user_id                                       |json{ store_name }              |store_name data                 ||
+|/api/getstore       |get       |session.store_name                                    |json{ store }                   |store data                      ||
+|/api/store          |delete    |category_name                                         |None, error                     |None, error                     ||
+|/api/setcategory    |post      |category_name, option_name, option_price, session     |Bool(true, false)               |true, false                     ||
+|/api/getcategoryname|get       |session                                               |json{ category_name }           |category_name                   ||
+|/api/getcategory    |get       |session                       |json{ category_name, option_name, option_price }|category_name, option_name, option_price||
+|/api/category       |delete    |category_name                                         |None, error                     |None, error                     ||
+|/api/setgoods       |post      |goods_name, price, desc, type, session                |Bool(true, false)               |true, false                     ||
+|/api/getgoodsnames  |get       |session.store_name                                    |json{ goods_name }              |goods_name                      ||
+|/api/getgoods       |get       |session.store_name            |json{ img_url, goods_name, price, desc, category_name }|img_url, goods_name, price, desc, category_name||
+|/api/goods          |delete    |goods_name                                            |None, error                     |None, error                     ||
+|/api/saveimage      |post      |formData                                              |None                            |None                            ||
+|/api/getimage/:imgname|get     |params.imgname                                        |Data                            |Data                            ||
+
+

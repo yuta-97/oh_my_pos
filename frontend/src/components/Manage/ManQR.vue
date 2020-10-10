@@ -9,17 +9,15 @@
     <div
     v-for="(data, index) in values"
     v-bind:key="data">
-    <b-card :title="index+1">
-      <qrcode-vue
-      :id="index+1"
-      :value="data" 
-      :size="size" 
-      level="H"></qrcode-vue>
-    </b-card>
+      <b-card :title="index+1">
+        <qrcode-vue
+        :id="index+1"
+        :value="data" 
+        :size="size" 
+        level="H"></qrcode-vue>
+      </b-card>
+    </div>
   </div>
-</div>
-  
-    
   </div>
 </template>
 
@@ -68,13 +66,11 @@ export default {
         var canvas = document.getElementById((i+1)).getElementsByTagName('canvas');
         var name = (i+1);
         var urltext = canvas[0].toDataURL().toString();
-        // this.saveUrl.push(urltext);
-        this.save(urltext,name);
-        if(i!=0 && i%10==0){
+        if(i%10==0){
           alert("10개단위로 다운로드 됩니다");
         }
+        this.save(urltext,name); 
       }
-      // console.log("saveUrl count : "+this.saveUrl);
     },
   },
   components:{
@@ -88,7 +84,6 @@ export default {
     float: left;
     height: 100%;
     margin: 0 auto;
-    /* display: inline-block; */
     vertical-align: top;
    
   }
