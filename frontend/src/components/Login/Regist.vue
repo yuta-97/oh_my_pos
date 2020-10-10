@@ -1,14 +1,10 @@
 <template>
 <div>
-  <div>
-    <b-img src="https://github.com/Cozy-Ho/oh_my_pos/blob/master/frontend/src/assets/logo.png?raw=true" fluid alt="Responsive image"></b-img>
-  </div>
-  <div>
-      <h2>회원가입</h2>
-  </div>
-  <div>
+  <div class="joinform">
+      <div class = "animate__animated animate__bounce animate__delay-10s">
+        <h1>회원가입</h1>
+      </div>
     <b-form @submit="regist" @reset="onReset">
-
       <b-form-group id="input-group-id" label="ID :" label-for="input-id">
         <b-form-input
           id="input-id"
@@ -38,8 +34,9 @@
           placeholder="Enter your email"
         ></b-form-input>
       </b-form-group>
-      <b-button type="submit" variant="primary">Regist</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" variant="primary">Regist</b-button>  &nbsp;&nbsp;
+      <b-button type="reset" variant="danger">Reset</b-button> 
+      <br>
     </b-form>
   </div>
 </div>
@@ -70,12 +67,15 @@ import axios from 'axios';
           }
         }).then((res) =>{
             console.log(res);
-            //res 처리 코드 추가해야함. 200 일때만 리디렉트하도록
-            this.$router.push('/Login')
+            // 회원가입 성공하면 상위컴포넌트에 로그인 컴포넌트를 표시하도록 이벤트 호출.
+            if(res){
+              this.$emit('regist');
+              alert("가입되었습니다!");
+            }
         }).catch(function(error){
           console.log(error);
-          alert("try again");
-        })
+          alert("이미 존재하는 계정입니다!");
+        });
       },
       onReset(evt) {
         evt.preventDefault()
@@ -87,3 +87,10 @@ import axios from 'axios';
     }
   }
 </script>
+
+<style scoped>
+  .joinform {
+          border: 4px dashed #bcbcbc;
+          padding : 30px;
+        }
+</style>

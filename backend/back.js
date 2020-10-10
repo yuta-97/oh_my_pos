@@ -1,5 +1,4 @@
 var express = require('express');
-const mongoose = require('mongoose');
 
 var app = express();
 const bodyParser = require('body-parser');
@@ -10,17 +9,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
 
-// Vue-router & express 연동을위한 모듈.
-// app.use(require('connect-history-api-fallback')());
 
-// Node.js의 native Promise 사용
-mongoose.Promise = global.Promise;
-
-// CONNECT TO MONGODB SERVER
-mongoose.connect('mongodb://root:passwd@mongo:27017/admin')
-  .then(() => console.log('Successfully connected to mongodb'))
-  .catch(e => console.error(e));
-
+var sequelize = require('./models/index').sequelize;
+var app = express();
+sequelize.sync();
 
 
 //var router = express.Router();

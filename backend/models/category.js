@@ -1,15 +1,23 @@
-const mongoose = require('mongoose');
-
-// Define Schemes
-const categorySchema = new mongoose.Schema({
-  categoryname: { type: String, required: true, unique: true },
-  options: [{
-      optionname: { type: String, required: true},
-      optionprice: { type: String, required: true }
-  }]
-});
-console.log('Category Schema defind...');
-
-
-// Create Model & Export
-module.exports = mongoose.model('Category', categorySchema);
+module.exports =(sequelize, DataTypes) => {
+    const category = sequelize.define('Category', {
+      category_name: {
+        type: DataTypes.STRING(20),
+        allowNull: false,
+      },
+      option_name: {
+          type: DataTypes.STRING(30),
+          allowNull: false
+      },
+      option_price: {
+        type: DataTypes.STRING(20),
+        allowNull: false
+      },
+      store_name: {
+        type: DataTypes.STRING(20),
+        allowNull: false
+      },
+    },{
+        tableName: 'Category',
+    });
+    return category;
+};

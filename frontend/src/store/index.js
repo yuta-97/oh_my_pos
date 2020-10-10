@@ -5,8 +5,13 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    store_name: '',
   },
   mutations: {
+    setStorename (state, name){
+      state.store_name = name;
+    }
+    
   },
   actions: {
   },

@@ -1,6 +1,4 @@
 version: "3"
-volumes:
-  mongo_container_data: {}
 services:
   app:
     build:
@@ -12,21 +10,24 @@ services:
     ports:
       - "5000:8080"
     depends_on:
-      - mongo
+      - mysql
     command:
       - bash
       - -c
       - |
-        /wait-for-it.sh mongo:27017 -t 10
+        /wait-for-it.sh mysql:3307 -t 10
         npm start
 
-  mongo:
-    container_name: mongo
-    image: mongo
-    environment: 
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: passwd
-    volumes:
-      - mongo_container_data:/data/db
+  mysql: # 서비스 명
+    image: mysql:8.0.17 # 사용할 이미지
+    container_name: mysql # 컨테이너 이름 설정
     ports:
-      - '27017:27017' 
+      - "3307:3306" # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+    environment: # -e 옵션
+      MYSQL_ROOT_PASSWORD: "password"  # MYSQL 패스워드 설정 옵션
+      MYSQL_DATABASE: "app"
+    command: # 한글깨짐 방지
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./db:/var/lib/mysql # -v 옵션 (다렉토리 마운트 설정)
