@@ -48,8 +48,8 @@
 
 <script>
 import axios from 'axios';
-import MyModal from '../components/ManCateModal.vue';
-import ManCateList from '../components/ManCateList.vue'
+import MyModal from '../Manage/ManCateModal.vue';
+import ManCateList from '../Manage/ManCateList.vue'
 
   export default {
     components: { 

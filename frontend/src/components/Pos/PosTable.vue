@@ -74,9 +74,6 @@
 
             </table>
           </div>
-
-         
-
         </div>
 
         <div sytle="float: right; width: 50%; margin-right: 50px;">
@@ -120,7 +117,7 @@
 </template>
 
 <script>
-import MyModal from "../components/PosTableOrder.vue";
+import MyModal from "../Pos/PosTableOrder.vue";
 import 'vue-good-table/dist/vue-good-table.css'
 import { VueGoodTable } from 'vue-good-table';
 

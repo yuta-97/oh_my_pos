@@ -7,7 +7,7 @@
 
           <div class="modal-header">
             <slot name="header">
-              <h2> 주 문 </h2>
+              <h2> 상품 등록 </h2>
             </slot>
           </div>
 
@@ -49,8 +49,7 @@
 }
 
 .modal-container {
-  width: 100%;
-  height: 100%;
+  width: 500px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -62,30 +61,16 @@
 
 .modal-header h3 {
   margin-top: 0;
-  height: 10%;
   color: #42b983;
 }
 
 .modal-body {
-  height: 80%;
-}
-
-.modal-footer {
-  height: 10%;
+  margin: 20px 0;
 }
 
 .modal-default-button {
   float: right;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 
 .modal-enter {
   opacity: 0;

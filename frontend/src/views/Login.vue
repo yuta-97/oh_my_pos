@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import Loginform from '../components/Loginform.vue';
-import Regist from '../components/Regist.vue';
+import Loginform from '../components/Login/Loginform.vue';
+import Regist from '../components/Login/Regist.vue';
 
 
   export default {

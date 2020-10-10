@@ -35,10 +35,10 @@
 </template>
 
 <script>
-import ManStore from '../components/ManStore.vue'
-import ManQR from '../components/ManQR.vue'
-import ManGoods from '../components/ManGoods.vue'
-import ManCate from '../components/ManCate.vue'
+import ManStore from '../components/Manage/ManStore.vue'
+import ManQR from '../components/Manage/ManQR.vue'
+import ManGoods from '../components/Manage/ManGoods.vue'
+import ManCate from '../components/Manage/ManCate.vue'
 import axios from 'axios';
 
 

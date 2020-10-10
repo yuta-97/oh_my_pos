@@ -55,8 +55,8 @@
 
 <script>
 import axios from 'axios';
-import MyModal from '../components/ManStoreModal.vue';
-import ManStoreList from '../components/ManStoreList.vue'
+import MyModal from '../Manage/ManStoreModal.vue';
+import ManStoreList from '../Manage/ManStoreList.vue'
   export default {
     components: {
       ManStoreList,

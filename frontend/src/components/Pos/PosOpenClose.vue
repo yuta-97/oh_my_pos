@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import MyModal from '../components/PosOpenModal.vue';
+import MyModal from '../Pos/PosOpenModal.vue';
 
   export default {
      components: {
