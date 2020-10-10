@@ -1,11 +1,26 @@
 <template>
   <div>
-    <qrcode-vue
-    v-for="data in values"
-    v-bind:key="data"
-    :value="data" 
-    :size="size" 
-    level="H"></qrcode-vue>
+    <div class="qr">
+    <vue-good-table
+      @on-selected-rows-change="selectionChanged"
+      :line-numbers="true"
+      :columns="columns"
+      :rows="rows"
+      :select-options="{ 
+        enabled: true,
+      }
+      "
+      :search-options="{ enabled: true }">
+
+        <qrcode-vue
+        v-for="data in values"
+        v-bind:key="data"
+        :value="data" 
+        :size="size" 
+        level="H">
+        </qrcode-vue>
+        
+    </div>
   </div>
 </template>
 
@@ -18,7 +33,7 @@ export default {
     return {
       keyval:0,
       values: [],
-      size: 300,
+      size: 200,
     }
   },
   mounted: function(){
@@ -41,3 +56,14 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  .qr {
+    float: left;
+    height: 100%;
+    margin: 0 auto;
+    /* display: inline-block; */
+    vertical-align: top;
+   
+  }
+</style>
