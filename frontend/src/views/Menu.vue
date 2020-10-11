@@ -1,8 +1,9 @@
 <template>
-    <div class="all">
+    <div>
         <div class = "storeName"> 
             <b> 상호명 </b>
         </div>
+        <!-- <hr class="solid"> 구분선 --> 
 
         <div class = "main-content">
              <b-card no-body>
@@ -15,7 +16,7 @@
                 <b-card-body
                     id="nav-scroller"
                     ref="content"
-                    style="position:relative; height:600px; overflow-y:scroll;"
+                    style="position:relative; height:600px; overflow-y:scroll; width: 100%;"
                     @click="openModal"
                 >
                     <h4 id="cate1">카테1</h4>
@@ -197,18 +198,18 @@ export default {
 
 <style scoped>
     .storeName {
-        float:left; 
-        width:100%; 
-        height:50px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #bcbcbc;
     }
 
     .main-content {
-        clear:left; 
-        float:left; 
-        width: 100%;
-        position:fixed;
-        height:1000px; 
-        overflow-y:scroll;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #bcbcbc;
+        position: fixed;
+        /* overflow-y:scroll; */
+        width: 100%
     }
 
     .cart {
@@ -248,10 +249,7 @@ export default {
         bottom:0px;
     }
 
-    /* .hr{
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        border: 0;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-    } */
+    .hr{
+         border-top: 3px solid #bbb;
+    }
 </style>
