@@ -50,24 +50,18 @@
         </b-form>
       </AddStore>
 
-      <EditStore @close="closeedit" v-if="editmodal">
-        <div>
-         </div> 
-      </EditStore>
-
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import AddStore from '../Manage/ManStoreModal.vue';
-import EditStore from '../Manage/ManStoreEdit.vue';
 import ManStoreList from '../Manage/ManStoreList.vue'
   export default {
     components: {
       ManStoreList,
       AddStore,
-      EditStore
+    
     },
     mounted: function(){
       this.forceReload();
@@ -76,7 +70,6 @@ import ManStoreList from '../Manage/ManStoreList.vue'
     data() {
       return {
         addmodal: false,
-        editmodal: false,
         // component reload key
         reload: 0,
         storename: '',
@@ -100,14 +93,6 @@ import ManStoreList from '../Manage/ManStoreList.vue'
 
       closeadd() {
         this.addmodal = false
-      },
-
-      openedit() {
-        this.editmodal = true
-      },
-
-      closeedit() {
-        this.editmodal = false
       },
 
       onSubmit(evt) {

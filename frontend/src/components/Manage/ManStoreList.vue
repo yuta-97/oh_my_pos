@@ -11,13 +11,20 @@
       :search-options="{ enabled: true }">
       
       <div slot="selected-row-actions">
-        <b-button pill variant="outline-primary" v-if="rowselected.length===1" @click="$emit('openedit')">수정</b-button>
+        <b-button pill variant="outline-primary" v-if="rowselected.length===1" @click="openedit">수정</b-button>
         <b-button pill variant="outline-danger" @click="deleteStore">삭제</b-button>
       </div>
       <div slot="table-actions">
         <b-button pill variant="success" @click="openModal">매장 추가</b-button>
       </div>
-      </vue-good-table>
+    </vue-good-table>
+
+      
+      <EditStore @close="closeedit" v-if="editmodal">
+        <div>
+         </div> 
+      </EditStore>
+
     </div>
 
 
@@ -27,10 +34,12 @@
 import axios from 'axios';
 import 'vue-good-table/dist/vue-good-table.css'
 import { VueGoodTable } from 'vue-good-table';
+import EditStore from '../Manage/ManStoreEdit.vue';
 
 export default {
     components: {
-        VueGoodTable
+        VueGoodTable,
+        EditStore
     },
     mounted: function(){
       // 매장 데이터 받아오기
@@ -51,6 +60,7 @@ export default {
 
     data() {
         return {
+          editmodal: false,
           rowselected:[],
           columns: [
           {
@@ -101,7 +111,15 @@ export default {
       
       openModal() {
         this.$emit('openModal')
-      }
+      },
+
+      openedit() {
+        this.editmodal = true
+      },
+
+      closeedit() {
+        this.editmodal = false
+      },
     }
 
 }
