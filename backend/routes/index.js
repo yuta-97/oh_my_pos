@@ -77,11 +77,19 @@ router.get('/api/getstorenames', (req,res)=>{
 router.get('/api/getstore',(req,res)=>{
   store.getstore(req,res);
 });
+router.get('/api/getstorebyID',(req,res)=>{
+  store.getstorebyID(req,res);
+});
+
+// 매장 정보 업데이트
+router.post('/api/updatestorename',(req,res)=>{
+  store.updatestorename(req,res);
+})
 
 // 매장 삭제
 router.delete('/api/store', (req,res)=>{
   store.deletestore(req,res);
-})
+});
 
 // 카테고리 정보 저장
 router.post('/api/setcategory', (req,res)=>{

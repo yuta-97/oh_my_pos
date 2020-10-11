@@ -34,6 +34,20 @@ function getstore(req,res){
         res.json({error});
     });
 }
+function getstorebyID(req,res){
+    models.Store.findAll({
+        where:{
+            user_id: req.session.user_id
+        }
+    }).then((result) => {
+        console.log("find store by ID success.");
+        var data = JSON.parse(JSON.stringify(result));
+        res.json(data);
+    }).catch(function(error){
+        console.log(error);
+        res.json({error});
+    });
+}
 
 
 function getstorenames(req,res){
@@ -41,7 +55,7 @@ function getstorenames(req,res){
         where:{
             user_id: req.session.user_id
         },
-        attributes: ['store_name']
+        attributes: [models.sequelize.fn('DISTINCT', models.sequelize.col('store_name')), 'store_name']
     }).then((result) => {
         console.log("find storenames success.");
         var data = JSON.parse(JSON.stringify(result));
@@ -51,6 +65,31 @@ function getstorenames(req,res){
         res.json({error});
     });
 }
+
+function updatestorename(req,res){
+    models.Store.update({store_name: req.body.store_name}, {where: {store_name: req.session.store_name}})
+    .then(() => {
+        // res.send(true);
+    })
+    .catch(() => {
+        res.send(false);
+    });
+    models.Category.update({store_name: req.body.store_name}, {where: {store_name: req.session.store_name}})
+    .then(() => {
+        // res.send(true);
+    })
+    .catch(() => {
+        res.send(false);
+    });
+    models.Goods.update({store_name: req.body.store_name}, {where: {store_name: req.session.store_name}})
+    .then(() => {
+        res.send(true);
+    })
+    .catch(() => {
+        res.send(false);
+    });
+}
+
 
 function deletestore(req,res){
     models.Store.destroy({
@@ -93,6 +132,8 @@ function deletestore(req,res){
 module.exports = {
     setstore,
     getstore,
+    getstorebyID,
     getstorenames,
+    updatestorename,
     deletestore,
 }

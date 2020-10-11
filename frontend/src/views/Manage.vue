@@ -126,7 +126,7 @@ import axios from 'axios';
       }).catch(function(error){
         console.log(error);
       });
-      this.store_name = this.store_list[0];
+      this.storename=this.store_list[0];
     },
     methods:{
       logout(){

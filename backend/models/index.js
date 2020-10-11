@@ -33,5 +33,4 @@ db.Store.belongsTo(db.User, {
 
 
 
-
 module.exports = db;

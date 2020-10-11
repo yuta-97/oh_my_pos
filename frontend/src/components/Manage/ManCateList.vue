@@ -11,7 +11,7 @@
       "
       :search-options="{ enabled: true }">
       <div slot="selected-row-actions">
-        <b-button pill variant="outline-primary" v-if="rowselected.length===1">수정</b-button>
+        <b-button pill variant="outline-primary" @click="modCategory" v-if="rowselected.length===1">수정</b-button>
         <b-button pill variant="outline-danger" @click="deleteCategory">삭제</b-button>
       </div>
       <div slot="table-actions">
@@ -109,6 +109,9 @@ export default {
         }).catch(function(error){
           console.log(error);
         });
+      },
+      modCategory(){
+        //
       },
       openModal() {
         this.$emit('openModal')
