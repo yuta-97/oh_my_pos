@@ -66,7 +66,8 @@
               id="checkbox-group-1"
               :options="options"
               name="flavour-1"
-            ></b-form-checkbox-group>
+              stacked
+            ></b-form-checkbox-group><br>
           </b-form-group>
         </div>
 
@@ -265,7 +266,7 @@ export default {
     .m_option {
         float: center;
         width: 100%;
-        height: 50px;
+        height: 250px;
     }
 
     .m_num {
