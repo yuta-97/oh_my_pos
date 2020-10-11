@@ -18,7 +18,7 @@
                 v-bind:key="goods"
                 :id="goods.category_name"
                 >
-                <b-card @click="openModal(goods)"
+                <b-card @click="addopen(goods)"
                 :img-src="goods.img_url"
                 alt="imgs"
                 img-right
@@ -36,11 +36,11 @@
         </div>
 
         <div class="footer">
-                <b-button> 카트 </b-button>
+                <b-button @click="orderopen"> 카트 </b-button>
         </div>
 
    
-      <MyModal @close="closeModal" v-if="modal">
+      <MenuAdd @close="addclose" v-if="addmodal">
         <div class="m_menu">
           <b-card
             :title="this.cur_goodsname"
@@ -78,7 +78,34 @@
           {{ counter }} 개
           <b-button v-on:click="counter += 1">&rsaquo;</b-button>
         </div>
-      </MyModal>
+      </MenuAdd>
+
+      <MenuOrder @close="orderclose" v-if="ordermodal">
+          <div class="o_menu">
+                <b-card-group deck
+                ref="content"
+                style="position: relative; height: 600px; overflow-y: scroll">
+                        <b-card header-tag="header">
+                            <template v-slot:header>
+                                <div style="text-align:left; float: left; width: 50%">
+                                   상품명
+                                </div>
+                                <div style="text-align:right; float: right; width: 50%">
+                                   <button @click="orderclose"> x </button>
+                                </div>
+
+
+                            </template>
+                            <b-card-text> 옵션명 (기본 상품 수량도 필수 배민 참고하셈) <br> 가격 </b-card-text>
+                        </b-card>
+                </b-card-group>
+          </div>
+
+          <div clas="o_order">
+              <b-button block variant="primary"> 55000원 주문하기 </b-button>
+          </div>
+
+      </MenuOrder>
     
 
     </div>
@@ -87,16 +114,19 @@
 
 <script>
 import axios from 'axios';
-import MyModal from "../Menu/MenuAdd.vue";
+import MenuAdd from "../Menu/MenuAdd.vue";
+import MenuOrder from "../Menu/MenuOrder.vue";
 
 export default {
     components: {
-    MyModal,
+    MenuAdd,
+    MenuOrder
   },
 
   data() {
     return {
-      modal: false,
+      addmodal: false,
+      ordermodal: false,
       store_name: null,
       options: [
         { text: "Item 1", value: "first" },
@@ -167,16 +197,24 @@ export default {
     },
 
     methods: {
-        openModal(param) {
-        this.modal = true;
+        addopen(param) {
+        this.addmodal = true;
         this.cur_desc = param.desc;
         this.cur_price = param.price;
         this.cur_url = param.img_url;
         this.cur_goodsname = param.goods_name;
         },
 
-        closeModal() {
-        this.modal = false;
+        addclose() {
+        this.addmodal = false;
+        },
+
+        orderopen() {
+        this.ordermodal = true;
+        },
+
+        orderclose() {
+        this.ordermodal = false;
         },
 
         scrollIntoView(evt) {

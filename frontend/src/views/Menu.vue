@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class = "all">
     <div class="header">
       <h2>{{ $route.params.storename }} Menu</h2>
     </div>
@@ -40,6 +40,13 @@ export default {
         position: fixed;
         /* overflow-y:scroll; */
         width: 100%
+    }
+
+    .all {
+        top: 0;
+        left: 0;
+          width: 100%;
+  height: 100%;
     }
 
 
