@@ -12,22 +12,23 @@
                 id="nav-scroller"
                 ref="content"
                 style="position: relative; height: 600px; overflow-y: scroll"
-                @click="openadd"
                 >
                 <div
                 v-for="goods in goodslist"
                 v-bind:key="goods"
                 :id="goods.category_name"
                 >
-                <b-card>
-                    <div>
-                    <b-img :src="goods.img_url" alt="imgs" height="90px" width="120px" style="float: left;" ></b-img>
-                    </div>
-                    <b-card-text>
-                    {{goods.goods_name}}<br />
-                    {{goods.price}}<br />
-                    {{goods.desc}}<br />
-                    </b-card-text>
+                <b-card @click="openModal(goods)"
+                :img-src="goods.img_url"
+                alt="imgs"
+                img-right
+                img-height="120rem"
+                img-width="150rem"
+                >
+                  <b-card-text>
+                  <h4>{{goods.goods_name}}</h4>
+                  {{goods.price}}<br />
+                  </b-card-text>
                 </b-card>
                 </div>
                 </b-card-body>
@@ -35,27 +36,25 @@
         </div>
 
         <div class="footer">
-                <b-button @click="openorder"> 카트 </b-button>
+                <b-button> 카트 </b-button>
         </div>
 
    
-      <Menuadd @close="closeadd" v-if="addmodal">
+      <MyModal @close="closeModal" v-if="modal">
         <div class="m_menu">
           <b-card
-            title="Card Title"
-            img-src="https://picsum.photos/600/300/?image=25"
+            :title="this.cur_goodsname"
+            :img-src="this.cur_url"
             img-alt="Image"
             img-top
             tag="article"
-            style="max-width: 20rem"
+            style="max-width: 20rem; max-height: 15rem;"
             class="mb-2"
           >
             <b-card-text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              {{this.cur_desc}}<br>
+              {{this.cur_price}}
             </b-card-text>
-
-            <b-card-text> price </b-card-text>
           </b-card>
         </div>
 
@@ -79,34 +78,8 @@
           {{ counter }} 개
           <b-button v-on:click="counter += 1">&rsaquo;</b-button>
         </div>
-      </Menuadd>
+      </MyModal>
     
-      <Menuorder @close="closeorder" v-if="ordermodal">
-          <div class="o_menu">
-                <b-card-group deck
-                ref="content"
-                style="position: relative; height: 600px; overflow-y: scroll">
-                        <b-card header-tag="header">
-                            <template v-slot:header>
-                                <div style="text-align:left; float: left; width: 50%">
-                                   상품명
-                                </div>
-                                <div style="text-align:right; float: right; width: 50%">
-                                   <button @click="closeorder"> x </button>
-                                </div>
-
-
-                            </template>
-                            <b-card-text> 옵션명 (기본 상품 수량도 필수 배민 참고하셈) <br> 가격 </b-card-text>
-                        </b-card>
-                </b-card-group>
-          </div>
-
-          <div clas="o_order">
-              <b-button block variant="primary"> 55000원 주문하기 </b-button>
-          </div>
-
-      </Menuorder>
 
     </div>
     
@@ -114,21 +87,16 @@
 
 <script>
 import axios from 'axios';
-import Menuadd from "../Menu/MenuAdd.vue";
-// import OrderDone from "../Menu/OrderDone.vue";
-import Menuorder from "../Menu/MenuOrder.vue";
+import MyModal from "../Menu/MenuAdd.vue";
 
 export default {
     components: {
-    Menuadd,
-    Menuorder,
- 
+    MyModal,
   },
 
   data() {
     return {
-      addmodal: false,
-      ordermodal: false,
+      modal: false,
       store_name: null,
       options: [
         { text: "Item 1", value: "first" },
@@ -137,9 +105,12 @@ export default {
       counter: 0,
       catelist: [],
       goodslist: [],
+      cur_goodsname:'',
+      cur_url:'',
+      cur_desc:'',
+      cur_price:'',
     };
   },
-
   created(){
     this.store_name= this.$route.params.storename
   },
@@ -196,20 +167,16 @@ export default {
     },
 
     methods: {
-        openadd() {
-        this.addmodal = true;
+        openModal(param) {
+        this.modal = true;
+        this.cur_desc = param.desc;
+        this.cur_price = param.price;
+        this.cur_url = param.img_url;
+        this.cur_goodsname = param.goods_name;
         },
 
-        closeadd() {
-        this.addmodal = false;
-        },
-
-        openorder() {
-        this.ordermodal = true;
-        },
-
-        closeorder() {
-        this.ordermodal = false;
+        closeModal() {
+        this.modal = false;
         },
 
         scrollIntoView(evt) {
@@ -225,7 +192,7 @@ export default {
 </script>
 
 <style scoped>
-    /* 구분선 */
+/* 구분선 */
     .hr{
          border-top: 3px solid #bbb;            
     }
@@ -270,18 +237,5 @@ export default {
         bottom: 0px;
     }
 
-    .o_menu {
-        float: center;
-        width: 100%;
-    }
-
-    .o_order {
-        position: absolute;
-        clear: center;
-        width: 300px;
-        height: 50px;
-        left: 0;
-        bottom: 0px;
-    }
 
 </style>
