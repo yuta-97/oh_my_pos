@@ -27,7 +27,7 @@
                 >
                   <b-card-text>
                   <h4>{{goods.goods_name}}</h4>
-                  {{goods.price}}<br />
+                  {{goods.price}}원<br />
                   </b-card-text>
                 </b-card>
                 </div>
@@ -48,12 +48,12 @@
             img-alt="Image"
             img-top
             tag="article"
-            style="max-width: 20rem; max-height: 15rem;"
+            style="max-width: 20rem; max-height: 30rem;"
             class="mb-2"
           >
             <b-card-text>
               {{this.cur_desc}}<br>
-              {{this.cur_price}}
+              {{this.cur_price + "원"}}
             </b-card-text>
           </b-card>
         </div>
@@ -257,7 +257,9 @@ export default {
 
     .m_menu {
         float: center;
+        clear: center;
         width: 100%;
+        /* height: 300px; */
     }
 
     .m_option {
@@ -268,7 +270,7 @@ export default {
 
     .m_num {
         position: absolute;
-        clear: center;
+        float: center;
         width: 300px;
         height: 50px;
         left: 0;

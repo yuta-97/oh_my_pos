@@ -7,7 +7,7 @@
 
           <div class="modal-header">
             <slot name="header">
-              <h2> 주 문 </h2>
+              <h2> 매장 수정 </h2>
             </slot>
           </div>
 
@@ -49,10 +49,9 @@
 }
 
 .modal-container {
-  width: 100%;
-  height: 100%;
+  width: 500px;
   margin: 0px auto;
-  // padding: 20px 30px;
+  padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
@@ -62,16 +61,11 @@
 
 .modal-header h3 {
   margin-top: 0;
-  height: 10%;
   color: #42b983;
 }
 
 .modal-body {
-  height: 80%;
-}
-
-.modal-footer {
-  height: 10%;
+  margin: 20px 0;
 }
 
 .modal-default-button {

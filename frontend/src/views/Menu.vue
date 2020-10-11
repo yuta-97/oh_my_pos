@@ -30,7 +30,6 @@ export default {
         position: relative;
         padding: 20px;
         margin-bottom: 20px;
-        margin-top: 0px;
         border: 1px solid #bcbcbc;
     }
 
@@ -46,7 +45,7 @@ export default {
         top: 0;
         left: 0;
           width: 100%;
-  height: 100%;
+          height: 100%;
     }
 
 
