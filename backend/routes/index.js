@@ -82,8 +82,8 @@ router.get('/api/getstorebyID',(req,res)=>{
 });
 
 // 매장 정보 업데이트
-router.post('/api/updatestorename',(req,res)=>{
-  store.updatestorename(req,res);
+router.post('/api/updatestore',(req,res)=>{
+  store.updatestore(req,res);
 })
 
 // 매장 삭제

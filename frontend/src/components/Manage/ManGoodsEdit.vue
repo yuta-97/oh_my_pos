@@ -13,15 +13,12 @@
 
           <div class="modal-body">
             <slot name="body">
-              <slot/>
+               <slot/>
             </slot>
           </div>
 
           <div class="modal-footer">
             <slot name="footer">
-              <b-button class="modal-default-button" @click="$emit('close')">
-                닫기
-              </b-button>
             </slot>
           </div>
         </div>

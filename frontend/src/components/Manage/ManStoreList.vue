@@ -21,8 +21,50 @@
 
       
       <EditStore @close="closeedit" v-if="editmodal">
-        <div>
-         </div> 
+        <b-form @submit="onSubmit" @reset="onReset">
+          <b-form-group id="input-group-storename" label="Your Store Name :" label-for="input-1">
+            <b-form-input
+              id="input-1"
+
+              v-model="storename"
+              required
+              :placeholder="this.rowselected[0].store_name"
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group id="input-group-tablenum" label="Table num :" label-for="input-2">
+            <b-form-input
+              id="input-2"
+
+              v-model="tablenum"
+              required
+              :placeholder="this.rowselected[0].table_num"
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group id="input-group-disname" label="할인 종류 : " label-for="input-3">
+            <b-form-input
+              id="input-3"
+
+              v-model="disname"
+              required
+              :placeholder="this.rowselected[0].dis_name"
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group id="input-group-disrate" label="할인 률 : " label-for="input-4">
+            <b-form-input
+              id="input-4"
+
+              v-model="disrate"
+              required
+              :placeholder="this.rowselected[0].dis_rate"
+            ></b-form-input>
+          </b-form-group>
+
+          <b-button type="submit" variant="primary">수정하기</b-button>  &nbsp;&nbsp;
+          <b-button type="reset" variant="danger">Reset</b-button>
+        </b-form>
       </EditStore>
 
     </div>
@@ -82,12 +124,33 @@ export default {
             type: 'number'
           },
         ],
-        
         rows:[],
+        storename: '',
+        tablenum:'',
+        disname:'',
+        disrate:'',
         }
     },
       
     methods: {  
+      onSubmit(){
+        axios({
+          method: 'post',
+          url: '/api/updatestore',
+          data: {
+            store_name: this.storename,
+            table_num: this.tablenum,
+            dis_name: this.disname,
+            dis_rate: this.disrate,
+            cur_dis_name: this.rowselected[0].dis_name,
+            cur_store_name: this.rowselected[0].store_name
+          }
+        }).then((res)=>{
+          console.log(res);
+        }).catch(function(error){
+          console.log(error);
+        })
+      },
       selectionChanged(params) {
           this.rowselected = params.selectedRows;
           console.log(this.rowselected);
@@ -119,6 +182,12 @@ export default {
 
       closeedit() {
         this.editmodal = false
+      },
+      onReset(){
+        this.storename= '';
+        this.tablenum='';
+        this.disname='';
+        this.disrate='';
       },
     }
 

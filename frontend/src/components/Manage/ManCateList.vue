@@ -119,9 +119,6 @@ export default {
           console.log(error);
         });
       },
-      modCategory(){
-        //
-      },
       openModal() {
         this.$emit('openModal')
       },

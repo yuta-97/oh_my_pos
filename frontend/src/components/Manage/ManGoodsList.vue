@@ -32,8 +32,54 @@
       </vue-good-table>
 
       <EditGoods @close="closeedit" v-if="editmodal">
-        <div>
-         </div> 
+        <b-form @submit="onSubmit" @reset="onReset">
+          <b-form-group id="input-group-goodsname" label="Product name :" label-for="input-1">
+            <b-form-input
+              id="input-1"
+              :value="rowselected.goods_name"
+              v-model="goodsname"
+              required
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group id="input-group-goodsimage" label="Goods Image :" label-for="input-2">
+            <b-form-file
+              v-model="uploadData"
+              :state="Boolean(uploadData)"
+              placeholder="Choose a file or drop it here..."
+              drop-placeholder="Drop file here..."
+            ></b-form-file>
+            <div class="mt-3">*** 반드시 업로드 파일 명을 상품 명으로 해 주세요 ***: {{ uploadData ? uploadData.name : '' }}</div>
+          </b-form-group>
+
+          <b-form-group id="input-group-type" label="Category :" label-for="input-3">
+            <b-form-select
+              id="input-3"
+              v-model="type"
+              :options="catelist"
+              required
+            ></b-form-select>
+          </b-form-group>
+
+          <b-form-group id="input-group-price" label="가 격 : " label-for="input-4">
+            <b-form-input
+              id="input-4"
+              :value="rowselected.price"
+              v-model="price"
+              required
+            ></b-form-input>
+          </b-form-group>
+
+          <b-form-group id="input-group-desc" label="설 명 : " label-for="input-5">
+            <b-form-input
+              id="input-5"
+              :value="rowselected.desc"
+              v-model="desc"
+            ></b-form-input>
+          </b-form-group>
+
+          <b-button type="submit" variant="primary">추 가</b-button>  &nbsp;&nbsp;
+          <b-button type="reset" variant="danger">Reset</b-button>
+        </b-form>
       </EditGoods>
 
     </div>
@@ -54,7 +100,6 @@ export default {
    mounted: function(){
       // 상품 데이터 받아오기
       
-      // 이미지 테이블이랑 조인한 결과를 가져오도록 수정할것.
       axios({
         method: 'get',
         url: '/api/getgoods',
