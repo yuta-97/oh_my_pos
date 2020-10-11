@@ -30,6 +30,7 @@ export default {
         position: relative;
         padding: 20px;
         margin-bottom: 20px;
+        top: 0;
         border: 1px solid #bcbcbc;
     }
 

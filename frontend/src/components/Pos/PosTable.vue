@@ -1,7 +1,7 @@
 <!--  포스 테이블  -->
 <template>
   <div>
-    <div styel="float= left;">
+    <div styel="float= left; margin-top: 20px;">
       <b-button squared variant="outline-secondary" @click="openModal">1번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
       <b-button squared variant="outline-secondary" @click="openModal">2번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
       <b-button squared variant="outline-secondary" @click="openModal">3번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
@@ -76,7 +76,7 @@
           </div>
         </div>
 <!-- sytle -->
-        <div style="float: right; width: 50%; margin-right: 50px;">
+        <div style="float: right; width: 50%;">
           <div class="menuselect">
             <span class="badge badge-warning">coffee</span><br>
             <b-button> 치킨<br>18000원</b-button> 

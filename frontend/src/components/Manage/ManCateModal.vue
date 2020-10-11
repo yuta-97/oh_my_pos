@@ -41,6 +41,7 @@
   background-color: rgba(0, 0, 0, .5);
   display: table;
   transition: opacity .3s ease;
+
 }
 
 .modal-wrapper {
@@ -84,6 +85,8 @@
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+  // transition: opacity 0.6s ease 0.4s;
+
 }
 </style>
 
