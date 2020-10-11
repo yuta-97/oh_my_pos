@@ -90,12 +90,9 @@
                             <template v-slot:header>
                                 <div style="text-align:left; float: left; width: 50%">
                                    상품명
-                                   <!-- <button @click="closeorder"> x </button> -->
-                                    <!-- <b-button variant="outline-dark" size="sm" @click="closeorder"> x </b-button> -->
                                 </div>
                                 <div style="text-align:right; float: right; width: 50%">
                                    <button @click="closeorder"> x </button>
-                                    <!-- <b-button variant="outline-dark" size="sm" @click="closeorder"> x </b-button> -->
                                 </div>
 
 
