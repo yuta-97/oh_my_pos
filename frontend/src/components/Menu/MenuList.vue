@@ -12,22 +12,23 @@
                 id="nav-scroller"
                 ref="content"
                 style="position: relative; height: 600px; overflow-y: scroll"
-                @click="openModal"
                 >
                 <div
                 v-for="goods in goodslist"
                 v-bind:key="goods"
                 :id="goods.category_name"
                 >
-                <b-card>
-                    <div>
-                    <b-img :src="goods.img_url" alt="imgs" height="90px" width="120px" style="float: left;" ></b-img>
-                    </div>
-                    <b-card-text>
-                    {{goods.goods_name}}<br />
-                    {{goods.price}}<br />
-                    {{goods.desc}}<br />
-                    </b-card-text>
+                <b-card @click="openModal(goods)"
+                :img-src="goods.img_url"
+                alt="imgs"
+                img-right
+                img-height="120rem"
+                img-width="150rem"
+                >
+                  <b-card-text>
+                  <h4>{{goods.goods_name}}</h4>
+                  {{goods.price}}<br />
+                  </b-card-text>
                 </b-card>
                 </div>
                 </b-card-body>
@@ -42,20 +43,18 @@
       <MyModal @close="closeModal" v-if="modal">
         <div class="m_menu">
           <b-card
-            title="Card Title"
-            img-src="https://picsum.photos/600/300/?image=25"
+            :title="this.cur_goodsname"
+            :img-src="this.cur_url"
             img-alt="Image"
             img-top
             tag="article"
-            style="max-width: 20rem"
+            style="max-width: 20rem; max-height: 15rem;"
             class="mb-2"
           >
             <b-card-text>
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
+              {{this.cur_desc}}<br>
+              {{this.cur_price}}
             </b-card-text>
-
-            <b-card-text> price </b-card-text>
           </b-card>
         </div>
 
@@ -106,6 +105,10 @@ export default {
       counter: 0,
       catelist: [],
       goodslist: [],
+      cur_goodsname:'',
+      cur_url:'',
+      cur_desc:'',
+      cur_price:'',
     };
   },
   created(){
@@ -164,8 +167,12 @@ export default {
     },
 
     methods: {
-        openModal() {
+        openModal(param) {
         this.modal = true;
+        this.cur_desc = param.desc;
+        this.cur_price = param.price;
+        this.cur_url = param.img_url;
+        this.cur_goodsname = param.goods_name;
         },
 
         closeModal() {
