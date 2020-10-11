@@ -1,24 +1,30 @@
 <template>
     <div>
-      <vue-good-table
-      @on-selected-rows-change="selectionChanged"
-      :line-numbers="true"
-      :columns="columns"
-      :rows="rows"
-      :select-options="{ 
-        enabled: true,
-      }
-      "
-      :search-options="{ enabled: true }">
-      <div slot="selected-row-actions">
-        <b-button pill variant="outline-primary" @click="modCategory" v-if="rowselected.length===1">수정</b-button>
-        <b-button pill variant="outline-danger" @click="deleteCategory">삭제</b-button>
+        <vue-good-table
+        @on-selected-rows-change="selectionChanged"
+        :line-numbers="true"
+        :columns="columns"
+        :rows="rows"
+        :select-options="{ 
+          enabled: true,
+        }
+        "
+        :search-options="{ enabled: true }">
+        <div slot="selected-row-actions">
+          <b-button pill variant="outline-primary" v-if="rowselected.length===1" @click="openedit">수정</b-button>
+          <b-button pill variant="outline-danger" @click="deleteCategory">삭제</b-button>
+        </div>
+        <div slot="table-actions">
+          <b-button pill variant="success" @click="openModal">카테고리 추가</b-button>
+        </div>
+        </vue-good-table>
+
+        <EditCate @close="closeedit" v-if="editmodal">
+          <div>
+          </div> 
+        </EditCate>
+
       </div>
-      <div slot="table-actions">
-        <b-button pill variant="success" @click="openModal">카테고리 추가</b-button>
-      </div>
-      </vue-good-table>
-    </div>
 </template>
 
 
@@ -26,10 +32,12 @@
 import axios from 'axios';
 import 'vue-good-table/dist/vue-good-table.css'
 import { VueGoodTable } from 'vue-good-table';
+import EditCate from '../Manage/ManCateEdit.vue';
 
 export default {
     components: {
-        VueGoodTable
+        VueGoodTable,
+        EditCate
     },
     
     mounted: function(){
@@ -50,6 +58,7 @@ export default {
 
     data() {
         return {
+            editmodal: false,
             rowselected:[],
             columns: [
             {
@@ -115,7 +124,16 @@ export default {
       },
       openModal() {
         this.$emit('openModal')
-      }
+      },
+
+      
+      openedit() {
+        this.editmodal = true
+      },
+
+      closeedit() {
+        this.editmodal = false
+      },
     },
 
 }

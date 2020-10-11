@@ -23,13 +23,19 @@
       </template>
 
       <div slot="selected-row-actions">
-        <b-button pill variant="outline-primary" v-if="rowselected.length===1">수정</b-button>
+        <b-button pill variant="outline-primary" v-if="rowselected.length===1" @click="openedit">수정</b-button>
         <b-button pill variant="outline-danger" @click="deleteGoods">삭제</b-button>
       </div>
       <div slot="table-actions">
         <b-button pill variant="success" @click="openModal">상품 추가</b-button>
       </div>
       </vue-good-table>
+
+      <EditGoods @close="closeedit" v-if="editmodal">
+        <div>
+         </div> 
+      </EditGoods>
+
     </div>
 </template>
 
@@ -37,10 +43,12 @@
 import axios from 'axios';
 import 'vue-good-table/dist/vue-good-table.css'
 import { VueGoodTable } from 'vue-good-table';
+import EditGoods from '../Manage/ManGoodsEdit.vue';
 
 export default {
   components: {
     VueGoodTable,
+    EditGoods
   },
   
    mounted: function(){
@@ -66,6 +74,7 @@ export default {
 
   data() {
     return {
+      editmodal: false,
       retval:{},
       rowselected:[],
       columns: [
@@ -120,6 +129,14 @@ export default {
     
     openModal() {
       this.$emit('openModal')
+    },
+
+    openedit() {
+        this.editmodal = true
+    },
+
+    closeedit() {
+        this.editmodal = false
     },
 
   }
