@@ -88,7 +88,6 @@ import axios from 'axios';
         }).catch(function(error){
           console.log(error);
         });
-
       }
     },
     components: {
