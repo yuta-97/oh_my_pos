@@ -3,11 +3,11 @@
       <h2> 매장 등록 페이지 </h2>
 
       <div>
-        <ManStoreList @openModal="openModal" :key="reload"></ManStoreList>
+        <ManStoreList @openModal="openadd" :key="reload" @openedit="openedit"></ManStoreList>
       </div>
 
       <!-- 매장 추가 모달 -->
-      <MyModal @close="closeModal" v-if="modal">
+      <AddStore @close="closeadd" v-if="addmodal">
         <b-form @submit="onSubmit" @reset="onReset">
           <b-form-group id="input-group-storename" label="Your Store Name :" label-for="input-1">
             <b-form-input
@@ -48,19 +48,26 @@
           <b-button type="submit" variant="primary">추가</b-button>  &nbsp;&nbsp;
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
-      </MyModal>
+      </AddStore>
+
+      <EditStore @close="closeedit" v-if="editmodal">
+        <div>
+         </div> 
+      </EditStore>
 
   </div>
 </template>
 
 <script>
 import axios from 'axios';
-import MyModal from '../Manage/ManStoreModal.vue';
+import AddStore from '../Manage/ManStoreModal.vue';
+import EditStore from '../Manage/ManStoreEdit.vue';
 import ManStoreList from '../Manage/ManStoreList.vue'
   export default {
     components: {
       ManStoreList,
-      MyModal
+      AddStore,
+      EditStore
     },
     mounted: function(){
       this.forceReload();
@@ -68,7 +75,8 @@ import ManStoreList from '../Manage/ManStoreList.vue'
     
     data() {
       return {
-        modal: false,
+        addmodal: false,
+        editmodal: false,
         // component reload key
         reload: 0,
         storename: '',
@@ -86,12 +94,20 @@ import ManStoreList from '../Manage/ManStoreList.vue'
     },
 
     methods: {
-      openModal() {
-        this.modal = true
+      openadd() {
+        this.addmodal = true
       },
 
-      closeModal() {
-        this.modal = false
+      closeadd() {
+        this.addmodal = false
+      },
+
+      openedit() {
+        this.editmodal = true
+      },
+
+      closeedit() {
+        this.editmodal = false
       },
 
       onSubmit(evt) {
