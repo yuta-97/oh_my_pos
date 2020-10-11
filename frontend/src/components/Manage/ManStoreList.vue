@@ -34,7 +34,7 @@ export default {
       // 매장 데이터 받아오기
       axios({
         method: 'get',
-        url: '/api/getstore',
+        url: '/api/getstorebyID',
       }).then((res)=>{
         // DB에서 받아온 데이터를 인덱스 갯수만큼 추가, 인덱스 제거
         var s_list=[]
