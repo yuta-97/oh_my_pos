@@ -27,8 +27,9 @@ const routes = [{
         name: 'Pos',
         component: Pos
     },
+    // 동적 라우팅.
     {
-        path: '/Menu',
+        path: '/order/:storename/:num',
         name: 'Menu',
         component: Menu
     }
