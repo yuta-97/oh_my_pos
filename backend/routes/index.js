@@ -109,7 +109,7 @@ router.get('/api/getcategory',(req,res)=>{
 // 카테고리 삭제
 router.delete('/api/category', (req,res)=>{
   cate.deletecategory(req,res);
-})
+});
 
 // 매장정보 세션에 저장
 router.post('/api/setstoreSession', (req,res)=>{
