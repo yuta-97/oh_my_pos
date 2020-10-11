@@ -12,7 +12,7 @@
                 id="nav-scroller"
                 ref="content"
                 style="position: relative; height: 600px; overflow-y: scroll"
-                @click="openModal"
+                @click="openadd"
                 >
                 <div
                 v-for="goods in goodslist"
@@ -35,11 +35,11 @@
         </div>
 
         <div class="footer">
-                <b-button> 카트 </b-button>
+                <b-button @click="openorder"> 카트 </b-button>
         </div>
 
    
-      <MyModal @close="closeModal" v-if="modal">
+      <Menuadd @close="closeadd" v-if="addmodal">
         <div class="m_menu">
           <b-card
             title="Card Title"
@@ -79,8 +79,37 @@
           {{ counter }} 개
           <b-button v-on:click="counter += 1">&rsaquo;</b-button>
         </div>
-      </MyModal>
+      </Menuadd>
     
+      <Menuorder @close="closeorder" v-if="ordermodal">
+          <div class="o_menu">
+                <b-card-group deck
+                ref="content"
+                style="position: relative; height: 600px; overflow-y: scroll">
+                        <b-card header-tag="header">
+                            <template v-slot:header>
+                                <div style="text-align:left; float: left; width: 50%">
+                                   상품명
+                                   <!-- <button @click="closeorder"> x </button> -->
+                                    <!-- <b-button variant="outline-dark" size="sm" @click="closeorder"> x </b-button> -->
+                                </div>
+                                <div style="text-align:right; float: right; width: 50%">
+                                   <button @click="closeorder"> x </button>
+                                    <!-- <b-button variant="outline-dark" size="sm" @click="closeorder"> x </b-button> -->
+                                </div>
+
+
+                            </template>
+                            <b-card-text> 옵션명 (기본 상품 수량도 필수 배민 참고하셈) <br> 가격 </b-card-text>
+                        </b-card>
+                </b-card-group>
+          </div>
+
+          <div clas="o_order">
+              <b-button block variant="primary"> 55000원 주문하기 </b-button>
+          </div>
+
+      </Menuorder>
 
     </div>
     
@@ -88,16 +117,21 @@
 
 <script>
 import axios from 'axios';
-import MyModal from "../Menu/MenuAdd.vue";
+import Menuadd from "../Menu/MenuAdd.vue";
+// import OrderDone from "../Menu/OrderDone.vue";
+import Menuorder from "../Menu/MenuOrder.vue";
 
 export default {
     components: {
-    MyModal,
+    Menuadd,
+    Menuorder,
+ 
   },
 
   data() {
     return {
-      modal: false,
+      addmodal: false,
+      ordermodal: false,
       store_name: null,
       options: [
         { text: "Item 1", value: "first" },
@@ -108,6 +142,7 @@ export default {
       goodslist: [],
     };
   },
+
   created(){
     this.store_name= this.$route.params.storename
   },
@@ -164,12 +199,20 @@ export default {
     },
 
     methods: {
-        openModal() {
-        this.modal = true;
+        openadd() {
+        this.addmodal = true;
         },
 
-        closeModal() {
-        this.modal = false;
+        closeadd() {
+        this.addmodal = false;
+        },
+
+        openorder() {
+        this.ordermodal = true;
+        },
+
+        closeorder() {
+        this.ordermodal = false;
         },
 
         scrollIntoView(evt) {
@@ -185,7 +228,7 @@ export default {
 </script>
 
 <style scoped>
-/* 구분선 */
+    /* 구분선 */
     .hr{
          border-top: 3px solid #bbb;            
     }
@@ -230,5 +273,18 @@ export default {
         bottom: 0px;
     }
 
+    .o_menu {
+        float: center;
+        width: 100%;
+    }
+
+    .o_order {
+        position: absolute;
+        clear: center;
+        width: 300px;
+        height: 50px;
+        left: 0;
+        bottom: 0px;
+    }
 
 </style>

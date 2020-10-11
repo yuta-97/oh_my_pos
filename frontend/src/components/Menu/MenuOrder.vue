@@ -5,13 +5,14 @@
       <div class="modal-wrapper">
         <div class="modal-container">
 
-          <!-- <div class="modal-header">
+          <div class="modal-header">
             <slot name="header">
              <b-button class="modal-default-button" @click="$emit('close')">
                 뒤로
               </b-button> 
+              주 문 내 역
             </slot>
-          </div> -->
+          </div>
 
           <div class="modal-body">
             <slot name="body">
@@ -19,12 +20,12 @@
             </slot>
           </div>
 
-          <div class="modal-footer">
+          <!-- <div class="modal-footer">
             <slot name="footer">
               <b-button>주 문</b-button>
               <b-button @click="$emit('close')">취 소</b-button>
             </slot>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -61,11 +62,11 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 
-// .modal-header h3 {
-//   margin-top: 0;
-//   height: 10%;
-//   color: #42b983;
-// }
+.modal-header h3 {
+  margin-top: 0;
+  height: 10%;
+  color: #42b983;
+}
 
 .modal-body {
   height: 90%;

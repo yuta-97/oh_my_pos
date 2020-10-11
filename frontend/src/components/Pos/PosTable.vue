@@ -75,8 +75,8 @@
             </table>
           </div>
         </div>
-
-        <div sytle="float: right; width: 50%; margin-right: 50px;">
+<!-- sytle -->
+        <div style="float: right; width: 50%; margin-right: 50px;">
           <div class="menuselect">
             <span class="badge badge-warning">coffee</span><br>
             <b-button> 치킨<br>18000원</b-button> 
