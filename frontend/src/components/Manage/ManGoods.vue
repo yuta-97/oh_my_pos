@@ -171,7 +171,6 @@ import ManGoodsList from '../Manage/ManGoodsList.vue'
         // save image API
         var frmdata = new FormData();
         frmdata.append('image', this.uploadData);
-        frmdata.append('goods_name', this.goodsname);
         axios({
           method:'post',
           url:'/api/saveimage',

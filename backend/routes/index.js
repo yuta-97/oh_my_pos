@@ -106,6 +106,10 @@ router.get('/api/getcategory',(req,res)=>{
   cate.getcategory(req,res);
 });
 
+router.post('/api/updatecategory',(req,res)=>{
+  cate.updatecategory(req,res);
+})
+
 // 카테고리 삭제
 router.delete('/api/category', (req,res)=>{
   cate.deletecategory(req,res);
@@ -133,6 +137,11 @@ router.get('/api/getgoodsnames',(req,res)=>{
 router.get('/api/getgoods', (req,res)=>{
   goods.getgoods(req,res);
 });
+
+// 상품 업데이트
+router.post('/api/updategoods',(req,res)=>{
+  goods.updategoods(req,res);
+})
 
 // 상품 삭제
 router.delete('/api/goods', (req,res)=>{

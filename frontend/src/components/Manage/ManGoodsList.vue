@@ -36,17 +36,16 @@
           <b-form-group id="input-group-goodsname" label="Product name :" label-for="input-1">
             <b-form-input
               id="input-1"
-              :value="rowselected.goods_name"
               v-model="goodsname"
               required
+              :placeholder="this.rowselected[0].goods_name"
             ></b-form-input>
           </b-form-group>
           <b-form-group id="input-group-goodsimage" label="Goods Image :" label-for="input-2">
             <b-form-file
               v-model="uploadData"
               :state="Boolean(uploadData)"
-              placeholder="Choose a file or drop it here..."
-              drop-placeholder="Drop file here..."
+              :placeholder="this.rowselected[0].goods_name"
             ></b-form-file>
             <div class="mt-3">*** 반드시 업로드 파일 명을 상품 명으로 해 주세요 ***: {{ uploadData ? uploadData.name : '' }}</div>
           </b-form-group>
@@ -57,27 +56,28 @@
               v-model="type"
               :options="catelist"
               required
+              :placeholder="this.rowselected[0].category_name"
             ></b-form-select>
           </b-form-group>
 
           <b-form-group id="input-group-price" label="가 격 : " label-for="input-4">
             <b-form-input
               id="input-4"
-              :value="rowselected.price"
               v-model="price"
               required
+              :placeholder="this.rowselected[0].price"
             ></b-form-input>
           </b-form-group>
 
           <b-form-group id="input-group-desc" label="설 명 : " label-for="input-5">
             <b-form-input
               id="input-5"
-              :value="rowselected.desc"
               v-model="desc"
+              :placeholder="this.rowselected[0].desc"
             ></b-form-input>
           </b-form-group>
 
-          <b-button type="submit" variant="primary">추 가</b-button>  &nbsp;&nbsp;
+          <b-button type="submit" variant="primary">수정하기</b-button>  &nbsp;&nbsp;
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
       </EditGoods>
@@ -110,7 +110,6 @@ export default {
           s_list.push(res.data[i]);
         }
         this.rows=s_list;
-        // console.log(this.rows[0].goods_name);
       }).catch(function(error){
         console.log(error);
       });
@@ -120,7 +119,6 @@ export default {
   data() {
     return {
       editmodal: false,
-      retval:{},
       rowselected:[],
       columns: [
       {
@@ -145,32 +143,103 @@ export default {
         field: 'category_name',
       },
     ],
-    
     rows:[],
+    uploadData:null,
+    store_name: this.storename,
+    goodsname: "",
+    type: null,
+    price: '',
+    desc: '',
+    catelist:[{text: '카테고리 선택', value: null}],
+    }
+  },
+  watch:{
+    editmodal: function(){
+      axios({
+          method: 'get',
+          url: '/api/getcategoryname',
+        }).then((res)=>{
+          console.log(res.data);
+          var s_list=[];
+          for( var i=0;i<res.data.length; i++){
+            s_list.push(res.data[i].category_name)
+          }
+          this.catelist=s_list;
+        }).catch(function(error){
+          console.log(error);
+        });
     }
   },
 
   methods: {
     selectionChanged(params) {
-          this.rowselected = params.selectedRows;
-          console.log(this.rowselected);
-      },
+      this.rowselected = params.selectedRows;
+      console.log(this.rowselected);
+    },
     deleteGoods(){
-      var s_list=[];
-      for( var i=0;i<this.rowselected.length; i++){
-        s_list.push(this.rowselected[i].goods_name);
+      if(confirm("총 "+this.rowselected.length+" 개의 상품이 삭제됩니다!!\n삭제 하시겠습니까?")==true){
+        var s_list=[];
+        for( var i=0;i<this.rowselected.length; i++){
+          s_list.push(this.rowselected[i].goods_name);
+        }
+        axios({
+          method: 'delete',
+          url: '/api/goods',
+          data: {goods_names: s_list}
+        }).then((res)=>{
+          if(res.data){
+            alert("삭제되었습니다.");
+          }
+        }).catch(function(error){
+          console.log(error);
+          alert("삭제 실패.");
+        });
       }
+    },
+    onSubmit(){
+      // image upload
+      var frmdata = new FormData();
+      frmdata.append('image', this.uploadData);
+      frmdata.append('goods_name', this.goodsname);
       axios({
-        method: 'delete',
-        url: '/api/goods',
-        data: {goods_names: s_list}
+        method:'post',
+        url:'/api/saveimage',
+        data: frmdata
       }).then((res)=>{
-        console.log(res.data);
-        
+        if(res.data){
+          console.log('saved image!');
+        }
       }).catch(function(error){
         console.log(error);
       });
+      // update goods.
+      axios({
+        method: 'post',
+        url: '/api/updategoods',
+        data:{
+          goods_name: this.goodsname,
+          category_name: this.type,
+          price: this.price,
+          desc: this.desc,
+          img_url: 'http://localhost:5000/api/getimage/'+this.uploadData.name
+        }
+      }).then((res)=>{
+        console.log(res);
+        alert("상품정보가 업데이트 되었습니다.");
+      }).catch(function(error){
+        console.log(error);
+        alert("실패!! 다시 시도하세요.");
+      });
+      
     },
+    onReset(){
+      this.store_name='';
+      this.category_name='';
+      this.price='';
+      this.desc='';
+      this.img_url='';
+    },
+    
     
     openModal() {
       this.$emit('openModal')

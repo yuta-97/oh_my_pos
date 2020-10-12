@@ -156,20 +156,26 @@ export default {
           console.log(this.rowselected);
       },
       deleteStore(){
-        var s_list=[];
-        for( var i=0;i<this.rowselected.length; i++){
-          s_list.push(this.rowselected[i].store_name);
+        if(confirm("총 "+this.rowselected.length+" 개 의 매장이 삭제됩니다!!\n삭제 하시겠습니까?") == true){
+          var s_list=[];
+          for( var i=0;i<this.rowselected.length; i++){
+            s_list.push(this.rowselected[i].store_name);
+          }
+          axios({
+            method: 'delete',
+            url: '/api/store',
+            data: {store_name: s_list}
+          }).then((res)=>{
+            console.log(res.data);
+            if(res.data){
+              alert("삭제 되었습니다.");
+            }
+          }).catch(function(error){
+            console.log(error);
+            alert("삭제 실패");
+          });
         }
-        axios({
-          method: 'delete',
-          url: '/api/store',
-          data: {store_name: s_list}
-        }).then((res)=>{
-          console.log(res.data);
-          
-        }).catch(function(error){
-          console.log(error);
-        });
+        
       },
       
       openModal() {

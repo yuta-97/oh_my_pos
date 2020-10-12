@@ -81,7 +81,7 @@ import ManStoreList from '../Manage/ManStoreList.vue'
       }
     },
     watch:{
-      modal: function(){
+      addmodal: function(){
         this.forceReload();
       }
     },

@@ -110,10 +110,10 @@ function updatestore(req,res){
 function deletestore(req,res){
     models.Store.destroy({
         where:{
-            category_name: req.body.category_name
+            store_name: req.body.store_name
         },
     }).then(()=>{
-        console.log("delete categorys.");
+        console.log("delete stores.");
     }).catch(function(error){
         console.log(error);
         res.json({error});
@@ -121,7 +121,7 @@ function deletestore(req,res){
 
     models.Category.destroy({
         where:{
-            category_name: req.body.category_name
+            store_name: req.body.store_name
         },
     }).then(()=>{
         console.log("delete Category cascade..");
@@ -132,14 +132,14 @@ function deletestore(req,res){
 
     models.Goods.destroy({
         where:{
-            category_name: req.body.category_name
+            store_name: req.body.store_name
         },
     }).then((result)=>{
         console.log("delete Goods cascade...");
-        res.json(result);
+        res.send(true);
     }).catch(function(error){
         console.log(error);
-        res.json({error});
+        res.send(false);
     });
 
 }
