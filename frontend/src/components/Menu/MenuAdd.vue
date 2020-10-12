@@ -1,10 +1,9 @@
 <template>
-<!-- 출처 : https://kr.vuejs.org/v2/examples/modal.html -->
-    <transition name="modal">
+  <!-- 출처 : https://kr.vuejs.org/v2/examples/modal.html -->
+  <transition name="modal">
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-
           <!-- <div class="modal-header">
             <slot name="header">
              <b-button class="modal-default-button" @click="$emit('close')">
@@ -15,7 +14,7 @@
 
           <div class="modal-body">
             <slot name="body">
-              <slot/>
+              <slot />
             </slot>
           </div>
 
@@ -39,9 +38,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -56,8 +55,8 @@
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
 }
 

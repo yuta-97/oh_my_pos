@@ -9,7 +9,7 @@ module.exports =(sequelize, DataTypes) => {
         allowNull: false
       },
       desc: {
-        type: DataTypes.STRING(30),
+        type: DataTypes.STRING(300),
         allowNull: false
       },
       category_name: {
