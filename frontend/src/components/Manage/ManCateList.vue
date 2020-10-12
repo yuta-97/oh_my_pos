@@ -189,7 +189,13 @@ export default {
       console.log(this.rowselected);
     },
     deleteCategory() {
-      if( confirm("총 "+this.rowselected.length+" 개의 카테고리가 삭제됩니다!!\n삭제 하시겠습니까?")==true){
+      if (
+        confirm(
+          "총 " +
+            this.rowselected.length +
+            " 개의 카테고리가 삭제됩니다!!\n삭제 하시겠습니까?"
+        ) == true
+      ) {
         var s_list = [];
         for (var i = 0; i < this.rowselected.length; i++) {
           s_list.push(this.rowselected[i].category_name);
@@ -198,15 +204,17 @@ export default {
           method: "delete",
           url: "/api/category",
           data: { category_name: s_list },
-        }).then((res) => {
-          console.log(res.data);
-          if(res.data){
-            alert("삭제 되었습니다.");
-          }
-        }).catch(function (error) {
-          console.log(error);
-          alert("삭제 실패");
-        });
+        })
+          .then((res) => {
+            console.log(res.data);
+            if (res.data) {
+              alert("삭제 되었습니다.");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+            alert("삭제 실패");
+          });
       }
     },
     openModal() {

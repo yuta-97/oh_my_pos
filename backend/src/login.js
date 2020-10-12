@@ -1,54 +1,54 @@
 const models = require('../models');
- 
-function login(req,res){
-    if(!req.session.login){
+
+function login(req, res) {
+    if (!req.session.login) {
         models.User.findOne({
-          where: {user_id: req.body.id}
+            where: { user_id: req.body.id }
         })
-          .then(function(user){
-              if(user==null || user.dataValues.user_pw!=req.body.pw){
-                  req.session.login = false;
-                  res.status(500).send(false);
-                  console.log('로그인 실패');
-              } 
-              else{
-                  req.session.user_id = user.dataValues.user_id;
-                  req.session.login = true;
-                  req.session.save();
-                  res.status(200).send(true);
-                  console.log('로그인 성공');
-              }
-          }).catch(function(error){
-              console.log(error);
-          });
+            .then(function (user) {
+                if (user == null || user.dataValues.user_pw != req.body.pw) {
+                    req.session.login = false;
+                    res.status(500).send(false);
+                    console.log('로그인 실패');
+                }
+                else {
+                    req.session.user_id = user.dataValues.user_id;
+                    req.session.login = true;
+                    req.session.save();
+                    res.status(200).send(true);
+                    console.log('로그인 성공');
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
         console.log('session_setted');
     }
 }
 
-function regist(req,res){
+function regist(req, res) {
     console.log('regist rerquest!!');
     models.User.create({
-      user_id: req.body.id,
-      user_pw: req.body.pw,
-      user_email: req.body.email
-    }).then(() =>{
-        res.status(200).json({result: 'OK'});
-    }).catch(function(error){
+        user_id: req.body.id,
+        user_pw: req.body.pw,
+        user_email: req.body.email
+    }).then(() => {
+        res.status(200).json({ result: 'OK' });
+    }).catch(function (error) {
         console.log(error);
-        res.status(500).json({error});
+        res.status(500).json({ error });
     });
 }
 
-function islogin(req,res){
-    if(req.session == null || !req.session.login){
+function islogin(req, res) {
+    if (req.session == null || !req.session.login) {
         // 로그인 안됨
         res.send(false);
-      }else{
+    } else {
         // 로그인 되어있음
         res.send(true);
-      }
+    }
 }
- 
+
 module.exports = {
     login,
     islogin,
