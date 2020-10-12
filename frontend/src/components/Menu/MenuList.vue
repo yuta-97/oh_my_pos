@@ -41,12 +41,15 @@
 
    
       <MenuAdd @close="addclose" v-if="addmodal">
+       <div class = "menuadd"> 
         <div class="m_menu">
           <b-card
             :title="this.cur_goodsname"
             :img-src="this.cur_url"
             img-alt="Image"
             img-top
+            img-height="200rem"
+            img-width="200rem"
             tag="article"
             style="max-width: 20rem; max-height: 30rem;"
             class="mb-2"
@@ -71,7 +74,7 @@
           </b-form-group>
         </div>
 
-        <hr />
+        <!-- <hr /> -->
 
         <div class="m_num">
           수 량
@@ -79,6 +82,7 @@
           {{ counter }} 개
           <b-button v-on:click="counter += 1">&rsaquo;</b-button>
         </div>
+       </div> 
       </MenuAdd>
 
       <MenuOrder @close="orderclose" v-if="ordermodal">
@@ -256,24 +260,31 @@ export default {
         bottom: 0px;
     }
 
+    .menuadd{
+        position: sticky;
+        width: 100%;
+        height: 100%;
+        display: table;
+    }
+
     .m_menu {
         float: center;
-        clear: center;
         width: 100%;
+        height: 50%;
         /* height: 300px; */
     }
 
     .m_option {
         float: center;
         width: 100%;
-        height: 250px;
+        height: 50%;
     }
 
     .m_num {
-        position: absolute;
+        position: fixed;
         float: center;
-        width: 300px;
-        height: 50px;
+        width: 100%;
+        height: 20%;
         left: 0;
         bottom: 0px;
     }
