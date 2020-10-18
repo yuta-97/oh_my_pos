@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="m_menu">
     <div class="main" :key="reload">
       <b-card no-body :title="cate">
         <b-card-body
@@ -39,7 +39,7 @@
     </div>
 
     <MenuAdd @close="addclose" v-if="addmodal">
-      <div class="menuadd">
+      <div>
         <div class="m_menu">
           <b-card
             :title="this.cur_goodsname"
@@ -61,15 +61,15 @@
 
         <!-- 리스트 처럼 할꺼 -->
         <div class="m_option">
-          <b-form-group label="옵 션">
-            <b-form-checkbox
+          <b-form-checkbox-group
+              v-model="selected"
               id="checkbox-group-1"
               :options="options"
-              name="flavour-1"
+              value-field="option_price"
+              text-field="option_name"
               stacked
-            ></b-form-checkbox
+            ></b-form-checkbox-group
             ><br />
-          </b-form-group>
         </div>
 
         <!-- <hr /> -->
@@ -79,6 +79,10 @@
           <b-button v-on:click="counter -= 1">&lsaquo;</b-button>
           {{ counter }} 개
           <b-button v-on:click="counter += 1">&rsaquo;</b-button>
+        </div>
+        <div>
+          가 격
+          {{price}}
         </div>
       </div>
     </MenuAdd>
@@ -130,10 +134,8 @@ export default {
       addmodal: false,
       ordermodal: false,
       storename: "",
-      options: [
-        { text: "Item 1", value: "first" },
-        { text: "Item 2", value: "second" },
-      ],
+      options: [],
+      selected: [],
       counter: 1,
       catelist: [],
       goodslist: [],
@@ -142,6 +144,7 @@ export default {
       cur_desc: "",
       cur_price: "",
       reload: 0,
+      price: 0,
     };
   },
   created() {
@@ -170,6 +173,16 @@ export default {
     storename: function () {
       this.reload += 1;
     },
+    selected: function(){
+      this.price=parseInt(this.cur_price);
+      for(var i=0;i<this.selected.length;i++){
+        this.price+=parseInt(this.selected[i]);
+      }
+      
+    },
+    cur_price: function(){
+      this.price=parseInt(this.cur_price);
+    }
   },
 
   mounted: function () {
@@ -220,6 +233,20 @@ export default {
       this.cur_price = param.price;
       this.cur_url = param.img_url;
       this.cur_goodsname = param.goods_name;
+      axios({
+        method: "post",
+        url: "/api/getoptions",
+        data: {category_name: param.category_name}
+      }).then((res)=>{
+        var s_list=[];
+        for (var i=0;i<res.data.length;i++){
+          s_list.push(res.data[i]);
+        }
+        this.options=s_list;
+        console.log(this.options);
+      }).catch(function(error){
+        console.log(error);
+      });
     },
 
     addclose() {
@@ -287,7 +314,6 @@ export default {
 }
 
 .m_option {
-  float: center;
   width: 100%;
   height: 50%;
 }

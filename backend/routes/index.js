@@ -108,6 +108,9 @@ router.get('/api/getcategoryname', (req, res) => {
 router.get('/api/getcategory', (req, res) => {
   cate.getcategory(req, res);
 });
+router.post('/api/getoptions', (req, res) => {
+  cate.getoptions(req, res);
+});
 
 //카테고리 정보 수정
 router.post('/api/updatecategory', (req, res) => {

@@ -50,34 +50,33 @@ function getcategoryname(req, res) {
 }
 
 function getcategory(req, res) {
-    if(!req.body.store_name){
-        models.Category.findAll({
-            where: {
-                store_name: req.session.store_name,
-            },
-            attributes: ['category_name', 'option_name', 'option_price']
-        }).then((result) => {
-            var data = JSON.parse(JSON.stringify(result));
-            res.status(200).json(data);
-        }).catch(function (error) {
-            console.log(error);
-            res.status(500).json({ error });
-        });
-    }else{
-        models.Category.findAll({
-            where: {
-                store_name: req.body.store_name,
-            },
-            attributes: ['category_name', 'option_name', 'option_price']
-        }).then((result) => {
-            var data = JSON.parse(JSON.stringify(result));
-            res.status(200).json(data);
-        }).catch(function (error) {
-            console.log(error);
-            res.status(500).json({ error });
-        });
-    }
-    
+    models.Category.findAll({
+        where: {
+            store_name: req.session.store_name,
+        },
+        attributes: ['category_name', 'option_name', 'option_price']
+    }).then((result) => {
+        var data = JSON.parse(JSON.stringify(result));
+        res.status(200).json(data);
+    }).catch(function (error) {
+        console.log(error);
+        res.status(500).json({ error });
+    });
+}
+
+function getoptions(req,res){
+    models.Category.findAll({
+        where: {
+            category_name: req.body.category_name,
+        },
+        attributes: ['option_name', 'option_price']
+    }).then((result) => {
+        var data = JSON.parse(JSON.stringify(result));
+        res.status(200).json(data);
+    }).catch(function (error) {
+        console.log(error);
+        res.status(500).json({ error });
+    });
 }
 
 function deletecategory(req, res) {
@@ -144,4 +143,5 @@ module.exports = {
     getcategoryname,
     deletecategory,
     updatecategory,
+    getoptions,
 }
