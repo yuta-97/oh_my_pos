@@ -11,7 +11,7 @@ lerna-debug.log*
 backend/public/*
 backend/db
 backend/sessions
-backend/uploads/*
+backend/uploads/goods/*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

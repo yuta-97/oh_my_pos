@@ -97,6 +97,9 @@ router.post('/api/setcategory', (req, res) => {
 });
 
 // 카테고리 이름 전송
+router.post('/api/getcategoryname', (req, res) => {
+  cate.getcategoryname(req, res);
+});
 router.get('/api/getcategoryname', (req, res) => {
   cate.getcategoryname(req, res);
 });
@@ -105,7 +108,11 @@ router.get('/api/getcategoryname', (req, res) => {
 router.get('/api/getcategory', (req, res) => {
   cate.getcategory(req, res);
 });
+router.post('/api/getoptions', (req, res) => {
+  cate.getoptions(req, res);
+});
 
+//카테고리 정보 수정
 router.post('/api/updatecategory', (req, res) => {
   cate.updatecategory(req, res);
 })
@@ -135,6 +142,9 @@ router.get('/api/getgoodsnames', (req, res) => {
 
 // 상품 데이터 전송
 router.get('/api/getgoods', (req, res) => {
+  goods.getgoods(req, res);
+});
+router.post('/api/getgoods', (req, res) => {
   goods.getgoods(req, res);
 });
 

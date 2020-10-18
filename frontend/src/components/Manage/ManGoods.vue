@@ -188,6 +188,7 @@ export default {
       })
         .then((res) => {
           console.log(res);
+          alert("추가 되었습니다.");
         })
         .catch(function (error) {
           console.log(error);
