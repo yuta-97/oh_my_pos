@@ -34,11 +34,11 @@
       </b-card>
     </div>
 
-    <div class="footer">
-      <b-button @click="orderopen"> 카트 </b-button>
+    <div class="cart">
+      <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="orderopen"></b-icon>
     </div>
 
-    <MenuAdd @close1="addclose" v-if="addmodal">
+    <MenuAdd @close="addclose" @add="additem" v-if="addmodal">
       <div>
         <div class="m_menu">
           <b-card
@@ -59,20 +59,15 @@
           </b-card>
         </div>
 
-        <!-- 리스트 처럼 할꺼 -->
+
         <div class="m_option">
           <b-form-checkbox-group
               v-model="selected"
-              id="checkbox-group-1"
               :options="options"
-              value-field="option_price"
-              text-field="option_name"
               stacked
             ></b-form-checkbox-group
             ><br />
         </div>
-
-        <!-- <hr /> -->
 
         <div class="m_num">
           수 량
@@ -84,35 +79,36 @@
           가 격
           {{price}}
         </div>
+        <div class="fixed">
+          <b-button block variant="primary" @click="additem">{{counter}}개 담기</b-button>
+        </div>
       </div>
     </MenuAdd>
 
     <MenuOrder @close="orderclose" v-if="ordermodal">
       <div class="o_menu">
-        <b-card-group
-          deck
-          ref="content"
-          style="position: relative; height: 600px; overflow-y: scroll"
-        >
-          <b-card header-tag="header">
-            <template v-slot:header>
-              <div style="text-align: left; float: left; width: 50%">
-                상품명
-              </div>
-              <div style="text-align: right; float: right; width: 50%">
-                <button @click="orderclose">x</button>
+        <div
+            v-for="item in cart"
+            v-bind:key="item"
+          >
+          <b-card>
+            <template>
+              <div style="text-align: right; float: right; width: 100%">
+                <b-icon icon="x-circle" scale="2" variant="danger" @click="delorder(item)"></b-icon>
               </div>
             </template>
-            <b-card-text>
-              옵션명 (기본 상품 수량도 필수 배민 참고하셈) <br />
-              가격
-            </b-card-text>
+            <span>{{item.goods_name}}({{item.price}}원) X {{item.count}} 개</span>
+            <div v-for="option in item.options" v-bind:key="option">
+              <b-card-text>
+                <li>{{option.option_name}} : {{option.option_price}} 원</li>
+              </b-card-text>
+            </div>
+              
           </b-card>
-        </b-card-group>
+        </div>
       </div>
-
-      <div clas="o_order">
-        <b-button block variant="primary"> 55000원 주문하기 </b-button>
+      <div class="fixed">
+        <b-button block variant="primary" @click="order"> {{totprice}}주문하기 </b-button>
       </div>
     </MenuOrder>
   </div>
@@ -134,6 +130,7 @@ export default {
       addmodal: false,
       ordermodal: false,
       storename: "",
+      tablenum: "",
       options: [],
       selected: [],
       counter: 1,
@@ -144,13 +141,14 @@ export default {
       cur_desc: "",
       cur_price: "",
       reload: 0,
+      cart:[],
       price: 0,
+      totprice:0,
     };
   },
   created() {
     this.storename = this.$route.params.storename;
-
-    console.log(this.storename);
+    this.tablenum = this.$route.params.num;
     axios({
       method: "post",
       url: "/api/setstoreSession",
@@ -169,20 +167,27 @@ export default {
       if (this.counter < 1) {
         this.counter = 1;
       }
+      this.price=parseInt(this.cur_price)*this.counter;
+      for(var i=0;i<this.selected.length;i++){
+        this.price+=parseInt(this.selected[i].option_price)*this.counter;
+      }
     },
     storename: function () {
       this.reload += 1;
     },
     selected: function(){
-      this.price=parseInt(this.cur_price);
+      this.price=parseInt(this.cur_price)*this.counter;
       for(var i=0;i<this.selected.length;i++){
-        this.price+=parseInt(this.selected[i]);
+        this.price+=parseInt(this.selected[i].option_price)*this.counter;
       }
       
     },
     cur_price: function(){
       this.price=parseInt(this.cur_price);
-    }
+    },
+    ordermodal: function(){
+      //this.totprice=
+    },
   },
 
   mounted: function () {
@@ -227,6 +232,34 @@ export default {
   },
 
   methods: {
+    order(){
+      //
+    },
+    delorder(item){
+      if(confirm("주문을 취소합니다")){
+        const index = this.cart.indexOf(item);
+        if (index > -1) {
+          this.cart.splice(index, 1);
+        }
+        this.totprice-=item.price;
+      }
+    },
+    additem(){
+      //
+      var data = {
+        goods_name: this.cur_goodsname,
+        price: this.cur_price,
+        count: this.counter,
+        options: this.selected
+      }
+      this.cart.push(data);
+      console.log(this.cart);
+      this.totprice+=parseInt(this.price);
+      this.selected=[];
+      this.price=0;
+      this.counter=1;
+      this.addmodal = false;
+    },
     addopen(param) {
       this.addmodal = true;
       this.cur_desc = param.desc;
@@ -240,7 +273,13 @@ export default {
       }).then((res)=>{
         var s_list=[];
         for (var i=0;i<res.data.length;i++){
-          s_list.push(res.data[i]);
+          s_list.push({
+            text: res.data[i].option_name, 
+            value:{
+              option_name: res.data[i].option_name,
+              option_price: res.data[i].option_price
+              }
+            });
         }
         this.options=s_list;
         console.log(this.options);
@@ -251,6 +290,9 @@ export default {
 
     addclose() {
       this.addmodal = false;
+      this.price=0;
+      this.counter=1;
+      this.selected=[];
     },
 
     orderopen() {
@@ -274,6 +316,21 @@ export default {
 </script>
 
 <style scoped>
+div.fixed {
+  text-align: center;
+  position: fixed;
+  bottom: 5px;
+  right: 0;
+  width: 100%;
+}
+div.cart{
+  font-size: 4rem;
+  padding: 10px;
+  margin-bottom: 10px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
 /* 구분선 */
 .hr {
   border-top: 3px solid #bbb;
@@ -322,8 +379,7 @@ export default {
   position: fixed;
   float: center;
   width: 100%;
-  height: 20%;
   left: 0;
-  bottom: 0px;
+  bottom: 50px;
 }
 </style>

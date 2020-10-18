@@ -4,14 +4,11 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-          
-          <!-- <div class="modal-header">
+          <div class="modal-header">
             <slot name="header">
-             <b-button class="modal-default-button" @click="$emit('close1')">
-                뒤로
-              </b-button> 
+             <b-icon icon="arrow-left" scale="2" @click="$emit('close')"></b-icon>
             </slot>
-          </div> -->
+          </div>
 
           <div class="modal-body">
             <slot name="body">
@@ -63,22 +60,18 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 
-// .modal-header h3 {
-//   margin-top: 0;
-//   height: 10%;
-// }
-
-.modal-body {
-  height: 600px;
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
 }
 
-.modal-footer {
-  height: 300px;
-  // float: center;
+.modal-body {
+  margin: 20px 0;
 }
 
 .modal-default-button {
   float: right;
+  height: 10%;
 }
 
 .modal-enter {
