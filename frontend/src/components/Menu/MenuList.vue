@@ -366,13 +366,13 @@ div.cart{
 .m_menu {
   float: center;
   width: 100%;
-  height: 50%;
+  height: 100%;
   /* height: 300px; */
 }
 
 .m_option {
   width: 100%;
-  height: 50%;
+  height: 40%;
 }
 
 .m_num {
