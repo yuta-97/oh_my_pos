@@ -38,7 +38,7 @@
       <b-button @click="orderopen"> 카트 </b-button>
     </div>
 
-    <MenuAdd @close="addclose" v-if="addmodal">
+    <MenuAdd @close="addclose" @add="additem" v-if="addmodal">
       <div>
         <div class="m_menu">
           <b-card
@@ -63,10 +63,7 @@
         <div class="m_option">
           <b-form-checkbox-group
               v-model="selected"
-              id="checkbox-group-1"
               :options="options"
-              value-field="option_price"
-              text-field="option_name"
               stacked
             ></b-form-checkbox-group
             ><br />
@@ -84,35 +81,38 @@
           가 격
           {{price}}
         </div>
+        <div style="float=bottom">
+          <b-button @click="additem">주 문</b-button>
+          <b-button @click="addclose">취 소</b-button>
+        </div>
       </div>
     </MenuAdd>
 
     <MenuOrder @close="orderclose" v-if="ordermodal">
       <div class="o_menu">
-        <b-card-group
-          deck
-          ref="content"
-          style="position: relative; height: 600px; overflow-y: scroll"
-        >
-          <b-card header-tag="header">
-            <template v-slot:header>
-              <div style="text-align: left; float: left; width: 50%">
-                상품명
-              </div>
-              <div style="text-align: right; float: right; width: 50%">
+        <div
+            v-for="item in cart"
+            v-bind:key="item"
+          >
+          <b-card>
+            <template>
+              <div style="text-align: right; float: right; width: 100%">
                 <button @click="orderclose">x</button>
               </div>
             </template>
-            <b-card-text>
-              옵션명 (기본 상품 수량도 필수 배민 참고하셈) <br />
-              가격
-            </b-card-text>
+            <span>{{item.goods_name}}({{item.price}}원) X {{item.count}} 개</span>
+            <div v-for="option in item.options" v-bind:key="option">
+              <b-card-text>
+                옵션 : {{option.option_name}} = {{option.option_price}} 원<br>
+              </b-card-text>
+            </div>
+              
           </b-card>
-        </b-card-group>
+        </div>
       </div>
 
       <div clas="o_order">
-        <b-button block variant="primary"> 55000원 주문하기 </b-button>
+        <b-button block variant="primary"> {{totprice}}주문하기 </b-button>
       </div>
     </MenuOrder>
   </div>
@@ -144,7 +144,9 @@ export default {
       cur_desc: "",
       cur_price: "",
       reload: 0,
+      cart:[],
       price: 0,
+      totprice:0,
     };
   },
   created() {
@@ -169,20 +171,28 @@ export default {
       if (this.counter < 1) {
         this.counter = 1;
       }
+      this.price=parseInt(this.cur_price)*this.counter;
+      for(var i=0;i<this.selected.length;i++){
+        this.price+=parseInt(this.selected[i].option_price)*this.counter;
+      }
     },
     storename: function () {
       this.reload += 1;
     },
     selected: function(){
-      this.price=parseInt(this.cur_price);
+      console.log(this.selected);
+      this.price=parseInt(this.cur_price)*this.counter;
       for(var i=0;i<this.selected.length;i++){
-        this.price+=parseInt(this.selected[i]);
+        this.price+=parseInt(this.selected[i].option_price)*this.counter;
       }
       
     },
     cur_price: function(){
       this.price=parseInt(this.cur_price);
-    }
+    },
+    ordermodal: function(){
+      //this.totprice=
+    },
   },
 
   mounted: function () {
@@ -227,6 +237,22 @@ export default {
   },
 
   methods: {
+    additem(){
+      //
+      var data = {
+        goods_name: this.cur_goodsname,
+        price: this.cur_price,
+        count: this.counter,
+        options: this.selected
+      }
+      this.cart.push(data);
+      console.log(this.cart);
+      this.totprice+=parseInt(this.price);
+      this.selected=[];
+      this.price=0;
+      this.counter=1;
+      this.addmodal = false;
+    },
     addopen(param) {
       this.addmodal = true;
       this.cur_desc = param.desc;
@@ -240,7 +266,13 @@ export default {
       }).then((res)=>{
         var s_list=[];
         for (var i=0;i<res.data.length;i++){
-          s_list.push(res.data[i]);
+          s_list.push({
+            text: res.data[i].option_name, 
+            value:{
+              option_name: res.data[i].option_name,
+              option_price: res.data[i].option_price
+              }
+            });
         }
         this.options=s_list;
         console.log(this.options);
@@ -251,6 +283,9 @@ export default {
 
     addclose() {
       this.addmodal = false;
+      this.price=0;
+      this.counter=1;
+      this.selected=[];
     },
 
     orderopen() {

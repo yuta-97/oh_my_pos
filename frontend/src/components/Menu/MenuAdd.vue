@@ -20,8 +20,7 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              <b-button>주 문</b-button>
-              <b-button @click="$emit('close')">취 소</b-button>
+              
             </slot>
           </div>
         </div>
@@ -60,19 +59,13 @@
   font-family: Helvetica, Arial, sans-serif;
 }
 
-// .modal-header h3 {
-//   margin-top: 0;
-//   height: 10%;
-//   color: #42b983;
-// }
-
-.modal-body {
-  height: 90%;
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
 }
 
-.modal-footer {
-  height: 10%;
-  float: center;
+.modal-body {
+  margin: 20px 0;
 }
 
 .modal-default-button {

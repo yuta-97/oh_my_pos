@@ -19,13 +19,6 @@
               <slot/>
             </slot>
           </div>
-
-          <!-- <div class="modal-footer">
-            <slot name="footer">
-              <b-button>주 문</b-button>
-              <b-button @click="$emit('close')">취 소</b-button>
-            </slot>
-          </div> -->
         </div>
       </div>
     </div>
