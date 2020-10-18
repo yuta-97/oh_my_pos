@@ -38,7 +38,7 @@
       <b-button @click="orderopen"> 카트 </b-button>
     </div>
 
-    <MenuAdd @close="addclose" v-if="addmodal">
+    <MenuAdd @close1="addclose" v-if="addmodal">
       <div>
         <div class="m_menu">
           <b-card
@@ -309,13 +309,13 @@ export default {
 .m_menu {
   float: center;
   width: 100%;
-  height: 50%;
+  height: 100%;
   /* height: 300px; */
 }
 
 .m_option {
   width: 100%;
-  height: 50%;
+  height: 40%;
 }
 
 .m_num {
