@@ -19,35 +19,65 @@ function setcategory(req, res) {
 }
 
 function getcategoryname(req, res) {
-
-    models.Category.findAll({
-        where: {
-            store_name: req.session.store_name,
-        },
-        attributes: [models.sequelize.fn('DISTINCT', models.sequelize.col('category_name')), 'category_name']
-    }).then((result) => {
-        var data = JSON.parse(JSON.stringify(result));
-        res.status(200).json(data);
-    }).catch(function (error) {
-        console.log(error);
-        res.status(500).json({ error });
-    });
+    if(!req.body.store_name){
+        models.Category.findAll({
+            where: {
+                store_name: req.session.store_name,
+            },
+            attributes: [models.sequelize.fn('DISTINCT', models.sequelize.col('category_name')), 'category_name']
+        }).then((result) => {
+            var data = JSON.parse(JSON.stringify(result));
+            res.status(200).json(data);
+        }).catch(function (error) {
+            console.log(error);
+            res.status(500).json({ error });
+        });
+    }else{
+        models.Category.findAll({
+            where: {
+                store_name: req.body.store_name,
+            },
+            attributes: [models.sequelize.fn('DISTINCT', models.sequelize.col('category_name')), 'category_name']
+        }).then((result) => {
+            var data = JSON.parse(JSON.stringify(result));
+            res.status(200).json(data);
+        }).catch(function (error) {
+            console.log(error);
+            res.status(500).json({ error });
+        });
+    }
+    
 }
 
 function getcategory(req, res) {
-
-    models.Category.findAll({
-        where: {
-            store_name: req.session.store_name,
-        },
-        attributes: ['category_name', 'option_name', 'option_price']
-    }).then((result) => {
-        var data = JSON.parse(JSON.stringify(result));
-        res.status(200).json(data);
-    }).catch(function (error) {
-        console.log(error);
-        res.status(500).json({ error });
-    });
+    if(!req.body.store_name){
+        models.Category.findAll({
+            where: {
+                store_name: req.session.store_name,
+            },
+            attributes: ['category_name', 'option_name', 'option_price']
+        }).then((result) => {
+            var data = JSON.parse(JSON.stringify(result));
+            res.status(200).json(data);
+        }).catch(function (error) {
+            console.log(error);
+            res.status(500).json({ error });
+        });
+    }else{
+        models.Category.findAll({
+            where: {
+                store_name: req.body.store_name,
+            },
+            attributes: ['category_name', 'option_name', 'option_price']
+        }).then((result) => {
+            var data = JSON.parse(JSON.stringify(result));
+            res.status(200).json(data);
+        }).catch(function (error) {
+            console.log(error);
+            res.status(500).json({ error });
+        });
+    }
+    
 }
 
 function deletecategory(req, res) {
