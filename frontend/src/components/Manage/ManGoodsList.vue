@@ -269,7 +269,8 @@ export default {
           category_name: this.type,
           price: this.price,
           desc: this.desc,
-          img_url: "http://localhost:5000/api/getimage/" + this.uploadData.name,
+          cur_goodsname: this.rowselected[0].goods_name,
+          img_url: "http://155.230.248.67:5000/api/getimage/" + this.uploadData.name,
         },
       })
         .then((res) => {
