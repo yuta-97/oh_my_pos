@@ -69,7 +69,7 @@ function getgoods(req, res) {
     
 }
 
-function updategods(req, res) {
+function updategoods(req, res) {
     models.Goods.update({
         goods_name: req.body.goods_name,
         price: req.body.price,
@@ -80,10 +80,11 @@ function updategods(req, res) {
     }, {
         where: {
             store_name: req.session.store_name,
-            dis_name: req.body.cur_dis_name
+            goods_name: req.body.cur_goodsname
         }
     }).then((result) => {
         console.log(result);
+        res.send(true);
     }).catch(function (error) {
         console.log(error);
         res.send(false);
@@ -111,5 +112,5 @@ module.exports = {
     getgoodsnames,
     getgoods,
     deletegoods,
-    updategods
+    updategoods
 }

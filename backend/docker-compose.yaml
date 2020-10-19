@@ -15,17 +15,20 @@ services:
       - bash
       - -c
       - |
-        /wait-for-it.sh mysql:3307 -t 10
+        /wait-for-it.sh mysql:3307 -t 20
         npm start
 
   mysql: # 서비스 명
-    image: mysql:8.0.17 # 사용할 이미지
+    image: mysql/mysql-server # 사용할 이미지
     container_name: mysql # 컨테이너 이름 설정
+    expose:
+      - '3307'
     ports:
       - "3307:3306" # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
     environment: # -e 옵션
       MYSQL_ROOT_PASSWORD: "password"  # MYSQL 패스워드 설정 옵션
       MYSQL_DATABASE: "app"
+      MYSQL_ROOT_HOST: '%'
     command: # 한글깨짐 방지
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
