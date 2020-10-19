@@ -34,8 +34,8 @@
       </b-card>
     </div>
 
-    <div class="footer">
-      <b-button @click="orderopen"> 카트 </b-button>
+    <div class="cart">
+      <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="orderopen"></b-icon>
     </div>
 
     <MenuAdd @close="addclose" @add="additem" v-if="addmodal">
@@ -69,8 +69,6 @@
             ><br />
         </div>
 
-        <!-- <hr /> -->
-
         <div class="m_num">
           수 량
           <b-button v-on:click="counter -= 1">&lsaquo;</b-button>
@@ -81,9 +79,8 @@
           가 격
           {{price}}
         </div>
-        <div style="float=bottom">
-          <b-button @click="additem">주 문</b-button>
-          <b-button @click="addclose">취 소</b-button>
+        <div class="fixed">
+          <b-button block variant="primary" @click="additem">주 문</b-button>
         </div>
       </div>
     </MenuAdd>
@@ -97,7 +94,7 @@
           <b-card>
             <template>
               <div style="text-align: right; float: right; width: 100%">
-                <button @click="orderclose">x</button>
+                <b-icon icon="x-circle" scale="2" variant="danger" @click="delorder(item)"></b-icon>
               </div>
             </template>
             <span>{{item.goods_name}}({{item.price}}원) X {{item.count}} 개</span>
@@ -110,9 +107,8 @@
           </b-card>
         </div>
       </div>
-
-      <div clas="o_order">
-        <b-button block variant="primary"> {{totprice}}주문하기 </b-button>
+      <div class="fixed">
+        <b-button block variant="primary" @click="order"> {{totprice}}주문하기 </b-button>
       </div>
     </MenuOrder>
   </div>
@@ -134,6 +130,7 @@ export default {
       addmodal: false,
       ordermodal: false,
       storename: "",
+      tablenum: "",
       options: [],
       selected: [],
       counter: 1,
@@ -151,8 +148,7 @@ export default {
   },
   created() {
     this.storename = this.$route.params.storename;
-
-    console.log(this.storename);
+    this.tablenum = this.$route.params.num;
     axios({
       method: "post",
       url: "/api/setstoreSession",
@@ -180,7 +176,6 @@ export default {
       this.reload += 1;
     },
     selected: function(){
-      console.log(this.selected);
       this.price=parseInt(this.cur_price)*this.counter;
       for(var i=0;i<this.selected.length;i++){
         this.price+=parseInt(this.selected[i].option_price)*this.counter;
@@ -237,6 +232,16 @@ export default {
   },
 
   methods: {
+    order(){
+      //
+    },
+    delorder(item){
+      const index = this.cart.indexOf(item);
+      if (index > -1) {
+        this.cart.splice(index, 1);
+      }
+      this.totprice-=item.price;
+    },
     additem(){
       //
       var data = {
@@ -309,6 +314,21 @@ export default {
 </script>
 
 <style scoped>
+div.fixed {
+  text-align: center;
+  position: fixed;
+  bottom: 5px;
+  right: 0;
+  width: 100%;
+}
+div.cart{
+  font-size: 4rem;
+  padding: 10px;
+  margin-bottom: 10px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
 /* 구분선 */
 .hr {
   border-top: 3px solid #bbb;
@@ -357,8 +377,7 @@ export default {
   position: fixed;
   float: center;
   width: 100%;
-  height: 20%;
   left: 0;
-  bottom: 0px;
+  bottom: 50px;
 }
 </style>

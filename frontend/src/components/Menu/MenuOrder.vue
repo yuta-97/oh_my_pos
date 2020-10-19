@@ -7,9 +7,7 @@
 
           <div class="modal-header">
             <slot name="header">
-             <b-button class="modal-default-button" @click="$emit('close')">
-                뒤로
-              </b-button> 
+             <b-icon icon="arrow-left" scale="2" @click="$emit('close')"></b-icon> 
               주 문 내 역
             </slot>
           </div>
@@ -19,6 +17,7 @@
               <slot/>
             </slot>
           </div>
+          
         </div>
       </div>
     </div>
@@ -72,6 +71,7 @@
 
 .modal-default-button {
   float: right;
+  height: 10%;
 }
 
 .modal-enter {

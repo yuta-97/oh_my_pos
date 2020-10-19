@@ -4,13 +4,11 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-          <!-- <div class="modal-header">
+          <div class="modal-header">
             <slot name="header">
-             <b-button class="modal-default-button" @click="$emit('close')">
-                뒤로
-              </b-button> 
+             <b-icon icon="arrow-left" scale="2" @click="$emit('close')"></b-icon>
             </slot>
-          </div> -->
+          </div>
 
           <div class="modal-body">
             <slot name="body">
@@ -70,6 +68,7 @@
 
 .modal-default-button {
   float: right;
+  height: 10%;
 }
 
 .modal-enter {
