@@ -59,7 +59,7 @@
           </b-card>
         </div>
 
-        <!-- 리스트 처럼 할꺼 -->
+
         <div class="m_option">
           <b-form-checkbox-group
               v-model="selected"
@@ -80,7 +80,7 @@
           {{price}}
         </div>
         <div class="fixed">
-          <b-button block variant="primary" @click="additem">주 문</b-button>
+          <b-button block variant="primary" @click="additem">{{counter}}개 담기</b-button>
         </div>
       </div>
     </MenuAdd>
@@ -100,7 +100,7 @@
             <span>{{item.goods_name}}({{item.price}}원) X {{item.count}} 개</span>
             <div v-for="option in item.options" v-bind:key="option">
               <b-card-text>
-                옵션 : {{option.option_name}} = {{option.option_price}} 원<br>
+                <li>{{option.option_name}} : {{option.option_price}} 원</li>
               </b-card-text>
             </div>
               
@@ -236,11 +236,13 @@ export default {
       //
     },
     delorder(item){
-      const index = this.cart.indexOf(item);
-      if (index > -1) {
-        this.cart.splice(index, 1);
+      if(confirm("주문을 취소합니다")){
+        const index = this.cart.indexOf(item);
+        if (index > -1) {
+          this.cart.splice(index, 1);
+        }
+        this.totprice-=item.price;
       }
-      this.totprice-=item.price;
     },
     additem(){
       //
