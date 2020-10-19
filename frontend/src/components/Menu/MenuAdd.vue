@@ -61,10 +61,12 @@
 .modal-header h3 {
   margin-top: 0;
   color: #42b983;
+  height: 10%;
 }
 
 .modal-body {
   margin: 20px 0;
+  height: 90%;
 }
 
 .modal-default-button {
