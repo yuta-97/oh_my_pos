@@ -53,7 +53,7 @@
             class="mb-2"
           >
             <b-card-text>
-              {{ this.cur_desc }}<br />
+              {{ this.cur_desc }}<br /><br />
               <h4>{{ this.cur_price + "원" }}</h4>
             </b-card-text>
           </b-card>
@@ -366,13 +366,14 @@ div.cart{
 .m_menu {
   float: center;
   width: 100%;
-  height: 50%;
+  height: 100%;
   /* height: 300px; */
 }
 
 .m_option {
   width: 100%;
-  height: 50%;
+  height: 40%;
+  text-align: left;
 }
 
 .m_num {

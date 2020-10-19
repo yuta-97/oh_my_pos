@@ -1,17 +1,19 @@
 <template>
-<div>
-  <div class= "animate__animated animate__bounce animate__delay-10s">
-      <b-img src="https://github.com/Cozy-Ho/oh_my_pos/blob/master/frontend/src/assets/logo.png?raw=true" fluid alt="Responsive image"></b-img>
-  </div>
-  <!-- 로그인 or 회원가입 컴포넌트 삽입점 -->
-  <div class = "main-content">
-    <component v-bind:is="sel" v-on:regist="registed">
-    </component>
-      <br><br>
-      <!-- 로그인 컴포넌트로 가는 버튼 굳이 필요 없을듯 -->
-      <!-- <b-button v-on:click="sel='Loginform'">Login</b-button>  &nbsp;&nbsp; -->
-      <b-button v-on:click="sel='Loginform'">Login</b-button>  &nbsp;&nbsp;
-      <b-button v-on:click="sel='Regist'">Regist</b-button> <br>
+<div class = "all">
+  <div class = "all-content">
+    <div class= "animate__animated animate__bounce animate__delay-10s">
+        <b-img src="https://github.com/Cozy-Ho/oh_my_pos/blob/master/frontend/src/assets/logo.png?raw=true" fluid alt="Responsive image"></b-img>
+    </div>
+    <!-- 로그인 or 회원가입 컴포넌트 삽입점 -->
+    <div class = "main-content">
+      <component v-bind:is="sel" v-on:regist="registed">
+      </component>
+        <br><br>
+        <!-- 로그인 컴포넌트로 가는 버튼 굳이 필요 없을듯 -->
+        <!-- <b-button v-on:click="sel='Loginform'">Login</b-button>  &nbsp;&nbsp; -->
+        <b-button v-on:click="sel='Loginform'">Login</b-button>  &nbsp;&nbsp;
+        <b-button v-on:click="sel='Regist'">Regist</b-button> <br>
+    </div>
   </div>
 
   
@@ -60,6 +62,8 @@ import Regist from '../components/Login/Regist.vue';
     margin: 0px 30px 0px 30px;
     /* padding: 20px; */
     width : 200;
+    background-color: white;
+    
   }
 
   .logo {
@@ -76,5 +80,15 @@ import Regist from '../components/Login/Regist.vue';
   /* .slide-fade-leave-active below version 2.1.8 */ {
     transform: translateX(10px);
     opacity: 0;
+  }
+
+  .all-content {
+    float : center;
+    padding: 150px;
+    /* background-color: #333; */
+  }
+
+  .all {
+    /* background-color: #333; */
   }
 </style>

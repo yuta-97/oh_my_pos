@@ -12,15 +12,10 @@
 
           <div class="modal-body">
             <slot name="body">
-              <slot />
+              <slot/>
             </slot>
           </div>
 
-          <div class="modal-footer">
-            <slot name="footer">
-              
-            </slot>
-          </div>
         </div>
       </div>
     </div>
@@ -60,10 +55,12 @@
 .modal-header h3 {
   margin-top: 0;
   color: #42b983;
+  height: 10%;
 }
 
 .modal-body {
   margin: 20px 0;
+  height: 90%;
 }
 
 .modal-default-button {
