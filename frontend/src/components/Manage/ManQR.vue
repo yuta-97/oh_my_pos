@@ -47,7 +47,7 @@ export default {
           this.urlnum = res.data[0].table_num;
           for (var i = 0; i < this.urlnum; i++) {
             s_list.push(
-              "http://155.230.248.67:5000/order/" +
+              "http://localhost:5000/order/" +
                 res.data[0].store_name +
                 "/" +
                 (i + 1)
