@@ -6,7 +6,7 @@ module.exports = {
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://155.230.248.67:5000/api',
+        target: 'http://23alice.duckdns.org:5000/api',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
