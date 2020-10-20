@@ -48,6 +48,20 @@ function getstorebyID(req,res){
         res.json({error});
     });
 }
+function gettablenum(req,res){
+    models.Store.findOne({
+        where:{
+            store_name: req.body.store_name
+        },
+        attributes: ['table_num']
+    }).then((result)=>{
+        var data = JSON.parse(JSON.stringify(result));
+        res.json(data);
+    }).catch(function(error){
+        console.log(error);
+        res.json({error});
+    })
+}
 
 
 function getstorenames(req,res){
@@ -152,4 +166,5 @@ module.exports = {
     getstorenames,
     updatestore,
     deletestore,
+    gettablenum,
 }

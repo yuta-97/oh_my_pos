@@ -1,19 +1,17 @@
 <!--  포스 테이블  -->
 <template>
   <div>
-    <div styel="float= left; margin-top: 20px;">
-      <b-button squared variant="outline-secondary" @click="openModal">1번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">2번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">3번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">4번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">5번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">6번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">7번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">8번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">9번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">10번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">11번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">12번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+    <div styel="float= left; margin-top: 20px;"
+    v-for="num in tablenum"
+    v-bind:key="num"
+    >
+      <b-button squared variant="outline-secondary" @click="openModal(num)">
+        {{num}}
+        <div v-for="data in recive_order" v-bind:key="data">
+          <li v-if="data.table_num==num">{{data.goods_name}} X {{data.count}}</li>
+        </div>
+      </b-button>
+      
     </div>
     
       <MyModal @close="closeModal" v-if="modal">
@@ -120,6 +118,7 @@
 import MyModal from "../Pos/PosTableOrder.vue";
 import 'vue-good-table/dist/vue-good-table.css'
 import { VueGoodTable } from 'vue-good-table';
+import axios from "axios";
 
   export default {
     components : {
@@ -130,53 +129,97 @@ import { VueGoodTable } from 'vue-good-table';
     data() {
       return {
         modal: false,
+        tablenum: 0,
+        sel_num: 0,
         rowselected:[],
-          columns: [
-          {
-            label: '메 뉴 명',
-            field: 'goods_name',
-          },
-          {
-            label: '단 가',
-            field: 'price',
-            type: 'number',
-          },
-          {
-            label: '수 량',
-            field: 'num',
-            type: 'number',
-          },
-          {
-            label: '합 계',
-            field: 'sum',
-            type: 'number'
-          },
+        columns: [
+        {
+          label: '메 뉴 명',
+          field: 'goods_name',
+        },
+        {
+          label: '단 가',
+          field: 'price',
+          type: 'number'
+        },
+        {
+          label: '수 량',
+          field: 'count',
+          type: 'number',
+        },
+        {
+          label: '금 액',
+          field: 'sum_price',
+          type: 'number'
+        },
         ],
-        
-        rows:[
-           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
-           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
-           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
-           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
-           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
-        ],
+        recive_order:[],
+        rows:[],
         
       }
     },
+    created(){
+      this.storename = this.$route.params.storename;
+      axios({
+        method: "post",
+        url: "/api/gettablenum",
+        data: {store_name: this.storename}
+      }).then((res)=>{
+        this.tablenum = parseInt(res.data.table_num); 
+      }).catch((error)=>{
+        console.log(error);
+      });
+    },
+    watch:{
+      //
+    },
+    mounted: function(){
+      this.getorder();
+    },
 
     methods: {
-      openModal() {
+      openModal(num) {
         this.modal = true
+        this.sel_num = num;
+        var data=[];
+        console.log(this.recive_order[0].table_num);
+        
+        for(var i=0;i<this.recive_order.length;i++){
+          if( this.recive_order[i].table_num == num){
+            data.push({
+              goods_name: this.recive_order[i].goods_name,
+              price: this.recive_order[i].price,
+              count: this.recive_order[i].count,
+              sum_price: this.recive_order[i].sum_price,
+            });
+          }
+        }
+        this.rows=data;
       },
 
       closeModal() {
         this.modal = false
+        this.getorder();
       },
 
       selectionChanged(params) {
           this.rowselected = params.selectedRows;
           console.log(this.rowselected);
       },
+      getorder(){
+        axios({
+          method: "post",
+          url: "/api/getorder",
+          data: {
+            store_name: this.storename,
+          }
+        }).then((res)=>{
+          this.recive_order = res.data;
+          console.log(res.data);
+        }).catch(function(error){
+          console.log(error);
+        });
+      }
     }
   }
 </script>

@@ -25,6 +25,7 @@ var login = require('../src/login');
 var store = require('../src/store');
 var cate = require('../src/category');
 var goods = require('../src/goods');
+var order = require('../src/order');
 
 
 // 세션 설정
@@ -80,6 +81,9 @@ router.get('/api/getstore', (req, res) => {
 router.get('/api/getstorebyID', (req, res) => {
   store.getstorebyID(req, res);
 });
+router.post('/api/gettablenum',(req,res)=>{
+  store.gettablenum(req, res);
+})
 
 // 매장 정보 업데이트
 router.post('/api/updatestore', (req, res) => {
@@ -178,5 +182,13 @@ router.get('/api/getimage/:imgname', (req, res) => {
   });
 });
 
+// 주문 등록
+router.post('/api/addorder',(req,res)=>{
+  order.addorder(req,res);
+});
+
+router.post('/api/getorder',(req,res)=>{
+  order.getorder(req,res);
+})
 
 module.exports = router;

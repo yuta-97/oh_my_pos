@@ -13,7 +13,7 @@
               :options="store_list"
             ></b-form-select>
           </b-form-group>
-          <a link @click="$router.push('/Pos')"
+          <a link @click="$router.push('/Pos/'+ store_name )"
             >Pos<span class="nav-label"></span
           ></a>
           <a active v-on:click="selmenus = 'ManStore'"

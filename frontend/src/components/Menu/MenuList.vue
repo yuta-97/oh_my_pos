@@ -233,7 +233,32 @@ export default {
 
   methods: {
     order(){
-      //
+      for(var i=0; i<this.cart.length;i++){
+        axios({
+          method: "post",
+          url: "/api/addorder",
+          data:{
+            store_name: this.storename,
+            table_num: this.tablenum,
+            goods_name: this.cart[i].goods_name,
+            count: this.cart[i].count,
+            options: this.cart[i].options,
+            price: this.cart[i].price,
+            sum_price: this.cart[i].sum_price
+          }
+        }).then((res)=>{
+          console.log(res);
+          if(res){
+            console.log("success");
+          }
+        }).catch(function(error){
+          console.log(error);
+          alert("실패 했습니다. 다시 시도해 주세요.");
+        });
+      }
+      alert("주문 완료!");
+      this.ordermodal=false;
+
     },
     delorder(item){
       if(confirm("주문을 취소합니다")){
@@ -250,7 +275,9 @@ export default {
         goods_name: this.cur_goodsname,
         price: this.cur_price,
         count: this.counter,
-        options: this.selected
+        options: this.selected,
+        table_num: this.tablenum,
+        sum_price: this.price
       }
       this.cart.push(data);
       console.log(this.cart);
