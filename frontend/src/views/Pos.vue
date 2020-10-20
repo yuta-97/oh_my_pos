@@ -96,7 +96,6 @@ import PosTable from '../components/Pos/PosTable.vue'
 </script>
 
 <style scoped>
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
 
   .navbar-global {
     background-color: #333;
@@ -119,80 +118,29 @@ import PosTable from '../components/Pos/PosTable.vue'
     position: absolute;
     top: 51px;
     width: 350px;
-    z-index: 8;
-    /* overflow: hidden; */
-    -webkit-transition: all 0.1s ease-in-out;
-    -moz-transition: all 0.1s ease-in-out;
-    transition: all 0.1s ease-in-out;
-    display: block;
-    overflow-y: scroll;
-    
-  }
-
-  .navbar-primary-menu,
-  .navbar-primary-menu li {
-    margin:0; padding:0;
-    list-style: none;
-  }
-
-  .navbar-primary-menu li a {
-    display: block;
-    padding: 30px 18px;
-    text-align: left;
-    border-bottom:solid 1px #444;
-    color: #ccc;
-    text-align: center;
-  }
-
-  .navbar-primary-menu li a:hover {
-    background-color: #000;
-    text-decoration: none;
-    color: white;
-  }
-
-  .navbar-primary-menu li a .glyphicon {
-    margin-right: 6px;
-  }
-
-  .navbar-primary-menu li a:hover .glyphicon {
-    color: orchid;
-  }
-
-  .main-content {
-    margin-top: 30px;
-    height: 100%;
-    margin-left: 350px;
-  }
-
-}
-
- .navbar-primary {
-    background-color: #333;
-    bottom: 0px;
-    left: 0px;
-    position: fixed;
-    top: 0px;
-    width: 200px;
     z-index: 8;
     overflow: hidden;
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
+    display: block;
+    overflow-y: auto;
+    
   }
 
   .navbar-primary-menu,
   .navbar-primary-menu li {
-    margin: 0;
-    padding: 0;
+    margin:0; padding:0;
     list-style: none;
   }
 
   .navbar-primary-menu li a {
     display: block;
-    padding: 10px 18px;
+    padding: 30px 18px;
     text-align: left;
-    border-bottom: solid 1px #444;
+    border-bottom:solid 1px #444;
     color: #ccc;
+    text-align: center;
   }
 
   .navbar-primary-menu li a:hover {
@@ -201,30 +149,23 @@ import PosTable from '../components/Pos/PosTable.vue'
     color: white;
   }
 
+  .navbar-primary-menu li a .glyphicon {
+    margin-right: 6px;
+  }
+
+  .navbar-primary-menu li a:hover .glyphicon {
+    color: orchid;
+  }
+
   .main-content {
+    margin-top: 30px;
     height: 100%;
-    margin-left: 200px;
-    padding: 20px;
-    overflow-y: auto;
+    margin-left: 350px;
+
   }
 
-  .collapsed + .main-content {
-    margin-left: 60px;
-  }
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
 
-  .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    padding: 15px 0;
-    text-align: right;
-    color: white;
-    background: #444;
-    font-size: Medium;
-  }
-
-@media (min-width: 1281px) {
 
   .navbar-global {
     background-color: #333;
@@ -248,7 +189,7 @@ import PosTable from '../components/Pos/PosTable.vue'
     top: 51px;
     width: 350px;
     z-index: 8;
-    /* overflow: hidden; */
+    overflow: hidden;
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
@@ -292,6 +233,80 @@ import PosTable from '../components/Pos/PosTable.vue'
     margin-left: 350px;
 
   }
+
+
+}
+
+@media (min-width: 1281px) {
+
+
+  .navbar-global {
+    background-color: #333;
+    width: 350px;
+  }
+
+  .navbar-global .navbar-brand {
+    color: white;
+  }
+
+  .navbar-global .navbar-user > li > a
+  {
+    color: white;
+  }
+
+  .navbar-primary {
+    background-color: #333;
+    bottom: 0px;
+    left: 0px;
+    position: absolute;
+    top: 51px;
+    width: 350px;
+    z-index: 8;
+    overflow: hidden;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    display: block;
+    overflow-y: auto;
+    
+  }
+
+  .navbar-primary-menu,
+  .navbar-primary-menu li {
+    margin:0; padding:0;
+    list-style: none;
+  }
+
+  .navbar-primary-menu li a {
+    display: block;
+    padding: 30px 18px;
+    text-align: left;
+    border-bottom:solid 1px #444;
+    color: #ccc;
+    text-align: center;
+  }
+
+  .navbar-primary-menu li a:hover {
+    background-color: #000;
+    text-decoration: none;
+    color: white;
+  }
+
+  .navbar-primary-menu li a .glyphicon {
+    margin-right: 6px;
+  }
+
+  .navbar-primary-menu li a:hover .glyphicon {
+    color: orchid;
+  }
+
+  .main-content {
+    margin-top: 30px;
+    height: 100%;
+    margin-left: 350px;
+
+  }
+
 
 }
 

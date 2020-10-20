@@ -36,9 +36,8 @@ export default {
 
     .main-content {
         margin-bottom: 20px;
-    
         position: fixed;
-        /* overflow-y:scroll; */
+        overflow-y: auto;
         width: 100%
     }
 

@@ -236,6 +236,7 @@ export default {
     height: 100%;
     margin-left: 200px;
     padding: 20px;
+    margin-top: 30px;
     overflow-y: auto;
   }
 
@@ -295,6 +296,7 @@ export default {
     height: 100%;
     margin-left: 200px;
     padding: 20px;
+    margin-top: 30px;
     overflow-y: auto;
   }
 
@@ -355,6 +357,7 @@ export default {
     height: 100%;
     margin-left: 200px;
     padding: 20px;
+    margin-top: 30px;
     overflow-y: auto;
   }
 

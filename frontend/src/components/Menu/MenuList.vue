@@ -5,7 +5,7 @@
         <b-card-body
           id="nav-scroller"
           ref="content"
-          style="position: relative; height: 600px; overflow-y: scroll"
+          style="position: relative; height: 600px; overflow-y: auto"
         >
           <div
             v-for="goods in goodslist"
