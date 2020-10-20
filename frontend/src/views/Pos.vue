@@ -1,22 +1,79 @@
 <template>
   <div>
-    <div class = "header">
-      
-    </div>
-    <nav class="navbar-primary">
-      <a href="#" class="btn-expand-collapse"><span class="glyphicon glyphicon-menu-left"></span></a>
-      <ul class="navbar-primary-menu">
-        <li>
-          <a active v-on:click="selmenus='PosTable'">테이블<span class="nav-label"></span></a>
-          <a v-on:click="selmenus='PosOpenClose'">영업 개시 / 마감<span class="nav-label"></span></a>
-          <!-- <a v-on:click="selmenus='PosJoin'">합석<span class="nav-label"></span></a>
-          <a v-on:click="selmenus='PosMove'">좌석 이동<span class="nav-label"></span></a> -->
-          <a v-on:click="selmenus='PosInven'">품절 관리<span class="nav-label"></span></a>
-          <a v-on:click="selmenus='PosReport'">매출 현황<span class="nav-label"></span></a>
-          <a link @click="$router.push('/Manage')"> 상세 매장 관리<span class="nav-label"></span></a>
-        </li>
-      </ul>
+    <!-- <div class="home">
+      <b-icon icon="house-door-fill" style="color: white; width: 50px; height: 50px; float: left;" 
+        @click="$router.push('/Manage')"> </b-icon> 
+    </div> -->
+
+    <nav class="navbar navbar-inverse navbar-global navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <b-icon icon="house-door-fill" style="color: white; width: 40px; height: 40px; float: left;" 
+            @click="$router.push('/Manage')"> </b-icon> 
+        </div>
+      </div>
     </nav>
+
+    <div class="navbar-primary">
+      <div class="card" style="width: 100%; float: center; border: 4px dashed #bcbcbc;">
+        <div class="card-body">
+          <h5 class="card-title">1번</h5>
+          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
+          <a href="#" class="btn btn-secondary">완료</a>
+        </div>
+      </div> <br/>
+
+      <div class="card" style="width: 100%; float: center;">
+        <div class="card-body">
+          <h5 class="card-title">1번</h5>
+          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
+          <a href="#" class="btn btn-secondary">완료</a>
+        </div>
+      </div> <br/>
+
+      <div class="card" style="width: 100%; float: center;">
+        <div class="card-body">
+          <h5 class="card-title">1번</h5>
+          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
+          <a href="#" class="btn btn-secondary">완료</a>
+        </div>
+      </div> <br/>
+
+      <div class="card" style="width: 100%; float: center;">
+        <div class="card-body">
+          <h5 class="card-title">1번</h5>
+          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
+          <a href="#" class="btn btn-secondary">완료</a>
+        </div>
+      </div> <br/>
+
+      <div class="card" style="width: 100%; float: center;">
+        <div class="card-body">
+          <h5 class="card-title">1번</h5>
+          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
+          <a href="#" class="btn btn-secondary">완료</a>
+        </div>
+      </div> <br/>
+
+      <div class="card" style="width: 100%; float: center;">
+        <div class="card-body">
+          <h5 class="card-title">1번</h5>
+          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
+          <a href="#" class="btn btn-secondary">완료</a>
+        </div>
+      </div> <br/>
+
+      <div class="card" style="width: 100%; float: center;">
+        <div class="card-body">
+          <h5 class="card-title">1번</h5>
+          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
+          <a href="#" class="btn btn-secondary">완료</a>
+        </div>
+      </div>
+
+
+    </div>
+
     <div class="main-content">
       <component v-bind:is="selmenus">
 
@@ -26,13 +83,7 @@
 </template>
 
 <script>
-import PosOpenClose from '../components/Pos/PosOpenClose.vue';
-// import PosJoin from '../components/Pos/PosJoin.vue';
-// import PosMove from '../components/Pos/PosMove.vue';
-import PosInven from '../components/Pos/PosInven.vue';
 import PosTable from '../components/Pos/PosTable.vue'
-import PosReport from '../components/Pos/PosReport.vue'
-
 
   export default {
     name: 'Pos',
@@ -45,32 +96,41 @@ import PosReport from '../components/Pos/PosReport.vue'
       }
     },
     components: {
-
-      PosOpenClose,
-      // PosJoin,
-      // PosMove,
-      PosTable,
-      PosReport,
-      PosInven
-
+      PosTable
     }
   }
 </script>
 
 <style scoped>
+.navbar-global {
+  background-color: #333;
+  width: 350px;
+}
+
+.navbar-global .navbar-brand {
+  color: white;
+}
+
+.navbar-global .navbar-user > li > a
+{
+  color: white;
+}
 
 .navbar-primary {
   background-color: #333;
   bottom: 0px;
   left: 0px;
   position: absolute;
-  top: 0px;
-  width: 300px;
+  top: 51px;
+  width: 350px;
   z-index: 8;
-  overflow: hidden;
+  /* overflow: hidden; */
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
+  display: block;
+  overflow-y: scroll;
+  
 }
 
 
@@ -104,15 +164,10 @@ import PosReport from '../components/Pos/PosReport.vue'
 }
 
 .main-content {
-  top: 0;
+  margin-top: 30px;
   height: 100%;
-  margin-left: 300px;
+  margin-left: 350px;
 
 }
-
-/* .header {
-
-
-} */
 
 </style>

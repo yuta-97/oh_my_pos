@@ -1,11 +1,11 @@
 <template>
   <div>
     <div>
-      <h2>QR CODE</h2>
+      <h2>QR CODE</h2><br/>
       <b-button @click="loading">QR 생성하기</b-button>
       <b-button @click="download">전체 다운로드</b-button>
     </div>
-    <div style="position: relative; height: 900px; overflow-y: scroll">
+    <div style="position: relative; height: 900px; ">
       <div v-for="(data, index) in values" v-bind:key="data">
         <b-card :title="index + 1">
           <qrcode-vue

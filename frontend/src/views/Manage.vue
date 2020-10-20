@@ -197,6 +197,7 @@ export default {
 </script>
 
 <style scoped>
+
 .navbar-primary {
   background-color: #333;
   bottom: 0px;
@@ -243,7 +244,7 @@ export default {
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
@@ -253,4 +254,5 @@ export default {
   background: #444;
   font-size: Medium;
 }
+
 </style>
