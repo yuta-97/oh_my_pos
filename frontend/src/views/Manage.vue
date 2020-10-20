@@ -197,6 +197,64 @@ export default {
 </script>
 
 <style scoped>
+ .navbar-primary {
+    background-color: #333;
+    bottom: 0px;
+    left: 0px;
+    position: fixed;
+    top: 0px;
+    width: 200px;
+    z-index: 8;
+    overflow: hidden;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .navbar-primary-menu,
+  .navbar-primary-menu li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .navbar-primary-menu li a {
+    display: block;
+    padding: 10px 18px;
+    text-align: left;
+    border-bottom: solid 1px #444;
+    color: #ccc;
+  }
+
+  .navbar-primary-menu li a:hover {
+    background-color: #000;
+    text-decoration: none;
+    color: white;
+  }
+
+  .main-content {
+    height: 100%;
+    margin-left: 200px;
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  .collapsed + .main-content {
+    margin-left: 60px;
+  }
+
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
+    text-align: right;
+    color: white;
+    background: #444;
+    font-size: Medium;
+  }
+
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   .navbar-primary {
     background-color: #333;
