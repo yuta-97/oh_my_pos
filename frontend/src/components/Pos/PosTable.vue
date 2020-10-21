@@ -29,7 +29,7 @@
             position: 'top',
             perPageDropdown: [3, 7, 9],
             dropdownAllowAll: false,
-            setCurrentPage: 2,
+            setCurrentPage: 1,
             nextLabel: 'next',
             prevLabel: 'prev',
             rowsPerPageLabel: 'Rows per page',
@@ -72,7 +72,7 @@
           >
             <span class="badge badge-warning">{{cate.category_name}}</span><br>
             <div v-for="goods in goodslist" v-bind:key="goods">
-              <b-button v-if="goods.category_name == cate.category_name">{{goods.goods_name}}</b-button>
+              <b-button @click="addorder(goods)" v-if="goods.category_name == cate.category_name">{{goods.goods_name}}</b-button>
             </div>
             <br>
           </div>
@@ -93,7 +93,7 @@ import MyModal from "../Pos/PosTableOrder.vue";
 import 'vue-good-table/dist/vue-good-table.css'
 import { VueGoodTable } from 'vue-good-table';
 
-// import axios from "axios";
+import axios from "axios";
 
   export default {
     components : {
@@ -132,6 +132,9 @@ import { VueGoodTable } from 'vue-good-table';
       }
     },
     computed: {
+      storename(){
+        return this.$store.state.store_name;
+      },
       tablenum(){
         return this.$store.state.tablenum;
       },
@@ -155,6 +158,7 @@ import { VueGoodTable } from 'vue-good-table';
         for(var i=0;i<this.recive_order.length;i++){
           if( this.recive_order[i].table_num == num){
             data.push({
+              order_id : this.recive_order[i].id,
               goods_name: this.recive_order[i].goods_name,
               price: this.recive_order[i].price,
               count: this.recive_order[i].count,
@@ -169,34 +173,66 @@ import { VueGoodTable } from 'vue-good-table';
 
       closeModal() {
         this.modal = false
+        this.$router.go();
       },
 
       selectionChanged(params) {
           this.rowselected = params.selectedRows;
           console.log(this.rowselected);
       },
+      addorder(goods){
+        this.rows.push({
+          goods_name: goods.goods_name,
+          price: goods.price,
+          count: 1,
+          sum_price: goods.price
+        });
+        axios({
+          method: "post",
+          url: "/api/addorder",
+          data:{
+            store_name: this.storename,
+            table_num: this.sel_num,
+            goods_name: goods.goods_name,
+            count: 1,
+            options: '',
+            price: goods.price,
+            sum_price: goods.price
+          }
+        }).then((res)=>{
+          console.log(res);
+          if(res){
+            console.log("success");
+          }
+        }).catch(function(error){
+          console.log(error);
+          alert("실패 했습니다. 다시 시도해 주세요.");
+        });
+      },
       delorder(){
         if (confirm("총 " +this.rowselected.length +" 개의 주문이 취소됩니다!!\n삭제 하시겠습니까?") == true) {
-          // 기능추가.
-          
-          // var s_list = [];
-          // for (var i = 0; i < this.rowselected.length; i++) {
-          //   s_list.push(this.rowselected[i].goods_name);
-          // }
-          // axios({
-          //   method: "delete",
-          //   url: "/api/goods",
-          //   data: { goods_names: s_list },
-          // })
-          // .then((res) => {
-          //   if (res.data) {
-          //     alert("삭제되었습니다.");
-          //   }
-          // })
-          // .catch(function (error) {
-          //   console.log(error);
-          //   alert("삭제 실패.");
-          // });
+
+          var s_list = [];
+          for (var i = 0; i < this.rowselected.length; i++) {
+            s_list.push(this.rowselected[i].order_id);
+          }
+          axios({
+            method: "delete",
+            url: "/api/order",
+            data: { id: s_list },
+          })
+          .then((res) => {
+            if (res.data) {
+              alert("삭제되었습니다.");
+              this.$store.commit("setstore", this.$route.params.storename);
+            }else{
+              alert("DB 에러!");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+            alert("삭제 실패.");
+          });
         }
       },
     }

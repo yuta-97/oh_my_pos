@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tablenum: 0,
+    store_name: '',
     order: [],
     goods: [],
     catelist: [],
@@ -21,6 +22,7 @@ export default new Vuex.Store({
         }
       }).then((res)=>{
         state.tablenum = res.data[0].table_num;
+        state.store_name = res.data[0].store_name;
         console.log("vuex set store data!!");
         console.log(state.tablenum);
       }).catch((error)=>{

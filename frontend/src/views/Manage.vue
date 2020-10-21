@@ -13,7 +13,7 @@
               :options="store_list"
             ></b-form-select>
           </b-form-group>
-          <a link @click="$router.push('/Pos/'+ store_name )"
+          <a link @click="$router.push('/Pos/'+ storename )"
             >Pos<span class="nav-label"></span
           ></a>
           <a active v-on:click="selmenus = 'ManStore'"
@@ -64,14 +64,10 @@ export default {
     };
   },
   computed: {
-    storename: {
-      get() {
-        return this.$store.state.obj.store_name;
-      },
-      set(value) {
-        this.$store.commit("setStorename", value);
-      },
-    },
+    //
+    storename() {
+      return this.$store.state.store_name;
+    }
   },
   // 로그인 된 사용자인지 확인.
   watch: {
@@ -92,6 +88,7 @@ export default {
         });
     },
     store_name: function () {
+      this.$store.commit("setstore", this.store_name);
       axios({
         method: "post",
         url: "/api/setstoreSession",
