@@ -17,7 +17,7 @@
           <h5 class="card-title">{{order.table_num}}번 테이블</h5>
           <p class="card-text"><ul><li>{{order.goods_name}} x {{order.count}}개</li></ul></p>
           <a href="#" class="btn btn-secondary">완 료</a>
-        </div>
+        </div> 
       </div> <br/><br>
     </div>
 
@@ -65,6 +65,8 @@ import PosTable from '../components/Pos/PosTable.vue';
   .navbar-global {
     background-color: #333;
     width: 350px;
+    position: fixed;
+    top: 0;
   }
 
   .navbar-global .navbar-brand {
@@ -80,11 +82,10 @@ import PosTable from '../components/Pos/PosTable.vue';
     background-color: #333;
     bottom: 0px;
     left: 0px;
-    position: absolute;
+    position: fixed;
     top: 51px;
     width: 350px;
     z-index: 8;
-    overflow: hidden;
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
@@ -118,23 +119,23 @@ import PosTable from '../components/Pos/PosTable.vue';
     margin-right: 6px;
   }
 
-  .navbar-primary-menu li a:hover .glyphicon {
-    color: orchid;
-  }
 
   .main-content {
-    margin-top: 30px;
+    margin-top: 10px;
     height: 100%;
     margin-left: 350px;
+    padding: 30px;
+    overflow-y: auto;
 
   }
 
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+/* @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
 
 
   .navbar-global {
     background-color: #333;
     width: 350px;
+       position: absolute;
   }
 
   .navbar-global .navbar-brand {
@@ -150,7 +151,7 @@ import PosTable from '../components/Pos/PosTable.vue';
     background-color: #333;
     bottom: 0px;
     left: 0px;
-    position: absolute;
+       position: absolute;
     top: 51px;
     width: 350px;
     z-index: 8;
@@ -195,8 +196,9 @@ import PosTable from '../components/Pos/PosTable.vue';
   .main-content {
     margin-top: 30px;
     height: 100%;
-    margin-left: 350px;
-
+     margin-left: 450px;
+       position: absolute;
+    overflow-y: auto;
   }
 
 
@@ -208,6 +210,7 @@ import PosTable from '../components/Pos/PosTable.vue';
   .navbar-global {
     background-color: #333;
     width: 350px;
+       position: absolute;
   }
 
   .navbar-global .navbar-brand {
@@ -223,7 +226,7 @@ import PosTable from '../components/Pos/PosTable.vue';
     background-color: #333;
     bottom: 0px;
     left: 0px;
-    position: absolute;
+       position: absolute;
     top: 51px;
     width: 350px;
     z-index: 8;
@@ -268,12 +271,14 @@ import PosTable from '../components/Pos/PosTable.vue';
   .main-content {
     margin-top: 30px;
     height: 100%;
-    margin-left: 350px;
+     margin-left: 450px;
+   position: absolute;
+    overflow-y: auto;
 
   }
 
 
-}
+} */
 
 
 </style>

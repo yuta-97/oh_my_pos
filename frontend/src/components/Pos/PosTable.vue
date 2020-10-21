@@ -1,18 +1,16 @@
 <!--  포스 테이블  -->
 <template>
-  <div>
-    <div styel="float= left; margin-top: 20px;"
+  <div class="row" style=" float: center; hegiht: 100%;">
+    <div
     v-for="num in tablenum"
     v-bind:key="num"
     >
-      <b-button squared variant="outline-secondary" @click="openModal(num)">
-        {{num}}
-        <div v-for="data in recive_order" v-bind:key="data">
-          <li v-if="data.table_num==num">{{data.goods_name}} X {{data.count}}</li>
-        </div>
-      </b-button>
-      
-    </div>
+        <div class="card bg-light mb-3" style="fixed-width: 600px; fixed-hegiht: 1000px" @click="openModal(num)">
+          <div class="card-header" style="fixed-width: 600px; fixed-hegiht: 200px">{{num}}번</div>
+          <div class="card-body" v-for="data in recive_order" v-bind:key="data" >
+          <h6 class="card-title" style="fixed-width: 600px; fixed-hegiht: 800px"> <li v-if="data.table_num==num">{{data.goods_name}} X {{data.count}}</li> </h6>
+        </div> &nbsp; &nbsp;
+      </div>
     
       <MyModal @close="closeModal" v-if="modal">
         <div style="float: left; width: 50%;">

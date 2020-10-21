@@ -5,7 +5,7 @@
       <b-button @click="loading">QR 생성하기</b-button>
       <b-button @click="download">전체 다운로드</b-button>
     </div>
-    <div style="position: relative; overflow-y: auto;">
+    <div class="row" style="position: relative; overflow-y: auto;">
       <div v-for="(data, index) in values" v-bind:key="data">
         <b-card :title="index + 1">
           <qrcode-vue
