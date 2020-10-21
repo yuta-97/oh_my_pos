@@ -75,7 +75,7 @@ router.get('/api/getstorenames', (req, res) => {
 });
 
 // 매장 정보 전송
-router.get('/api/getstore', (req, res) => {
+router.post('/api/getstore', (req, res) => {
   store.getstore(req, res);
 });
 router.get('/api/getstorebyID', (req, res) => {

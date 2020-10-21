@@ -8,11 +8,11 @@
           style="position: relative; height: 600px; overflow-y: auto"
         >
           <div
-            v-for="goods in goodslist"
-            v-bind:key="goods"
-            :id="goods.category_name"
+            v-for="cate in catelist"
+            v-bind:key="cate"
           >
-          <h4>{{goods.category_name}}</h4>
+          <h4>{{cate.category_name}}</h4>
+          <div v-for="goods in goodslist" v-bind:key="goods">
             <b-card
               @click="addopen(goods)"
               :img-src="goods.img_url"
@@ -20,15 +20,16 @@
               img-right
               img-height="120rem"
               img-width="150rem"
+              v-if="cate.category_name == goods.category_name"
             >
               <b-card-text>
                 <h4>{{ goods.goods_name }}</h4>
                 {{ goods.price }}원<br />
               </b-card-text>
             </b-card>
-            <br>
-            <br>
-            
+          </div>
+          <br>
+          <br>
           </div>
         </b-card-body>
       </b-card>
@@ -53,7 +54,7 @@
             class="mb-2"
           >
             <b-card-text>
-              {{ this.cur_desc }}<br /><br />
+              {{ this.cur_desc }}<br />
               <h4>{{ this.cur_price + "원" }}</h4>
             </b-card-text>
           </b-card>
@@ -118,6 +119,7 @@
 import axios from "axios";
 import MenuAdd from "../Menu/MenuAdd.vue";
 import MenuOrder from "../Menu/MenuOrder.vue";
+
 
 export default {
   components: {
@@ -258,7 +260,6 @@ export default {
       }
       alert("주문 완료!");
       this.ordermodal=false;
-
     },
     delorder(item){
       if(confirm("주문을 취소합니다")){

@@ -9,63 +9,16 @@
     </nav>
 
     <div class="navbar-primary">
-      <div class="card" style="width: 100%; float: center; border: 4px dashed #bcbcbc;">
+      <div class="card" style="width: 100%; float: center; border: 4px dashed #bcbcbc;"
+      v-for="order in orders"
+      v-bind:key="order"
+      >
         <div class="card-body">
-          <h5 class="card-title">1번</h5>
-          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
-          <a href="#" class="btn btn-secondary">완료</a>
+          <h5 class="card-title">{{order.table_num}}번 테이블</h5>
+          <p class="card-text"><ul><li>{{order.goods_name}} x {{order.count}}개</li></ul></p>
+          <a href="#" class="btn btn-secondary">완 료</a>
         </div>
-      </div> <br/>
-
-      <div class="card" style="width: 100%; float: center; border: 4px dashed #bcbcbc;">
-        <div class="card-body">
-          <h5 class="card-title">1번</h5>
-          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
-          <a href="#" class="btn btn-secondary">완료</a>
-        </div>
-      </div> <br/>
-
-      <div class="card" style="width: 100%; float: center; border: 4px dashed #bcbcbc;">
-        <div class="card-body">
-          <h5 class="card-title">1번</h5>
-          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
-          <a href="#" class="btn btn-secondary">완료</a>
-        </div>
-      </div> <br/>
-
-      <div class="card" style="width: 100%; float: center; border: 4px dashed #bcbcbc;">
-        <div class="card-body">
-          <h5 class="card-title">1번</h5>
-          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
-          <a href="#" class="btn btn-secondary">완료</a>
-        </div>
-      </div> <br/>
-
-      <div class="card" style="width: 100%; float: center; border: 4px dashed #bcbcbc;">
-        <div class="card-body">
-          <h5 class="card-title">1번</h5>
-          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
-          <a href="#" class="btn btn-secondary">완료</a>
-        </div>
-      </div> <br/>
-
-      <div class="card" style="width: 100%; float: center; border: 4px dashed #bcbcbc;">
-        <div class="card-body">
-          <h5 class="card-title">1번</h5>
-          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
-          <a href="#" class="btn btn-secondary">완료</a>
-        </div>
-      </div> <br/>
-
-      <div class="card" style="width: 100%; float: center; border: 4px dashed #bcbcbc;">
-        <div class="card-body">
-          <h5 class="card-title">1번</h5>
-          <p class="card-text"><ul><li>봉골레 파스타</li><li>페퍼로니 피자</li><li>블루레몬 에이드</li></ul></p>
-          <a href="#" class="btn btn-secondary">완료</a>
-        </div>
-      </div>
-
-
+      </div> <br/><br>
     </div>
 
     <div class="main-content">
@@ -77,7 +30,7 @@
 </template>
 
 <script>
-import PosTable from '../components/Pos/PosTable.vue'
+import PosTable from '../components/Pos/PosTable.vue';
 
   export default {
     name: 'Pos',
@@ -86,11 +39,23 @@ import PosTable from '../components/Pos/PosTable.vue'
     },
     data: function() {
       return {
-        selmenus: 'PosTable'
+        selmenus: 'PosTable',
+      }
+    },
+    computed:{
+      orders(){
+        return this.$store.state.order;
       }
     },
     components: {
       PosTable
+    },
+
+    created(){
+      this.$store.commit("setorder", this.$route.params.storename);
+      this.$store.commit("setstore", this.$route.params.storename);
+      this.$store.commit("setgoods", this.$route.params.storename);
+      this.$store.commit("setcate", this.$route.params.storename);
     }
   }
 </script>

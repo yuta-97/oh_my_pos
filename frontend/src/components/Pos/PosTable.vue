@@ -15,7 +15,6 @@
     </div>
     
       <MyModal @close="closeModal" v-if="modal">
-
         <div style="float: left; width: 50%;">
           <vue-good-table
             @on-selected-rows-change="selectionChanged"
@@ -43,70 +42,47 @@
           >
 
           <div slot="selected-row-actions">
-            <b-button pill variant="outline-primary" v-if="rowselected.length===1">삭제</b-button>
+            <b-button @click="delorder" variant="outline-primary" v-if="rowselected.length>0">삭제</b-button>
           </div>
-        </vue-good-table>
+          </vue-good-table>
 
-          <div style="float: left; width: 100%; margin-top: 40px;">
+          <div style="float: left; width: 100%; margin-top: 80px;">
             <table align="center" border="1" cellspacing="0" cellpadding="1" width="450">
-              <tr height="40">
-                <th bgcolor="yellow" width="225">할 인 율</th>
-                <td width="200" align="center">
-                  0
-                </td>
-              </tr>
 
               <tr height="40">
                 <th bgcolor="yellow" width="225">총 합 계</th>
                 <td width="200" align="center">
-                 65000
+                 {{tot_price}}
                 </td>
               </tr>
 
               <tr height="40">
                 <th bgcolor="yellow" width="225">받 을 금 액</th>
                 <td width="200" align="center">
-                  65000
+                  {{tot_price}}
                 </td>
               </tr>
 
             </table>
           </div>
         </div>
-<!-- sytle -->
+
         <div style="float: right; width: 50%;">
-          <div class="menuselect">
-            <span class="badge badge-warning">coffee</span><br>
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button><br><br>
-            <span class="badge badge-warning">coffee</span><br>
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button><br><br>
-            <span class="badge badge-warning">coffee</span><br>
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button><br><br>
-            <span class="badge badge-warning">option</span><br>
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button><br><br>
+          <div class="menuselect"
+          v-for="cate in catelist"
+          v-bind:key="cate"
+          >
+            <span class="badge badge-warning">{{cate.category_name}}</span><br>
+            <div v-for="goods in goodslist" v-bind:key="goods">
+              <b-button v-if="goods.category_name == cate.category_name">{{goods.goods_name}}</b-button>
+            </div>
+            <br>
           </div>
 
-          <div style = "float: right; margin-top: 50px;">
-            <b-button type="button" class="btn btn-default btn-lg">주문</b-button>
+          <div style = "float: right; margin-top: 80px;">
             <b-button type="button" class="btn btn-default btn-lg">현금</b-button>
             <b-button type="button" class="btn btn-default btn-lg">카드</b-button>
-          </div>  
+          </div>
           
         </div>
       </MyModal>  
@@ -118,7 +94,8 @@
 import MyModal from "../Pos/PosTableOrder.vue";
 import 'vue-good-table/dist/vue-good-table.css'
 import { VueGoodTable } from 'vue-good-table';
-import axios from "axios";
+
+// import axios from "axios";
 
   export default {
     components : {
@@ -129,7 +106,6 @@ import axios from "axios";
     data() {
       return {
         modal: false,
-        tablenum: 0,
         sel_num: 0,
         rowselected:[],
         columns: [
@@ -153,28 +129,23 @@ import axios from "axios";
           type: 'number'
         },
         ],
-        recive_order:[],
         rows:[],
-        
+        tot_price:0,
       }
     },
-    created(){
-      this.storename = this.$route.params.storename;
-      axios({
-        method: "post",
-        url: "/api/gettablenum",
-        data: {store_name: this.storename}
-      }).then((res)=>{
-        this.tablenum = parseInt(res.data.table_num); 
-      }).catch((error)=>{
-        console.log(error);
-      });
-    },
-    watch:{
-      //
-    },
-    mounted: function(){
-      this.getorder();
+    computed: {
+      tablenum(){
+        return this.$store.state.tablenum;
+      },
+      recive_order(){
+        return this.$store.state.order;
+      },
+      goodslist(){
+        return this.$store.state.goods;
+      },
+      catelist(){
+        return this.$store.state.catelist;
+      }
     },
 
     methods: {
@@ -182,8 +153,7 @@ import axios from "axios";
         this.modal = true
         this.sel_num = num;
         var data=[];
-        console.log(this.recive_order[0].table_num);
-        
+        var sum = 0;
         for(var i=0;i<this.recive_order.length;i++){
           if( this.recive_order[i].table_num == num){
             data.push({
@@ -192,34 +162,45 @@ import axios from "axios";
               count: this.recive_order[i].count,
               sum_price: this.recive_order[i].sum_price,
             });
+            sum+=parseInt(this.recive_order[i].sum_price);
           }
         }
+        this.tot_price=sum;
         this.rows=data;
       },
 
       closeModal() {
         this.modal = false
-        this.getorder();
       },
 
       selectionChanged(params) {
           this.rowselected = params.selectedRows;
           console.log(this.rowselected);
       },
-      getorder(){
-        axios({
-          method: "post",
-          url: "/api/getorder",
-          data: {
-            store_name: this.storename,
-          }
-        }).then((res)=>{
-          this.recive_order = res.data;
-          console.log(res.data);
-        }).catch(function(error){
-          console.log(error);
-        });
-      }
+      delorder(){
+        if (confirm("총 " +this.rowselected.length +" 개의 주문이 취소됩니다!!\n삭제 하시겠습니까?") == true) {
+          // 기능추가.
+          
+          // var s_list = [];
+          // for (var i = 0; i < this.rowselected.length; i++) {
+          //   s_list.push(this.rowselected[i].goods_name);
+          // }
+          // axios({
+          //   method: "delete",
+          //   url: "/api/goods",
+          //   data: { goods_names: s_list },
+          // })
+          // .then((res) => {
+          //   if (res.data) {
+          //     alert("삭제되었습니다.");
+          //   }
+          // })
+          // .catch(function (error) {
+          //   console.log(error);
+          //   alert("삭제 실패.");
+          // });
+        }
+      },
     }
   }
 </script>
