@@ -15,7 +15,14 @@
       >
         <div class="card-body">
           <h5 class="card-title">{{order.table_num}}번 테이블</h5>
-          <p class="card-text"><ul><li>{{order.goods_name}} x {{order.count}}개</li></ul></p>
+          <p class="card-text">
+            <ul>
+              <li>{{order.goods_name}} x {{order.count}}개</li>
+              <div v-for="option in order.Options" v-bind:key="option">
+                <li>옵션 {{option.option_name}}</li>
+              </div>
+          </ul>
+          </p>
           <a @click="done(order)" class="btn btn-secondary">완 료</a>
         </div>
       </div> <br/><br>

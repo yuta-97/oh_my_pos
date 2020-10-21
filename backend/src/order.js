@@ -38,6 +38,10 @@ function addorder(req,res){
 
 function getorder(req,res){
     models.Order.findAll({
+        include:[{
+            model: models.Option,
+            attributes: ['option_name', 'option_price']
+        }],
         where:{
             store_name: req.body.store_name,
         },
