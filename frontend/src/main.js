@@ -8,11 +8,6 @@ import 'animate.css'
 
 
 
-
-
-
-
-
 //Register BootstrapVue in entry point
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.min.css'
