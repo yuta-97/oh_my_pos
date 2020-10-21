@@ -18,6 +18,8 @@ db.User = require('./user')(sequelize, Sequelize);
 db.Store = require('./store')(sequelize, Sequelize);
 db.Category = require('./category')(sequelize, Sequelize);
 db.Goods = require('./goods')(sequelize, Sequelize);
+db.Order = require('./order')(sequelize, Sequelize);
+db.Option = require('./option')(sequelize, Sequelize);
 
 // User, Store 일대 다 관계
 db.User.hasMany(db.Store, {
@@ -28,6 +30,18 @@ db.User.hasMany(db.Store, {
 db.Store.belongsTo(db.User, {
   foreignKey: 'user_id',
   targetKey: 'user_id',
+  onDelete: 'CASCADE'
+});
+
+// Order, Option 일대 다 관계
+db.Order.hasMany(db.Option, {
+  foreignKey: 'order_id',
+  sourceKey: 'id',
+  onDelete: 'CASCADE'
+});
+db.Option.belongsTo(db.Order, {
+  foreignKey: 'order_id',
+  sourceKey: 'id',
   onDelete: 'CASCADE'
 });
 

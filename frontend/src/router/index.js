@@ -23,7 +23,7 @@ const routes = [{
         component: Login
     },
     {
-        path: '/Pos',
+        path: '/Pos/:storename',
         name: 'Pos',
         component: Pos
     },

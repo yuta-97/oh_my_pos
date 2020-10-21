@@ -5,14 +5,14 @@
         <b-card-body
           id="nav-scroller"
           ref="content"
-          style="position: relative; height: 600px; overflow-y: scroll"
+          style="position: relative; height: 600px; overflow-y: auto"
         >
           <div
-            v-for="goods in goodslist"
-            v-bind:key="goods"
-            :id="goods.category_name"
+            v-for="cate in catelist"
+            v-bind:key="cate"
           >
-          <h4>{{goods.category_name}}</h4>
+          <h4>{{cate.category_name}}</h4>
+          <div v-for="goods in goodslist" v-bind:key="goods">
             <b-card
               @click="addopen(goods)"
               :img-src="goods.img_url"
@@ -20,15 +20,16 @@
               img-right
               img-height="120rem"
               img-width="150rem"
+              v-if="cate.category_name == goods.category_name"
             >
               <b-card-text>
                 <h4>{{ goods.goods_name }}</h4>
                 {{ goods.price }}원<br />
               </b-card-text>
             </b-card>
-            <br>
-            <br>
-            
+          </div>
+          <br>
+          <br>
           </div>
         </b-card-body>
       </b-card>
@@ -118,6 +119,7 @@
 import axios from "axios";
 import MenuAdd from "../Menu/MenuAdd.vue";
 import MenuOrder from "../Menu/MenuOrder.vue";
+
 
 export default {
   components: {
@@ -233,7 +235,31 @@ export default {
 
   methods: {
     order(){
-      //
+      for(var i=0; i<this.cart.length;i++){
+        axios({
+          method: "post",
+          url: "/api/addorder",
+          data:{
+            store_name: this.storename,
+            table_num: this.tablenum,
+            goods_name: this.cart[i].goods_name,
+            count: this.cart[i].count,
+            options: this.cart[i].options,
+            price: this.cart[i].price,
+            sum_price: this.cart[i].sum_price
+          }
+        }).then((res)=>{
+          console.log(res);
+          if(res){
+            console.log("success");
+          }
+        }).catch(function(error){
+          console.log(error);
+          alert("실패 했습니다. 다시 시도해 주세요.");
+        });
+      }
+      alert("주문 완료!");
+      this.ordermodal=false;
     },
     delorder(item){
       if(confirm("주문을 취소합니다")){
@@ -250,7 +276,9 @@ export default {
         goods_name: this.cur_goodsname,
         price: this.cur_price,
         count: this.counter,
-        options: this.selected
+        options: this.selected,
+        table_num: this.tablenum,
+        sum_price: this.price
       }
       this.cart.push(data);
       console.log(this.cart);

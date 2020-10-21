@@ -13,7 +13,7 @@
               :options="store_list"
             ></b-form-select>
           </b-form-group>
-          <a link @click="$router.push('/Pos')"
+          <a link @click="$router.push('/Pos/'+ this.storename )"
             >Pos<span class="nav-label"></span
           ></a>
           <a active v-on:click="selmenus = 'ManStore'"
@@ -64,14 +64,10 @@ export default {
     };
   },
   computed: {
-    storename: {
-      get() {
-        return this.$store.state.obj.store_name;
-      },
-      set(value) {
-        this.$store.commit("setStorename", value);
-      },
-    },
+    //
+    storename() {
+      return this.$store.state.store_name;
+    }
   },
   // 로그인 된 사용자인지 확인.
   watch: {
@@ -92,6 +88,7 @@ export default {
         });
     },
     store_name: function () {
+      this.$store.commit("setstore", this.store_name);
       axios({
         method: "post",
         url: "/api/setstoreSession",
@@ -197,60 +194,184 @@ export default {
 </script>
 
 <style scoped>
-.navbar-primary {
-  background-color: #333;
-  bottom: 0px;
-  left: 0px;
-  position: absolute;
-  top: 0px;
-  width: 200px;
-  z-index: 8;
-  overflow: hidden;
-  -webkit-transition: all 0.1s ease-in-out;
-  -moz-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;
+ .navbar-primary {
+    background-color: #333;
+    bottom: 0px;
+    left: 0px;
+    position: fixed;
+    top: 0px;
+    width: 200px;
+    z-index: 8;
+    overflow: hidden;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .navbar-primary-menu,
+  .navbar-primary-menu li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .navbar-primary-menu li a {
+    display: block;
+    padding: 10px 18px;
+    text-align: left;
+    border-bottom: solid 1px #444;
+    color: #ccc;
+  }
+
+  .navbar-primary-menu li a:hover {
+    background-color: #000;
+    text-decoration: none;
+    color: white;
+  }
+
+  .main-content {
+    height: 100%;
+    margin-left: 200px;
+    padding: 20px;
+    margin-top: 30px;
+    overflow-y: auto;
+  }
+
+  .collapsed + .main-content {
+    margin-left: 60px;
+  }
+
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
+    text-align: right;
+    color: white;
+    background: #444;
+    font-size: Medium;
+  }
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .navbar-primary {
+    background-color: #333;
+    bottom: 0px;
+    left: 0px;
+    position: fixed;
+    top: 0px;
+    width: 200px;
+    z-index: 8;
+    overflow: hidden;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .navbar-primary-menu,
+  .navbar-primary-menu li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .navbar-primary-menu li a {
+    display: block;
+    padding: 10px 18px;
+    text-align: left;
+    border-bottom: solid 1px #444;
+    color: #ccc;
+  }
+
+  .navbar-primary-menu li a:hover {
+    background-color: #000;
+    text-decoration: none;
+    color: white;
+  }
+
+  .main-content {
+    height: 100%;
+    margin-left: 200px;
+    padding: 20px;
+    margin-top: 30px;
+    overflow-y: auto;
+  }
+
+  .collapsed + .main-content {
+    margin-left: 60px;
+  }
+
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
+    text-align: right;
+    color: white;
+    background: #444;
+    font-size: Medium;
+  }
 }
 
-.navbar-primary-menu,
-.navbar-primary-menu li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
+@media (min-width: 1281px) {
+  .navbar-primary {
+    background-color: #333;
+    bottom: 0px;
+    left: 0px;
+    position: fixed;
+    top: 0px;
+    width: 200px;
+    z-index: 8;
+    overflow: hidden;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+  }
 
-.navbar-primary-menu li a {
-  display: block;
-  padding: 10px 18px;
-  text-align: left;
-  border-bottom: solid 1px #444;
-  color: #ccc;
-}
+  .navbar-primary-menu,
+  .navbar-primary-menu li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 
-.navbar-primary-menu li a:hover {
-  background-color: #000;
-  text-decoration: none;
-  color: white;
-}
+  .navbar-primary-menu li a {
+    display: block;
+    padding: 10px 18px;
+    text-align: left;
+    border-bottom: solid 1px #444;
+    color: #ccc;
+  }
 
-.main-content {
-  height: 100%;
-  margin-left: 200px;
-  padding: 20px;
-}
+  .navbar-primary-menu li a:hover {
+    background-color: #000;
+    text-decoration: none;
+    color: white;
+  }
 
-.collapsed + .main-content {
-  margin-left: 60px;
-}
+  .main-content {
+    height: 100%;
+    margin-left: 200px;
+    padding: 20px;
+    margin-top: 30px;
+    overflow-y: auto;
+  }
 
-.footer {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  padding: 15px 0;
-  text-align: right;
-  color: white;
-  background: #444;
-  font-size: Medium;
+  .collapsed + .main-content {
+    margin-left: 60px;
+  }
+
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0;
+    text-align: right;
+    color: white;
+    background: #444;
+    font-size: Medium;
+  }
 }
 </style>

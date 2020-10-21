@@ -23,7 +23,7 @@ function setstore(req,res){
 function getstore(req,res){
     models.Store.findAll({
         where:{
-            store_name: req.session.store_name
+            store_name: req.body.store_name
         }
     }).then((result) => {
         console.log("find store success.");
@@ -47,6 +47,20 @@ function getstorebyID(req,res){
         console.log(error);
         res.json({error});
     });
+}
+function gettablenum(req,res){
+    models.Store.findOne({
+        where:{
+            store_name: req.body.store_name
+        },
+        attributes: ['table_num']
+    }).then((result)=>{
+        var data = JSON.parse(JSON.stringify(result));
+        res.json(data);
+    }).catch(function(error){
+        console.log(error);
+        res.json({error});
+    })
 }
 
 
@@ -152,4 +166,5 @@ module.exports = {
     getstorenames,
     updatestore,
     deletestore,
+    gettablenum,
 }

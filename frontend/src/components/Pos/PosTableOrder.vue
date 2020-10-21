@@ -7,7 +7,8 @@
 
           <div class="modal-header">
             <slot name="header">
-              <h2> 주 문 </h2>
+              <b-icon icon="arrow-left" scale="2" @click="$emit('close')"></b-icon>
+              <h2 style="text-align=right;"> 주 문 </h2>
             </slot>
           </div>
 
@@ -19,9 +20,6 @@
 
           <div class="modal-footer">
             <slot name="footer">
-              <b-button class="modal-default-button" @click="$emit('close')">
-                닫기
-              </b-button>
             </slot>
           </div>
         </div>

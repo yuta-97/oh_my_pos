@@ -1,11 +1,11 @@
 <template>
   <div>
     <div>
-      <h2>QR CODE</h2>
+      <h2>QR CODE</h2><br/>
       <b-button @click="loading">QR 생성하기</b-button>
       <b-button @click="download">전체 다운로드</b-button>
     </div>
-    <div style="position: relative; height: 900px; overflow-y: scroll">
+    <div class= "row" style="position: relative; overflow-y: auto;">
       <div v-for="(data, index) in values" v-bind:key="data">
         <b-card :title="index + 1">
           <qrcode-vue
@@ -15,6 +15,7 @@
             level="H"
           ></qrcode-vue>
         </b-card>
+        <br/><br/>
       </div>
     </div>
   </div>
@@ -39,8 +40,11 @@ export default {
     loading(evt) {
       evt.preventDefault();
       axios({
-        method: "get",
+        method: "post",
         url: "/api/getstore",
+        data:{
+          store_name: this.$store.state.store_name
+        }
       })
         .then((res) => {
           var s_list = [];

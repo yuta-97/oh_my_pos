@@ -1,23 +1,20 @@
 <!--  포스 테이블  -->
 <template>
   <div>
-    <div styel="float= left; margin-top: 20px;">
-      <b-button squared variant="outline-secondary" @click="openModal">1번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">2번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">3번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">4번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">5번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">6번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">7번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">8번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">9번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">10번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">11번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
-      <b-button squared variant="outline-secondary" @click="openModal">12번<br>봉골레 파스타 1&nbsp;<br>돈까스 1<br>콜라 2<br><br><br></b-button>&nbsp;
+    <div styel="float= left; margin-top: 20px;"
+    v-for="num in tablenum"
+    v-bind:key="num"
+    >
+      <b-button squared variant="outline-secondary" @click="openModal(num)">
+        {{num}}
+        <div v-for="data in recive_order" v-bind:key="data">
+          <li v-if="data.table_num==num">{{data.goods_name}} X {{data.count}}</li>
+        </div>
+      </b-button>
+      
     </div>
     
       <MyModal @close="closeModal" v-if="modal">
-
         <div style="float: left; width: 50%;">
           <vue-good-table
             @on-selected-rows-change="selectionChanged"
@@ -34,7 +31,7 @@
             position: 'top',
             perPageDropdown: [3, 7, 9],
             dropdownAllowAll: false,
-            setCurrentPage: 2,
+            setCurrentPage: 1,
             nextLabel: 'next',
             prevLabel: 'prev',
             rowsPerPageLabel: 'Rows per page',
@@ -45,70 +42,47 @@
           >
 
           <div slot="selected-row-actions">
-            <b-button pill variant="outline-primary" v-if="rowselected.length===1">삭제</b-button>
+            <b-button @click="delorder" variant="outline-primary" v-if="rowselected.length>0">삭제</b-button>
           </div>
-        </vue-good-table>
+          </vue-good-table>
 
-          <div style="float: left; width: 100%; margin-top: 40px;">
+          <div style="float: left; width: 100%; margin-top: 80px;">
             <table align="center" border="1" cellspacing="0" cellpadding="1" width="450">
-              <tr height="40">
-                <th bgcolor="yellow" width="225">할 인 율</th>
-                <td width="200" align="center">
-                  0
-                </td>
-              </tr>
 
               <tr height="40">
                 <th bgcolor="yellow" width="225">총 합 계</th>
                 <td width="200" align="center">
-                 65000
+                 {{tot_price}}
                 </td>
               </tr>
 
               <tr height="40">
                 <th bgcolor="yellow" width="225">받 을 금 액</th>
                 <td width="200" align="center">
-                  65000
+                  {{tot_price}}
                 </td>
               </tr>
 
             </table>
           </div>
         </div>
-<!-- sytle -->
+
         <div style="float: right; width: 50%;">
-          <div class="menuselect">
-            <span class="badge badge-warning">coffee</span><br>
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button><br><br>
-            <span class="badge badge-warning">coffee</span><br>
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button><br><br>
-            <span class="badge badge-warning">coffee</span><br>
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button><br><br>
-            <span class="badge badge-warning">option</span><br>
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button> 
-            <b-button> 치킨<br>18000원</b-button><br><br>
+          <div class="menuselect"
+          v-for="cate in catelist"
+          v-bind:key="cate"
+          >
+            <span class="badge badge-warning">{{cate.category_name}}</span><br>
+            <div v-for="goods in goodslist" v-bind:key="goods">
+              <b-button @click="addorder(goods)" v-if="goods.category_name == cate.category_name">{{goods.goods_name}}</b-button>
+            </div>
+            <br>
           </div>
 
-          <div style = "float: right; margin-top: 50px;">
-            <b-button type="button" class="btn btn-default btn-lg">주문</b-button>
+          <div style = "float: right; margin-top: 80px;">
             <b-button type="button" class="btn btn-default btn-lg">현금</b-button>
             <b-button type="button" class="btn btn-default btn-lg">카드</b-button>
-          </div>  
+          </div>
           
         </div>
       </MyModal>  
@@ -121,6 +95,8 @@ import MyModal from "../Pos/PosTableOrder.vue";
 import 'vue-good-table/dist/vue-good-table.css'
 import { VueGoodTable } from 'vue-good-table';
 
+import axios from "axios";
+
   export default {
     components : {
       MyModal,
@@ -130,52 +106,136 @@ import { VueGoodTable } from 'vue-good-table';
     data() {
       return {
         modal: false,
+        sel_num: 0,
         rowselected:[],
-          columns: [
-          {
-            label: '메 뉴 명',
-            field: 'goods_name',
-          },
-          {
-            label: '단 가',
-            field: 'price',
-            type: 'number',
-          },
-          {
-            label: '수 량',
-            field: 'num',
-            type: 'number',
-          },
-          {
-            label: '합 계',
-            field: 'sum',
-            type: 'number'
-          },
+        columns: [
+        {
+          label: '메 뉴 명',
+          field: 'goods_name',
+        },
+        {
+          label: '단 가',
+          field: 'price',
+          type: 'number'
+        },
+        {
+          label: '수 량',
+          field: 'count',
+          type: 'number',
+        },
+        {
+          label: '금 액',
+          field: 'sum_price',
+          type: 'number'
+        },
         ],
-        
-        rows:[
-           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
-           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
-           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
-           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
-           { goods_name: "치킨", price: 18000 , num: 2, sum: 36000},
-        ],
-        
+        rows:[],
+        tot_price:0,
+      }
+    },
+    computed: {
+      storename(){
+        return this.$store.state.store_name;
+      },
+      tablenum(){
+        return this.$store.state.tablenum;
+      },
+      recive_order(){
+        return this.$store.state.order;
+      },
+      goodslist(){
+        return this.$store.state.goods;
+      },
+      catelist(){
+        return this.$store.state.catelist;
       }
     },
 
     methods: {
-      openModal() {
+      openModal(num) {
         this.modal = true
+        this.sel_num = num;
+        var data=[];
+        var sum = 0;
+        for(var i=0;i<this.recive_order.length;i++){
+          if( this.recive_order[i].table_num == num){
+            data.push({
+              order_id : this.recive_order[i].id,
+              goods_name: this.recive_order[i].goods_name,
+              price: this.recive_order[i].price,
+              count: this.recive_order[i].count,
+              sum_price: this.recive_order[i].sum_price,
+            });
+            sum+=parseInt(this.recive_order[i].sum_price);
+          }
+        }
+        this.tot_price=sum;
+        this.rows=data;
       },
 
       closeModal() {
         this.modal = false
+        this.$router.go();
       },
 
       selectionChanged(params) {
           this.rowselected = params.selectedRows;
           console.log(this.rowselected);
+      },
+      addorder(goods){
+        this.rows.push({
+          goods_name: goods.goods_name,
+          price: goods.price,
+          count: 1,
+          sum_price: goods.price
+        });
+        axios({
+          method: "post",
+          url: "/api/addorder",
+          data:{
+            store_name: this.storename,
+            table_num: this.sel_num,
+            goods_name: goods.goods_name,
+            count: 1,
+            options: '',
+            price: goods.price,
+            sum_price: goods.price
+          }
+        }).then((res)=>{
+          console.log(res);
+          if(res){
+            console.log("success");
+          }
+        }).catch(function(error){
+          console.log(error);
+          alert("실패 했습니다. 다시 시도해 주세요.");
+        });
+      },
+      delorder(){
+        if (confirm("총 " +this.rowselected.length +" 개의 주문이 취소됩니다!!\n삭제 하시겠습니까?") == true) {
+
+          var s_list = [];
+          for (var i = 0; i < this.rowselected.length; i++) {
+            s_list.push(this.rowselected[i].order_id);
+          }
+          axios({
+            method: "delete",
+            url: "/api/order",
+            data: { id: s_list },
+          })
+          .then((res) => {
+            if (res.data) {
+              alert("삭제되었습니다.");
+              this.$store.commit("setstore", this.$route.params.storename);
+            }else{
+              alert("DB 에러!");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+            alert("삭제 실패.");
+          });
+        }
       },
     }
   }
