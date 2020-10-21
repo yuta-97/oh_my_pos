@@ -15,11 +15,6 @@
       >
         <div class="card-body">
           <h5 class="card-title">{{order.table_num}}번 테이블</h5>
-<<<<<<< HEAD
-          <p class="card-text"><ul><li>{{order.goods_name}} x {{order.count}}개</li></ul></p>
-          <a href="#" class="btn btn-secondary">완 료</a>
-        </div> 
-=======
           <p class="card-text">
             <ul>
               <li>{{order.goods_name}} x {{order.count}}개</li>
@@ -30,7 +25,6 @@
           </p>
           <a @click="done(order)" class="btn btn-secondary">완 료</a>
         </div>
->>>>>>> 0b301d162a4b7723995cc063e6977cce85d32a3b
       </div> <br/><br>
     </div>
 

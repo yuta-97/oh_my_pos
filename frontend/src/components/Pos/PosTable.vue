@@ -5,11 +5,11 @@
     v-for="num in tablenum"
     v-bind:key="num"
     >
-        <div class="card bg-light mb-3" style="fixed-width: 600px; fixed-hegiht: 1000px" @click="openModal(num)">
-          <div class="card-header" style="fixed-width: 600px; fixed-hegiht: 200px">{{num}}번</div>
-          <div class="card-body" v-for="data in recive_order" v-bind:key="data" >
-          <h6 class="card-title" style="fixed-width: 600px; fixed-hegiht: 800px"> <li v-if="data.table_num==num">{{data.goods_name}} X {{data.count}}</li> </h6>
-        </div> &nbsp; &nbsp;
+      <div class="card bg-light custom" @click="openModal(num)">
+        <div class="card-header">{{num}}번</div>
+        <div v-for="data in recive_order" v-bind:key="data">
+          <li v-if="data.table_num==num">{{data.goods_name}} X {{data.count}}</li>
+        </div>
       </div>
     
       <MyModal @close="closeModal" v-if="modal">
@@ -246,6 +246,10 @@ import axios from "axios";
     height: "200";
     float: right; 
   } */
+  .custom {
+    width: 180px !important;
+    height: 200px !important;
+  }
 .square {
   border:1px solid; 
   width: 25%;
