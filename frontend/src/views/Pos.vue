@@ -15,11 +15,6 @@
       >
         <div class="card-body">
           <h5 class="card-title">{{order.table_num}}번 테이블</h5>
-<<<<<<< HEAD
-          <p class="card-text"><ul><li>{{order.goods_name}} x {{order.count}}개</li></ul></p>
-          <a href="#" class="btn btn-secondary">완 료</a>
-        </div> 
-=======
           <p class="card-text">
             <ul>
               <li>{{order.goods_name}} x {{order.count}}개</li>
@@ -30,7 +25,6 @@
           </p>
           <a @click="done(order)" class="btn btn-secondary">완 료</a>
         </div>
->>>>>>> 0b301d162a4b7723995cc063e6977cce85d32a3b
       </div> <br/><br>
     </div>
 
@@ -160,13 +154,14 @@ import axios from 'axios'
 
   }
 
-/* @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
 
 
   .navbar-global {
     background-color: #333;
     width: 350px;
-       position: absolute;
+    position: fixed;
+    top: 0;
   }
 
   .navbar-global .navbar-brand {
@@ -182,11 +177,10 @@ import axios from 'axios'
     background-color: #333;
     bottom: 0px;
     left: 0px;
-       position: absolute;
+    position: fixed;
     top: 51px;
     width: 350px;
     z-index: 8;
-    overflow: hidden;
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
@@ -220,16 +214,14 @@ import axios from 'axios'
     margin-right: 6px;
   }
 
-  .navbar-primary-menu li a:hover .glyphicon {
-    color: orchid;
-  }
 
   .main-content {
-    margin-top: 30px;
+    margin-top: 10px;
     height: 100%;
-     margin-left: 450px;
-       position: absolute;
+    margin-left: 350px;
+    padding: 30px;
     overflow-y: auto;
+
   }
 
 
@@ -241,7 +233,8 @@ import axios from 'axios'
   .navbar-global {
     background-color: #333;
     width: 350px;
-       position: absolute;
+    position: fixed;
+    top: 0;
   }
 
   .navbar-global .navbar-brand {
@@ -257,11 +250,10 @@ import axios from 'axios'
     background-color: #333;
     bottom: 0px;
     left: 0px;
-       position: absolute;
+    position: fixed;
     top: 51px;
     width: 350px;
     z-index: 8;
-    overflow: hidden;
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
@@ -295,21 +287,18 @@ import axios from 'axios'
     margin-right: 6px;
   }
 
-  .navbar-primary-menu li a:hover .glyphicon {
-    color: orchid;
-  }
 
   .main-content {
-    margin-top: 30px;
+    margin-top: 10px;
     height: 100%;
-     margin-left: 450px;
-   position: absolute;
+    margin-left: 350px;
+    padding: 30px;
     overflow-y: auto;
 
   }
 
 
-} */
+}
 
 
 </style>

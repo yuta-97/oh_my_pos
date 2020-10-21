@@ -66,15 +66,16 @@
         </div>
 
         <div style="float: right; width: 50%;">
-          <div class="menuselect"
-          v-for="cate in catelist"
-          v-bind:key="cate"
-          >
-            <span class="badge badge-warning">{{cate.category_name}}</span><br>
-            <div v-for="goods in goodslist" v-bind:key="goods">
-              <b-button @click="addorder(goods)" v-if="goods.category_name == cate.category_name">{{goods.goods_name}}</b-button>
-            </div>
-            <br>
+          <div>
+            <b-card no-body>
+              <b-tabs card> 
+                <b-tab v-for="cate in catelist" v-bind:key="cate" :title="cate.category_name">
+                  <b-card-text v-for="goods in goodslist" v-bind:key="goods"> 
+                    <b-button @click="addorder(goods)" v-if="goods.category_name == cate.category_name">{{goods.goods_name}}</b-button>
+                  </b-card-text>
+                </b-tab>
+              </b-tabs>
+            </b-card>
           </div>
 
           <div style = "float: right; margin-top: 80px;">
@@ -90,142 +91,149 @@
 
 <script>
 import MyModal from "../Pos/PosTableOrder.vue";
-import 'vue-good-table/dist/vue-good-table.css'
-import { VueGoodTable } from 'vue-good-table';
+import "vue-good-table/dist/vue-good-table.css";
+import { VueGoodTable } from "vue-good-table";
 
 import axios from "axios";
 
-  export default {
-    components : {
-      MyModal,
-      VueGoodTable
-    },
+export default {
+  components: {
+    MyModal,
+    VueGoodTable,
+  },
 
-    data() {
-      return {
-        modal: false,
-        sel_num: 0,
-        rowselected:[],
-        columns: [
+  data() {
+    return {
+      modal: false,
+      sel_num: 0,
+      rowselected: [],
+      columns: [
         {
-          label: '메 뉴 명',
-          field: 'goods_name',
+          label: "메 뉴 명",
+          field: "goods_name",
         },
         {
-          label: '단 가',
-          field: 'price',
-          type: 'number'
+          label: "단 가",
+          field: "price",
+          type: "number",
         },
         {
-          label: '수 량',
-          field: 'count',
-          type: 'number',
+          label: "수 량",
+          field: "count",
+          type: "number",
         },
         {
-          label: '금 액',
-          field: 'sum_price',
-          type: 'number'
+          label: "금 액",
+          field: "sum_price",
+          type: "number",
         },
-        ],
-        rows:[],
-        tot_price:0,
-      }
+      ],
+      rows: [],
+      tot_price: 0,
+    };
+  },
+  computed: {
+    storename() {
+      return this.$store.state.store_name;
     },
-    computed: {
-      storename(){
-        return this.$store.state.store_name;
-      },
-      tablenum(){
-        return this.$store.state.tablenum;
-      },
-      recive_order(){
-        return this.$store.state.order;
-      },
-      goodslist(){
-        return this.$store.state.goods;
-      },
-      catelist(){
-        return this.$store.state.catelist;
-      }
+    tablenum() {
+      return this.$store.state.tablenum;
     },
+    recive_order() {
+      return this.$store.state.order;
+    },
+    goodslist() {
+      return this.$store.state.goods;
+    },
+    catelist() {
+      return this.$store.state.catelist;
+    },
+  },
 
-    methods: {
-      openModal(num) {
-        this.modal = true
-        this.sel_num = num;
-        var data=[];
-        var sum = 0;
-        for(var i=0;i<this.recive_order.length;i++){
-          if( this.recive_order[i].table_num == num){
-            data.push({
-              order_id : this.recive_order[i].id,
-              goods_name: this.recive_order[i].goods_name,
-              price: this.recive_order[i].price,
-              count: this.recive_order[i].count,
-              sum_price: this.recive_order[i].sum_price,
-            });
-            sum+=parseInt(this.recive_order[i].sum_price);
-          }
+  methods: {
+    openModal(num) {
+      this.modal = true;
+      this.sel_num = num;
+      var data = [];
+      var sum = 0;
+      for (var i = 0; i < this.recive_order.length; i++) {
+        if (this.recive_order[i].table_num == num) {
+          data.push({
+            order_id: this.recive_order[i].id,
+            goods_name: this.recive_order[i].goods_name,
+            price: this.recive_order[i].price,
+            count: this.recive_order[i].count,
+            sum_price: this.recive_order[i].sum_price,
+          });
+          sum += parseInt(this.recive_order[i].sum_price);
         }
-        this.tot_price=sum;
-        this.rows=data;
-      },
+      }
+      this.tot_price = sum;
+      this.rows = data;
+    },
 
-      closeModal() {
-        this.modal = false
-        this.$router.go();
-      },
+    closeModal() {
+      this.modal = false;
+      this.$router.go();
+    },
 
-      selectionChanged(params) {
-          this.rowselected = params.selectedRows;
-          console.log(this.rowselected);
-      },
-      addorder(goods){
-        this.rows.push({
+    selectionChanged(params) {
+      this.rowselected = params.selectedRows;
+      console.log(this.rowselected);
+    },
+    addorder(goods) {
+      this.rows.push({
+        goods_name: goods.goods_name,
+        price: goods.price,
+        count: 1,
+        sum_price: goods.price,
+      });
+      axios({
+        method: "post",
+        url: "/api/addorder",
+        data: {
+          store_name: this.storename,
+          table_num: this.sel_num,
           goods_name: goods.goods_name,
-          price: goods.price,
           count: 1,
-          sum_price: goods.price
-        });
-        axios({
-          method: "post",
-          url: "/api/addorder",
-          data:{
-            store_name: this.storename,
-            table_num: this.sel_num,
-            goods_name: goods.goods_name,
-            count: 1,
-            options: '',
-            price: goods.price,
-            sum_price: goods.price
-          }
-        }).then((res)=>{
+          options: "",
+          price: goods.price,
+          sum_price: goods.price,
+        },
+      })
+        .then((res) => {
           console.log(res);
-          if(res){
+          if (res) {
             console.log("success");
           }
-        }).catch(function(error){
+        })
+        .catch(function (error) {
           console.log(error);
           alert("실패 했습니다. 다시 시도해 주세요.");
         });
-      },
-      delorder(){
-        if (confirm("총 " +this.rowselected.length +" 개의 주문이 취소됩니다!!\n삭제 하시겠습니까?") == true) {
-
-          var s_list = [];
-          for (var i = 0; i < this.rowselected.length; i++) {
-            s_list.push(this.rowselected[i].order_id);
-          }
-          axios({
-            method: "delete",
-            url: "/api/order",
-            data: { id: s_list },
-          })
+    },
+    delorder() {
+      if (
+        confirm(
+          "총 " +
+            this.rowselected.length +
+            " 개의 주문이 취소됩니다!!\n삭제 하시겠습니까?"
+        ) == true
+      ) {
+        var s_list = [];
+        for (var i = 0; i < this.rowselected.length; i++) {
+          s_list.push(this.rowselected[i].order_id);
+        }
+        axios({
+          method: "delete",
+          url: "/api/order",
+          data: { id: s_list },
+        })
           .then((res) => {
             if (res.data) {
               alert("삭제되었습니다.");
               this.$store.commit("setstore", this.$route.params.storename);
-            }else{
+            } else {
               alert("DB 에러!");
             }
           })
@@ -233,21 +241,21 @@ import axios from "axios";
             console.log(error);
             alert("삭제 실패.");
           });
-        }
-      },
-    }
-  }
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
-  /* .my-box { 
+/* .my-box { 
     border:1px solid; 
     width: "200";
     height: "200";
     float: right; 
   } */
 .square {
-  border:1px solid; 
+  border: 1px solid;
   width: 25%;
   position: relative;
   float: left;
