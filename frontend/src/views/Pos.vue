@@ -16,7 +16,7 @@
         <div class="card-body">
           <h5 class="card-title">{{order.table_num}}번 테이블</h5>
           <p class="card-text"><ul><li>{{order.goods_name}} x {{order.count}}개</li></ul></p>
-          <a href="#" class="btn btn-secondary">완 료</a>
+          <a @click="done(order)" class="btn btn-secondary">완 료</a>
         </div>
       </div> <br/><br>
     </div>
@@ -31,7 +31,7 @@
 
 <script>
 import PosTable from '../components/Pos/PosTable.vue';
-
+import axios from 'axios'
   export default {
     name: 'Pos',
     props: {
@@ -56,6 +56,24 @@ import PosTable from '../components/Pos/PosTable.vue';
       this.$store.commit("setstore", this.$route.params.storename);
       this.$store.commit("setgoods", this.$route.params.storename);
       this.$store.commit("setcate", this.$route.params.storename);
+    },
+    methods:{
+      done(order){
+        axios({
+          method: "delete",
+          url: "/api/order",
+          data:{
+            id: order.id
+          }
+        }).then((res)=>{
+          if(res.data){
+            alert("완료되었습니다.");
+          }
+        }).catch(function(error){
+          console.log(error);
+        });
+        this.$router.go();
+      }
     }
   }
 </script>

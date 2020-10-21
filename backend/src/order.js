@@ -12,17 +12,19 @@ function addorder(req,res){
         console.log(order.dataValues.id);
 
         // option 갯수만큼 option 테이블에 저장.
-        for(var i=0; i<req.body.options.length;i++){
-            models.Option.create({
-                order_id: order.dataValues.id,
-                option_name: req.body.options[i].option_name,
-                option_price: req.body.options[i].option_price,
-            }).then(()=>{
-                console.log("save order done..");
-            }).catch(function(error){
-                console.log(error);
-                res.send(false);
-            });
+        if(req.body.options!=null){
+            for(var i=0; i<req.body.options.length;i++){
+                models.Option.create({
+                    order_id: order.dataValues.id,
+                    option_name: req.body.options[i].option_name,
+                    option_price: req.body.options[i].option_price,
+                }).then(()=>{
+                    console.log("save order done..");
+                }).catch(function(error){
+                    console.log(error);
+                    res.send(false);
+                });
+            }
         }
         res.send(true);
 
@@ -39,7 +41,7 @@ function getorder(req,res){
         where:{
             store_name: req.body.store_name,
         },
-        attributes:['table_num', 'goods_name', 'count','price','sum_price']
+        attributes:['id','table_num', 'goods_name', 'count','price','sum_price']
     }).then((result)=>{
         console.log("get order..");
         var data = JSON.parse(JSON.stringify(result));
@@ -54,12 +56,14 @@ function getorder(req,res){
 function deleteorder(req,res){
     models.Order.destroy({
         where:{
-            //
+            id: req.body.id
         }
-    }).then(()=>{
-        //
+    }).then((result)=>{
+        console.log(result);
+        res.send(true);
     }).catch(function(error){
-        //
+        console.log(error);
+        res.send(false);
     });
 }
 

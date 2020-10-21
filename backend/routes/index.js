@@ -187,8 +187,14 @@ router.post('/api/addorder',(req,res)=>{
   order.addorder(req,res);
 });
 
+// 주문내역 전송
 router.post('/api/getorder',(req,res)=>{
   order.getorder(req,res);
-})
+});
+
+// 주문내역 삭제
+router.delete('/api/order', (req, res) => {
+  order.deleteorder(req, res);
+});
 
 module.exports = router;
