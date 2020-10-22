@@ -11,6 +11,7 @@
           <li v-if="data.table_num==num">{{data.goods_name}} X {{data.count}}</li>
         </div>
       </div>
+      </div>
     
       <MyModal @close="closeModal" v-if="modal">
         <div style="float: left; width: 50%;">
