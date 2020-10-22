@@ -1,38 +1,39 @@
 <template>
   <div class="m_menu">
     <div class="main" :key="reload">
-      <b-card no-body :title="cate">
-        <b-card-body
-          id="nav-scroller"
-          ref="content"
-          style="position: relative; height: 600px; overflow-y: auto"
-        >
-          <div
-            v-for="cate in catelist"
-            v-bind:key="cate"
-          >
-          <h4>{{cate.category_name}}</h4>
-          <div v-for="goods in goodslist" v-bind:key="goods">
-            <b-card
-              @click="addopen(goods)"
-              :img-src="goods.img_url"
-              alt="imgs"
-              img-right
-              img-height="120rem"
-              img-width="150rem"
-              v-if="cate.category_name == goods.category_name"
-            >
-              <b-card-text>
-                <h4>{{ goods.goods_name }}</h4>
-                {{ goods.price }}원<br />
-              </b-card-text>
-            </b-card>
-          </div>
-          <br>
-          <br>
-          </div>
-        </b-card-body>
-      </b-card>
+        <div>
+          <b-card no-body>
+            <b-tabs card> 
+              <b-tab v-for="cate in catelist" v-bind:key="cate" :title="cate.category_name">
+                <b-card-body
+                  id="nav-scroller"
+                  ref="content"
+                  style="position: relative; height: 600px; overflow-y: auto; padding: 0px;"
+                >
+                  <div v-for="goods in goodslist" v-bind:key="goods">
+                    <b-card
+                      @click="addopen(goods)"
+                      :img-src="goods.img_url"
+                      alt="imgs"
+                      img-right
+                      img-height="120rem"
+                      img-width="120rem"
+                      v-if="cate.category_name == goods.category_name"
+                    >
+                      <b-card-text style="text-align: left;">
+                        <p style="font-weight: bold; font-size: large;">{{ goods.goods_name }}</p>
+                        {{ goods.price }}원<br />
+                      </b-card-text>
+                    </b-card>
+                  </div>
+                  <br>
+                  <br>
+                </b-card-body>
+              </b-tab>
+            </b-tabs>
+          </b-card>
+        </div>
+          
     </div>
 
     <div class="cart">
@@ -50,18 +51,18 @@
             img-height="200rem"
             img-width="200rem"
             tag="article"
-            style="max-width: 20rem; max-height: 30rem"
+            style="max-width: 20rem; max-height: 30rem; font-weight: bold;"
             class="mb-2"
           >
             <b-card-text>
-              {{ this.cur_desc }}<br />
+              {{ this.cur_desc }}<br /><br/>
               <h4>{{ this.cur_price + "원" }}</h4>
             </b-card-text>
           </b-card>
         </div>
 
-
         <div class="m_option">
+          <p style="font-size: large; font-weight: bold;">옵션 추가</p>
           <b-form-checkbox-group
               v-model="selected"
               :options="options"
@@ -76,40 +77,48 @@
           {{ counter }} 개
           <b-button v-on:click="counter += 1">&rsaquo;</b-button>
         </div>
-        <div>
-          가 격
-          {{price}}
-        </div>
+
         <div class="fixed">
-          <b-button block variant="primary" @click="additem">{{counter}}개 담기</b-button>
+          <b-button block variant="primary" @click="additem"> 
+            <div style="float: left; width: 60%; text-align: right;"> {{counter}}개 담기 </div>
+            <div style="float: right; width: 40%; text-align: right;"> {{price}}원 </div>
+          </b-button>
         </div>
       </div>
     </MenuAdd>
 
     <MenuOrder @close="orderclose" v-if="ordermodal">
-      <div class="o_menu">
+      <div class="ddd">
         <div
             v-for="item in cart"
             v-bind:key="item"
           >
-          <b-card>
-            <template>
-              <div style="text-align: right; float: right; width: 100%">
+          <div class="card bg-light custom">
+            <div class="card-header" style="text-align: right; float: right; width: 100%">
                 <b-icon icon="x-circle" scale="2" variant="danger" @click="delorder(item)"></b-icon>
-              </div>
-            </template>
-            <span>{{item.goods_name}}({{item.price}}원) X {{item.count}} 개</span>
-            <div v-for="option in item.options" v-bind:key="option">
-              <b-card-text>
-                <li>{{option.option_name}} : {{option.option_price}} 원</li>
-              </b-card-text>
             </div>
-              
-          </b-card>
+            <div style="text-align: left; font-weight: bold; padding: 20px; font-size: large;">
+              {{item.goods_name}}({{item.price}}원) X {{item.count}} 개
+              <div v-for="option in item.options" v-bind:key="option" style="text-align: left;">
+                <li style="text-align: left; padding-top: 10px; font-size: medium;">
+                  {{option.option_name}} : {{option.option_price}} 원
+                </li>
+              </div>
+            </div>
+          </div>
         </div>
+        
+          <b-card style="display: flex; height: 60px;">
+              <div style="flex= 1; text-align: left; float: left;">
+               <p style="font-size: large; font-weight: bold;"> 총 주문금액</p>
+              </div>
+              <div style="flex= 2; text-align: right; float: right;">
+                <p style="font-size: large; font-weight: bold;">{{totprice}}원</p>
+              </div>
+          </b-card>
       </div>
       <div class="fixed">
-        <b-button block variant="primary" @click="order"> {{totprice}}주문하기 </b-button>
+        <b-button block variant="primary" @click="order"> {{totprice}}원 주문하기 </b-button>
       </div>
     </MenuOrder>
   </div>
@@ -344,71 +353,173 @@ export default {
 </script>
 
 <style scoped>
-div.fixed {
-  text-align: center;
-  position: fixed;
-  bottom: 5px;
-  right: 0;
-  width: 100%;
-}
-div.cart{
-  font-size: 4rem;
-  padding: 10px;
-  margin-bottom: 10px;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-}
-/* 구분선 */
-.hr {
-  border-top: 3px solid #bbb;
+  div.fixed {
+    text-align: center;
+    position: fixed;
+    bottom: 5px;
+    right: 0;
+    width: 100%;
+  }
+  div.cart{
+    font-size: 4rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+  /* 구분선 */
+  .hr {
+    border-top: 3px solid #bbb;
+  }
+
+  .main {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #bcbcbc;
+    position: fixed;
+    /* overflow-y:scroll; */
+    width: 100%;
+  }
+
+  .footer {
+    position: fixed;
+    float: right;
+    clear: right;
+    width: 100%;
+    height: 50px;
+    margin-top: 70px;
+    left: 0;
+    bottom: 0px;
+  }
+
+  .menuadd {
+    position: sticky;
+    width: 100%;
+    height: 100%;
+    display: table;
+  }
+
+  .m_menu {
+    float: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .m_option {
+    width: 100%;
+    height: 230px;
+    text-align: left;
+    border: solid 2px;
+    border-color: #f1f1f1;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .m_num {
+    position: fixed;
+    float: center;
+    width: 100%;
+    left: 0;
+    bottom: 65px;
+  }
+
+  .custom {
+    height: 200px !important;
+    padding: 10px;
+  }
+
+  .ddd{
+    overflow-y: auto !important;
+    height: 600px;
+  }
+
+@media only screen 
+    and (device-width : 414px) 
+    and (device-height : 896px) 
+    and (-webkit-device-pixel-ratio : 2) { 
+  div.fixed {
+    text-align: center;
+    position: fixed;
+    bottom: 5px;
+    right: 0;
+    width: 100%;
+  }
+  div.cart{
+    font-size: 4rem;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+  /* 구분선 */
+  .hr {
+    border-top: 3px solid #bbb;
+  }
+
+  .main {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #bcbcbc;
+    position: fixed;
+    /* overflow-y:scroll; */
+    width: 100%;
+  }
+
+  .footer {
+    position: fixed;
+    float: right;
+    clear: right;
+    width: 100%;
+    height: 50px;
+    margin-top: 70px;
+    left: 0;
+    bottom: 0px;
+  }
+
+  .menuadd {
+    position: sticky;
+    width: 100%;
+    height: 100%;
+    display: table;
+  }
+
+  .m_menu {
+    float: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .m_option {
+    width: 100%;
+    height: 230px;
+    text-align: left;
+    border: solid 2px;
+    border-color: #f1f1f1;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .m_num {
+    position: fixed;
+    float: center;
+    width: 100%;
+    left: 0;
+    bottom: 65px;
+  }
+
+  .custom {
+    height: 200px !important;
+    padding: 10px;
+  }
+
+  .ddd{
+    overflow-y: auto !important;
+    height: 600px;
+  }
 }
 
-.main {
-  padding: 20px;
-  margin-bottom: 20px;
-  border: 1px solid #bcbcbc;
-  position: fixed;
-  /* overflow-y:scroll; */
-  width: 100%;
-}
-
-.footer {
-  position: fixed;
-  float: right;
-  clear: right;
-  width: 100%;
-  height: 50px;
-  margin-top: 70px;
-  left: 0;
-  bottom: 0px;
-}
-
-.menuadd {
-  position: sticky;
-  width: 100%;
-  height: 100%;
-  display: table;
-}
-
-.m_menu {
-  float: center;
-  width: 100%;
-  height: 100%;
-  /* height: 300px; */
-}
-
-.m_option {
-  width: 100%;
-  height: 40%;
-  text-align: left;
-}
-
-.m_num {
-  position: fixed;
-  float: center;
-  width: 100%;
-  left: 0;
-  bottom: 50px;
-}
 </style>

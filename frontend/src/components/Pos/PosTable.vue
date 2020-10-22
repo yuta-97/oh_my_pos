@@ -1,6 +1,6 @@
 <!--  포스 테이블  -->
 <template>
-  <div class="row" style=" float: center; hegiht: 100%;">
+  <div class="row" style=" float: center;">
     <div
     v-for="num in tablenum"
     v-bind:key="num"
@@ -70,8 +70,8 @@
             <b-card no-body>
               <b-tabs card> 
                 <b-tab v-for="cate in catelist" v-bind:key="cate" :title="cate.category_name">
-                  <b-card-text v-for="goods in goodslist" v-bind:key="goods"> 
-                    <b-button @click="addorder(goods)" v-if="goods.category_name == cate.category_name">{{goods.goods_name}}</b-button>
+                  <b-card-text style="float: left;" v-for="goods in goodslist" v-bind:key="goods"> 
+                    <b-button @click="addorder(goods)" v-if="goods.category_name == cate.category_name">{{goods.goods_name}}</b-button>&nbsp;&nbsp;
                   </b-card-text>
                 </b-tab>
               </b-tabs>
@@ -248,45 +248,8 @@ export default {
 </script>
 
 <style scoped>
-/* .my-box { 
-    border:1px solid; 
-    width: "200";
-    height: "200";
-    float: right; 
-  } */
   .custom {
     width: 180px !important;
     height: 200px !important;
   }
-.square {
-  border: 1px solid;
-  width: 25%;
-  position: relative;
-  float: left;
-}
-
-.square:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
-
-.inner {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  text-align: left;
-}
-
-/* .left {
-  background: red;
-  float: left;
-  width: 50%;
-}
-
-.right {
-  background: blue;
-  float: right;
-  width: 50%;
-} */
 </style>
