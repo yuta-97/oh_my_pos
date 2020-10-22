@@ -170,7 +170,7 @@ router.post('/api/saveimage', upload.single('image'), function (req, res, next) 
 // 이미지 보여주기.
 router.get('/api/getimage/:imgname', (req, res) => {
   var imgPath = 'uploads/goods/' + req.params.imgname;
-  console.log('imgPath=' + imgPath);
+  // console.log('imgPath=' + imgPath);
 
   fs.readFile(imgPath, function (error, data) {
     if (error) {

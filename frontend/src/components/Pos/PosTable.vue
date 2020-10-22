@@ -79,7 +79,7 @@
             </b-card>
           </div>
 
-          <div style = "float: right; margin-top: 80px;">
+          <div style = "float: right,bottom; margin-top: 80px;">
             <b-button type="button" class="btn btn-default btn-lg">현금</b-button>
             <b-button type="button" class="btn btn-default btn-lg">카드</b-button>
           </div>
@@ -250,7 +250,10 @@ export default {
 
 <style scoped>
   .custom {
+    text-align: left;
     width: 180px !important;
     height: 200px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>
