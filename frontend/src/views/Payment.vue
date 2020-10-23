@@ -2,6 +2,7 @@
     <div class="main-container">
         <div class="orderList">
             <OrderList :order="orderlist"></OrderList>
+            <hr/>
         </div>
 
         <div class="goodsNpay">
@@ -57,20 +58,23 @@ export default {
     .orderList{
         float: left;
         width: 50%;
-        height: 50%;
+        height: 50% !important;
+        background-color: #f3f4f7;
     }
 
     .orderCalc{
         clear: left;
         float: left;
         width: 50%;
-        height: 50%;
+        height: 50% !important;
+        background-color: #f3f4f7;
     }
 
     .goodsNpay{
         float: right;
         width: 50%;
-        height: 100%;
+        height: 100% !important;
+        background-color: #f3f4f7;
     }
 
 

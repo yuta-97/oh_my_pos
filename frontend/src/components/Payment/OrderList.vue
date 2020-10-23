@@ -1,22 +1,27 @@
 <template>
-  <div style="display: block">
+  <div style="display: block; height: 100%; background-color: #f3f4f7;">
     <vue-good-table
       @on-selected-rows-change="selectionChanged"
       :line-numbers="true"
       :columns="columns"
       :rows="rows"
-      max-height="500px"
       :select-options="{
         enabled: true,
       }"
       :pagination-options="{
         enabled: true,
         mode: 'records',
-        perPage: 5,
+        perPage: 3,
         position: 'top',
+        perPageDropdown: [3],
+        dropdownAllowAll: false,
         setCurrentPage: 1,
         nextLabel: 'next',
         prevLabel: 'prev',
+        rowsPerPageLabel: 'Rows per page',
+        ofLabel: 'of',
+        pageLabel: 'page', // for 'pages' mode
+        allLabel: 'All',
       }"
     >
       <div slot="selected-row-actions">
@@ -24,8 +29,7 @@
           @click="delorder"
           variant="outline-primary"
           v-if="rowselected.length > 0"
-          >삭제</b-button
-        >
+          >삭제</b-button>
       </div>
     </vue-good-table>
   </div>
@@ -158,4 +162,7 @@ export default {
 </script>
 
 <style scoped>
+  .vue-good-table {
+    height: 100%;
+  }
 </style>

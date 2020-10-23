@@ -3,7 +3,9 @@
     <component v-bind:is="selmenus">
       <GoodsPay>
         <div>
-          <b-card no-body>
+          <b-card no-body
+            style="height: 70%;"
+          >
             <b-tabs card>
               <b-tab
                 v-for="cate in catelist"

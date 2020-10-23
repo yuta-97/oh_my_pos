@@ -1,7 +1,7 @@
 <template>
-  <div style="display: flex">
+  <div style="display: flex; background-color: #f3f4f7;">
     <div style="flex: 1; float: left; width: 50%">
-      <table class="table table-bordered">
+      <table class="table table-bordered" style="float: center;">
         <thead>
           <tr height="40">
             <th bgcolor="gray" width="225">총 합 계</th>
@@ -57,8 +57,8 @@
           <b-icon icon="arrow-left"></b-icon>
         </b-button>
       </div>
-      <div class="button" style="width: 100%;">
-        <b-button squared @click="sendcur()">확인</b-button>
+      <div class="okbtn" >
+        <b-button style="width: 100%;" class="btn btn-secondary btn-block" @click="sendcur()">확인</b-button>
       </div>
     </div>
   </div>
@@ -171,6 +171,13 @@ export default {
 }
 
 .button button {
+  width: 50%;
+  height: 80px;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.okbtn button{
   width: 50%;
   height: 80px;
   font-size: 20px;
