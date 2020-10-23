@@ -10,6 +10,7 @@
 
         <div class="orderCalc">
             <OrderCalc></OrderCalc>
+
         </div>
 
     </div>
@@ -25,6 +26,10 @@ export default {
         OrderList,
         OrderCalc,
         GoodsNPay
+    },
+
+    methods: {
+    
     }
 }
 </script>
@@ -39,6 +44,7 @@ export default {
         float: left;
         width: 50%;
         height: 50%;
+        /* position: fixed; */
     }
 
     .orderCalc{
@@ -46,6 +52,7 @@ export default {
         float: left;
         width: 50%;
         height: 50%;
+        /* position: fixed; */
     }
 
     .goodsNpay{

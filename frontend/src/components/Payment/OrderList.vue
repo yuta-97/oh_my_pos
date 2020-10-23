@@ -5,6 +5,7 @@
             :line-numbers="true"
             :columns="columns"
             :rows="rows"
+            max-height="500px"
             :select-options="{ 
             enabled: true,
             }"
