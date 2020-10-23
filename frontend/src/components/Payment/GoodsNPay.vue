@@ -18,7 +18,7 @@
                 <b-button @click="applyorder" class="btn btn-primary btn-lg btn-block">주 문</b-button>
             </div>
             <div style="float: right; width: 50%">
-              <b-button type="button" class="btn btn-secondary btn-lg btn-block">취 소</b-button>
+                <b-button @click="cancel" class="btn btn-secondary btn-lg btn-block">취 소</b-button>
             </div>
           </div>
 
@@ -120,30 +120,37 @@ export default {
         
       },
       applyorder(){
-        for( var i=0;i<this.added_order.length;i++){
-          axios({
-            method: "post",
-            url: "/api/addorder",
-            data: {
-              store_name: this.storename,
-              table_num: this.table_num,
-              goods_name: this.added_order[i].goods_name,
-              count: 1,
-              options: "",
-              price: this.added_order[i].price,
-              sum_price: this.added_order[i].price,
-            },
-          }).then((res) => {
-            console.log(res);
-            if (res) {
-              console.log("success");
-            }
-          }).catch(function (error) {
-            console.log(error);
-            alert("실패 했습니다. 다시 시도해 주세요.");
-          });
+        if( this.added_order.length == 0){
+          alert("추가한 주문이 없습니다!");
+        }else{
+          for( var i=0;i<this.added_order.length;i++){
+            axios({
+              method: "post",
+              url: "/api/addorder",
+              data: {
+                store_name: this.storename,
+                table_num: this.table_num,
+                goods_name: this.added_order[i].goods_name,
+                count: 1,
+                options: "",
+                price: this.added_order[i].price,
+                sum_price: this.added_order[i].price,
+              },
+            }).then((res) => {
+              console.log(res);
+              if (res) {
+                console.log("success");
+              }
+            }).catch(function (error) {
+              console.log(error);
+              alert("실패 했습니다. 다시 시도해 주세요.");
+            });
+          }
+          alert("주문 완료");
+          this.$router.go(-1);
         }
-        alert("주문 완료");
+      },
+      cancel(){
         this.$router.go(-1);
       },
 
