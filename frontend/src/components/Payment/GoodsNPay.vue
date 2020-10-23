@@ -42,23 +42,21 @@
       </GoodsPay>
     </component>
 
-    <Discount @close="closeModal" v-if="modal">
+    <Discount @apply="applydiscount" @close="closeModal" v-if="modal">
       <div>
-        결제 금액 : 
+        결제 금액 :  {{pay_price}}
         <br/>
-        <b-dropdown id="dropdown-1" text="할 인" class="m-md-2">
-          <b-dropdown-item>First Action</b-dropdown-item>
-          <b-dropdown-item>Second Action</b-dropdown-item>
-          <b-dropdown-item>Third Action</b-dropdown-item>
-          <b-dropdown-item active>Active action</b-dropdown-item>
-          <b-dropdown-item disabled>Disabled action</b-dropdown-item>
-        </b-dropdown>
+        <b-form-select
+          v-model="disrate"
+          label="할 인 : "
+          :options="discount"
+          required
+        ></b-form-select>
         <br/>
-        할인명 : 
+        할인 율 : {{disrate}}%
         <br/>
-        할인 금액 : 
+        할인 금액 : {{dis_price}}
         <br/>
-        <b-button>확 인</b-button>
       </div>
     </Discount>
 
@@ -79,7 +77,9 @@ export default {
       return{
         added_order:[],
         selmenus: 'GoodsPay',
-        modal: false
+        modal: false,
+        disrate: null,
+        pay_price: 0,
       }  
     },
 
@@ -108,6 +108,17 @@ export default {
       goodslist() {
         return this.$store.state.goods;
       },
+      discount(){
+        return this.$store.state.discount;
+      },
+      dis_price(){
+        return this.pay_price*(this.disrate/100);
+      }
+    },
+    mounted: function(){
+      EventBus.$on('pay-price', (data)=>{
+        this.pay_price = data;
+      });
     },
     methods:{
       addorder(goods) {
@@ -137,8 +148,7 @@ export default {
                 sum_price: this.added_order[i].price,
               },
             }).then((res) => {
-              console.log(res);
-              if (res) {
+              if (res.data) {
                 console.log("success");
               }
             }).catch(function (error) {
@@ -149,6 +159,10 @@ export default {
           alert("주문 완료");
           this.$router.go(-1);
         }
+      },
+      applydiscount(){
+        EventBus.$emit('disrate', this.dis_price);
+        this.modal=false;
       },
       cancel(){
         this.$router.go(-1);

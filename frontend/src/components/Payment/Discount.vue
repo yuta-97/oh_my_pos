@@ -19,6 +19,9 @@
 
           <div class="modal-footer">
             <slot name="footer">
+              <b-button class="modal-default-button" @click="$emit('apply')">
+                확 인
+              </b-button>
               <b-button class="modal-default-button" @click="$emit('close')">
                 닫 기
               </b-button>

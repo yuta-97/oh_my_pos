@@ -11,6 +11,7 @@ export default new Vuex.Store({
     order: [],
     goods: [],
     catelist: [],
+    discount:[],
   },
   mutations: {
     setstore (state, name){
@@ -23,6 +24,28 @@ export default new Vuex.Store({
       }).then((res)=>{
         state.tablenum = res.data[0].table_num;
         state.store_name = res.data[0].store_name;
+      }).catch((error)=>{
+        console.log(error);
+      });
+    },
+    setdiscount (state, storename){
+      axios({
+        method: "post",
+        url: "/api/getdiscount",
+        data:{
+          store_name: storename
+        }
+      }).then((res)=>{
+        var s_list=[];
+        for (var i=0; i<res.data.length; i++){
+          s_list.push({
+            text: res.data[i].dis_name,
+            value: res.data[i].dis_rate
+          });
+        }
+        console.log(res.data);
+        console.log(s_list);
+        state.discount = s_list;
       }).catch((error)=>{
         console.log(error);
       });

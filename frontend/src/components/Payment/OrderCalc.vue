@@ -9,7 +9,7 @@
                         {{tot_price}}
                         </td>
                     </tr>
-                    <tr height="40">
+                    <tr height="40" @click="focus_amount">
                         <th bgcolor="gray" width="225">할 인 액</th>
                         <td width="200" align="center">
                             {{dis_amount}}
@@ -67,7 +67,6 @@ export default {
             dis_amount: 0,
             dis_rate:0,
             input_link: '할인액 적용',
-            at: 'dis_amount',
             focus: 1, // 1 = 할인액, 2 = 할인율
         }
     },
@@ -77,7 +76,9 @@ export default {
         }
     },
     watch:{
-        //
+        pay_price: function(){
+            EventBus.$emit('pay-price', this.pay_price);
+        }
     },
     mounted: function(){
         EventBus.$on('tot-change', (data)=>{
@@ -88,6 +89,11 @@ export default {
             this.focus = 'payment';
             console.log(data);
             //
+        });
+        EventBus.$on('disrate', (data)=>{
+            this.input_link = '할인율 적용';
+            this.focus = 2;
+            this.dis_amount=data;
         })
     },
 
@@ -114,6 +120,9 @@ export default {
                 }
             }
             
+        },
+        focus_amount(){
+            this.focus = 1;
         },
 
         reset() {
