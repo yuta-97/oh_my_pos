@@ -83,7 +83,10 @@ router.get('/api/getstorebyID', (req, res) => {
 });
 router.post('/api/gettablenum',(req,res)=>{
   store.gettablenum(req, res);
-})
+});
+router.post('/api/getdiscount',(req,res)=>{
+  store.getdiscount(req, res);
+});
 
 // 매장 정보 업데이트
 router.post('/api/updatestore', (req, res) => {
@@ -170,7 +173,7 @@ router.post('/api/saveimage', upload.single('image'), function (req, res, next) 
 // 이미지 보여주기.
 router.get('/api/getimage/:imgname', (req, res) => {
   var imgPath = 'uploads/goods/' + req.params.imgname;
-  console.log('imgPath=' + imgPath);
+  // console.log('imgPath=' + imgPath);
 
   fs.readFile(imgPath, function (error, data) {
     if (error) {

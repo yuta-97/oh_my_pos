@@ -237,10 +237,6 @@ export default {
     overflow-y: auto;
   }
 
-  .collapsed + .main-content {
-    margin-left: 60px;
-  }
-
   .footer {
     position: fixed;
     left: 0;

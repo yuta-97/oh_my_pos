@@ -23,6 +23,7 @@
               </div>
           </ul>
           </p>
+          <a @click="cancle(order)" class="btn btn-secondary" style="border-right: 3px;">취 소</a>
           <a @click="done(order)" class="btn btn-secondary">완 료</a>
         </div>
       </div> <br/><br>
@@ -63,9 +64,10 @@ import axios from 'axios'
       this.$store.commit("setstore", this.$route.params.storename);
       this.$store.commit("setgoods", this.$route.params.storename);
       this.$store.commit("setcate", this.$route.params.storename);
+      this.$store.commit("setdiscount", this.$route.params.storename);
     },
     methods:{
-      done(order){
+      cancle(order){
         axios({
           method: "delete",
           url: "/api/order",
@@ -74,12 +76,17 @@ import axios from 'axios'
           }
         }).then((res)=>{
           if(res.data){
-            alert("완료되었습니다.");
+            alert("취소 되었습니다.");
           }
+          this.$store.commit("setorder", this.$route.params.storename);
         }).catch(function(error){
           console.log(error);
         });
-        this.$router.go();
+        // this.$router.go();
+      },
+      done(order){
+        console.log(order);
+        this.$store.commit("setorder", this.$route.params.storename);
       }
     }
   }
@@ -90,6 +97,8 @@ import axios from 'axios'
   .navbar-global {
     background-color: #333;
     width: 350px;
+    position: fixed;
+    top: 0;
   }
 
   .navbar-global .navbar-brand {
@@ -105,11 +114,10 @@ import axios from 'axios'
     background-color: #333;
     bottom: 0px;
     left: 0px;
-    position: absolute;
+    position: fixed;
     top: 51px;
     width: 350px;
     z-index: 8;
-    overflow: hidden;
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
@@ -143,14 +151,13 @@ import axios from 'axios'
     margin-right: 6px;
   }
 
-  .navbar-primary-menu li a:hover .glyphicon {
-    color: orchid;
-  }
 
   .main-content {
-    margin-top: 30px;
+    margin-top: 10px;
     height: 100%;
     margin-left: 350px;
+    padding: 30px;
+    overflow-y: auto;
 
   }
 
@@ -160,6 +167,8 @@ import axios from 'axios'
   .navbar-global {
     background-color: #333;
     width: 350px;
+    position: fixed;
+    top: 0;
   }
 
   .navbar-global .navbar-brand {
@@ -175,11 +184,10 @@ import axios from 'axios'
     background-color: #333;
     bottom: 0px;
     left: 0px;
-    position: absolute;
+    position: fixed;
     top: 51px;
     width: 350px;
     z-index: 8;
-    overflow: hidden;
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
@@ -213,14 +221,13 @@ import axios from 'axios'
     margin-right: 6px;
   }
 
-  .navbar-primary-menu li a:hover .glyphicon {
-    color: orchid;
-  }
 
   .main-content {
-    margin-top: 30px;
+    margin-top: 10px;
     height: 100%;
     margin-left: 350px;
+    padding: 30px;
+    overflow-y: auto;
 
   }
 
@@ -233,6 +240,8 @@ import axios from 'axios'
   .navbar-global {
     background-color: #333;
     width: 350px;
+    position: fixed;
+    top: 0;
   }
 
   .navbar-global .navbar-brand {
@@ -248,11 +257,10 @@ import axios from 'axios'
     background-color: #333;
     bottom: 0px;
     left: 0px;
-    position: absolute;
+    position: fixed;
     top: 51px;
     width: 350px;
     z-index: 8;
-    overflow: hidden;
     -webkit-transition: all 0.1s ease-in-out;
     -moz-transition: all 0.1s ease-in-out;
     transition: all 0.1s ease-in-out;
@@ -286,14 +294,13 @@ import axios from 'axios'
     margin-right: 6px;
   }
 
-  .navbar-primary-menu li a:hover .glyphicon {
-    color: orchid;
-  }
 
   .main-content {
-    margin-top: 30px;
+    margin-top: 10px;
     height: 100%;
     margin-left: 350px;
+    padding: 30px;
+    overflow-y: auto;
 
   }
 

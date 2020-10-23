@@ -11,6 +11,8 @@ export default new Vuex.Store({
     order: [],
     goods: [],
     catelist: [],
+    discount:[],
+    s_order: [],
   },
   mutations: {
     setstore (state, name){
@@ -23,8 +25,28 @@ export default new Vuex.Store({
       }).then((res)=>{
         state.tablenum = res.data[0].table_num;
         state.store_name = res.data[0].store_name;
-        console.log("vuex set store data!!");
-        console.log(state.tablenum);
+      }).catch((error)=>{
+        console.log(error);
+      });
+    },
+    setdiscount (state, storename){
+      axios({
+        method: "post",
+        url: "/api/getdiscount",
+        data:{
+          store_name: storename
+        }
+      }).then((res)=>{
+        var s_list=[];
+        for (var i=0; i<res.data.length; i++){
+          s_list.push({
+            text: res.data[i].dis_name,
+            value: res.data[i].dis_rate
+          });
+        }
+        console.log(res.data);
+        console.log(s_list);
+        state.discount = s_list;
       }).catch((error)=>{
         console.log(error);
       });
@@ -38,11 +60,12 @@ export default new Vuex.Store({
         }
       }).then((res)=>{
         state.order = res.data;
-        console.log("vuex 성공..!!");
-        console.log(state.order);
       }).catch(function(error){
         console.log(error);
       });
+    },
+    settableorder(state, order){
+      state.s_order = order;
     },
     setgoods(state, storename){
       axios({
@@ -57,7 +80,6 @@ export default new Vuex.Store({
           s_list.push(res.data[i]);
         }
         state.goods = s_list;
-        console.log("vuex set goods data!!");
       })
       .catch(function (error) {
         console.log(error);
@@ -71,7 +93,6 @@ export default new Vuex.Store({
       })
       .then((res) => {
         state.catelist = res.data;
-        console.log("vuex set catelist data!!");
       })
       .catch(function (error) {
         console.log(error);

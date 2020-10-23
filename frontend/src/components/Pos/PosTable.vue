@@ -1,18 +1,17 @@
 <!--  포스 테이블  -->
 <template>
-  <div>
-    <div styel="float= left; margin-top: 20px;"
+  <div class="row" style=" float: center;">
+    <div
     v-for="num in tablenum"
     v-bind:key="num"
     >
-      <b-button squared variant="outline-secondary" @click="openModal(num)">
-        {{num}}
+      <div class="card bg-light custom" @click="payment(num)">
+        <div class="card-header">{{num}}번</div>
         <div v-for="data in recive_order" v-bind:key="data">
           <li v-if="data.table_num==num">{{data.goods_name}} X {{data.count}}</li>
         </div>
-      </b-button>
-      
-    </div>
+      </div>
+      </div>
     
       <MyModal @close="closeModal" v-if="modal">
         <div style="float: left; width: 50%;">
@@ -68,18 +67,19 @@
         </div>
 
         <div style="float: right; width: 50%;">
-          <div class="menuselect"
-          v-for="cate in catelist"
-          v-bind:key="cate"
-          >
-            <span class="badge badge-warning">{{cate.category_name}}</span><br>
-            <div v-for="goods in goodslist" v-bind:key="goods">
-              <b-button @click="addorder(goods)" v-if="goods.category_name == cate.category_name">{{goods.goods_name}}</b-button>
-            </div>
-            <br>
+          <div>
+            <b-card no-body>
+              <b-tabs card> 
+                <b-tab v-for="cate in catelist" v-bind:key="cate" :title="cate.category_name">
+                  <b-card-text style="float: left; margin-right: 3px; margin-bottom: 3px;" v-for="goods in goodslist" v-bind:key="goods"> 
+                    <b-button @click="addorder(goods)" v-if="goods.category_name == cate.category_name">{{goods.goods_name}}</b-button>&nbsp;&nbsp;
+                  </b-card-text>
+                </b-tab>
+              </b-tabs>
+            </b-card>
           </div>
 
-          <div style = "float: right; margin-top: 80px;">
+          <div style = "float: right,bottom; margin-top: 80px;">
             <b-button type="button" class="btn btn-default btn-lg">현금</b-button>
             <b-button type="button" class="btn btn-default btn-lg">카드</b-button>
           </div>
@@ -92,142 +92,144 @@
 
 <script>
 import MyModal from "../Pos/PosTableOrder.vue";
-import 'vue-good-table/dist/vue-good-table.css'
-import { VueGoodTable } from 'vue-good-table';
+import "vue-good-table/dist/vue-good-table.css";
+import { VueGoodTable } from "vue-good-table";
 
 import axios from "axios";
 
-  export default {
-    components : {
-      MyModal,
-      VueGoodTable
-    },
+export default {
+  components: {
+    MyModal,
+    VueGoodTable,
+  },
 
-    data() {
-      return {
-        modal: false,
-        sel_num: 0,
-        rowselected:[],
-        columns: [
+  data() {
+    return {
+      modal: false,
+      sel_num: 0,
+      rowselected: [],
+      columns: [
         {
-          label: '메 뉴 명',
-          field: 'goods_name',
+          label: "메 뉴 명",
+          field: "goods_name",
         },
         {
-          label: '단 가',
-          field: 'price',
-          type: 'number'
+          label: "단 가",
+          field: "price",
+          type: "number",
         },
         {
-          label: '수 량',
-          field: 'count',
-          type: 'number',
+          label: "수 량",
+          field: "count",
+          type: "number",
         },
         {
-          label: '금 액',
-          field: 'sum_price',
-          type: 'number'
+          label: "금 액",
+          field: "sum_price",
+          type: "number",
         },
-        ],
-        rows:[],
-        tot_price:0,
-      }
+      ],
+      rows: [],
+      tot_price: 0,
+    };
+  },
+  computed: {
+    storename() {
+      return this.$store.state.store_name;
     },
-    computed: {
-      storename(){
-        return this.$store.state.store_name;
-      },
-      tablenum(){
-        return this.$store.state.tablenum;
-      },
-      recive_order(){
-        return this.$store.state.order;
-      },
-      goodslist(){
-        return this.$store.state.goods;
-      },
-      catelist(){
-        return this.$store.state.catelist;
-      }
+    tablenum() {
+      return this.$store.state.tablenum;
     },
+    recive_order() {
+      return this.$store.state.order;
+    },
+    goodslist() {
+      return this.$store.state.goods;
+    },
+    catelist() {
+      return this.$store.state.catelist;
+    },
+  },
 
-    methods: {
-      openModal(num) {
-        this.modal = true
-        this.sel_num = num;
-        var data=[];
-        var sum = 0;
-        for(var i=0;i<this.recive_order.length;i++){
-          if( this.recive_order[i].table_num == num){
-            data.push({
-              order_id : this.recive_order[i].id,
-              goods_name: this.recive_order[i].goods_name,
-              price: this.recive_order[i].price,
-              count: this.recive_order[i].count,
-              sum_price: this.recive_order[i].sum_price,
-            });
-            sum+=parseInt(this.recive_order[i].sum_price);
-          }
+  methods: {
+    payment(num){
+      this.$router.push({name: 'Payment', params: {num: num}});
+    },
+    openModal(num) {
+      this.modal = true;
+      this.sel_num = num;
+      var data = [];
+      var sum = 0;
+      for (var i = 0; i < this.recive_order.length; i++) {
+        if (this.recive_order[i].table_num == num) {
+          data.push({
+            order_id: this.recive_order[i].id,
+            goods_name: this.recive_order[i].goods_name,
+            price: this.recive_order[i].price,
+            count: this.recive_order[i].count,
+            sum_price: this.recive_order[i].sum_price,
+          });
+          sum += parseInt(this.recive_order[i].sum_price);
         }
-        this.tot_price=sum;
-        this.rows=data;
-      },
+      }
+      this.tot_price = sum;
+      this.rows = data;
+    },
 
-      closeModal() {
-        this.modal = false
-        this.$router.go();
-      },
+    closeModal() {
+      this.modal = false;
+      this.$router.go();
+    },
 
-      selectionChanged(params) {
-          this.rowselected = params.selectedRows;
-          console.log(this.rowselected);
-      },
-      addorder(goods){
-        this.rows.push({
+    selectionChanged(params) {
+      this.rowselected = params.selectedRows;
+    },
+    addorder(goods) {
+      this.rows.push({
+        goods_name: goods.goods_name,
+        price: goods.price,
+        count: 1,
+        sum_price: goods.price,
+      });
+      axios({
+        method: "post",
+        url: "/api/addorder",
+        data: {
+          store_name: this.storename,
+          table_num: this.sel_num,
           goods_name: goods.goods_name,
-          price: goods.price,
           count: 1,
-          sum_price: goods.price
-        });
-        axios({
-          method: "post",
-          url: "/api/addorder",
-          data:{
-            store_name: this.storename,
-            table_num: this.sel_num,
-            goods_name: goods.goods_name,
-            count: 1,
-            options: '',
-            price: goods.price,
-            sum_price: goods.price
-          }
-        }).then((res)=>{
-          console.log(res);
-          if(res){
+          options: "",
+          price: goods.price,
+          sum_price: goods.price,
+        },
+      })
+        .then((res) => {
+          if (res) {
             console.log("success");
           }
-        }).catch(function(error){
+        })
+        .catch(function (error) {
           console.log(error);
           alert("실패 했습니다. 다시 시도해 주세요.");
         });
-      },
-      delorder(){
-        if (confirm("총 " +this.rowselected.length +" 개의 주문이 취소됩니다!!\n삭제 하시겠습니까?") == true) {
-
-          var s_list = [];
-          for (var i = 0; i < this.rowselected.length; i++) {
-            s_list.push(this.rowselected[i].order_id);
-          }
-          axios({
-            method: "delete",
-            url: "/api/order",
-            data: { id: s_list },
-          })
+    },
+    delorder() {
+      if (confirm("총 " +this.rowselected.length +" 개의 주문이 취소됩니다!!\n삭제 하시겠습니까?") == true) {
+        var s_list = [];
+        for (var i = 0; i < this.rowselected.length; i++) {
+          s_list.push(this.rowselected[i].order_id);
+        }
+        axios({
+          method: "delete",
+          url: "/api/order",
+          data: { id: s_list },
+        })
           .then((res) => {
             if (res.data) {
               alert("삭제되었습니다.");
               this.$store.commit("setstore", this.$route.params.storename);
-            }else{
+            } else {
               alert("DB 에러!");
             }
           })
@@ -235,48 +237,18 @@ import axios from "axios";
             console.log(error);
             alert("삭제 실패.");
           });
-        }
-      },
-    }
-  }
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>
-  /* .my-box { 
-    border:1px solid; 
-    width: "200";
-    height: "200";
-    float: right; 
-  } */
-.square {
-  border:1px solid; 
-  width: 25%;
-  position: relative;
-  float: left;
-}
-
-.square:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%;
-}
-
-.inner {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  text-align: left;
-}
-
-/* .left {
-  background: red;
-  float: left;
-  width: 50%;
-}
-
-.right {
-  background: blue;
-  float: right;
-  width: 50%;
-} */
+  .custom {
+    text-align: left;
+    width: 180px !important;
+    height: 200px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 </style>

@@ -88,7 +88,7 @@ import Regist from '../components/Login/Regist.vue';
     /* background-color: #333; */
   }
 
-  .all {
-    /* background-color: #333; */
-  }
+  /* .all {
+    background-color: #333;
+  } */
 </style>

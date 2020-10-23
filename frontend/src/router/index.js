@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Manage from '../views/Manage.vue'
 import Pos from '../views/Pos.vue'
 import Menu from '../views/Menu.vue'
+import Payment from '../views/Payment.vue'
 
 Vue.use(VueRouter)
 
@@ -21,6 +22,11 @@ const routes = [{
         path: '/login',
         name: 'Login',
         component: Login
+    },
+    {
+        path: '/Payment',
+        name: 'Payment',
+        component: Payment
     },
     {
         path: '/Pos/:storename',
