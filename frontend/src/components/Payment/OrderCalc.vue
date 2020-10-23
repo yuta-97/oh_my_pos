@@ -100,16 +100,19 @@ export default {
     });
     EventBus.$on("focus-payment", () => {
       this.input_link = "받은금액 적용";
+      this.current='';
       this.focus = 3;
       //
     });
     EventBus.$on("disrate", (data) => {
       this.input_link = "할인율 적용";
+      this.current='';
       this.focus = 2;
       this.dis_amount = data;
     });
     EventBus.$on("focus-phone", () => {
       this.input_link = "현금영수증 번호";
+      this.current='';
       this.focus = 2;
     });
   },
@@ -132,7 +135,7 @@ export default {
         EventBus.$emit("cash", parseInt(this.current));
         this.current = "";
       } else if (this.focus == 2) {
-        EventBus.$emit("phone", parseInt(this.current));
+        EventBus.$emit("phone", this.current);
         this.current = "";
       }
     },
