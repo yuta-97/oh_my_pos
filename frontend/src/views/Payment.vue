@@ -49,6 +49,7 @@ export default {
 
 <style scoped>
     .main-container{
+        display: block;
         width: 100%;
         height: 100%;
     }

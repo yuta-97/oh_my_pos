@@ -24,7 +24,6 @@
 
             
     </div>
-  </div>
 </template>
 
 <script>
@@ -43,7 +42,6 @@ export default {
 </script>
 
 <style scoped>
-<<<<<<< HEAD
     .container {
         display: block;
     }
@@ -61,29 +59,8 @@ export default {
         height: 90%;
     }
 
-    /* .cash-recipt{
-        padding: 50px;
-    } */
-
     .pay {
         text-align: right;
     }
 
-=======
-.container {
-  display: flex;
-}
-
-.top {
-  flex: 1;
-  width: 100%;
-  height: 10%;
-}
-
-.body {
-  flex: 1;
-  width: 100%;
-  height: 90%;
-}
->>>>>>> 52face6bf284d2e3a43cffaa6b14a1493c188270
 </style>
