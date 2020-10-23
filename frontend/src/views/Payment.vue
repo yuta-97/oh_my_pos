@@ -54,6 +54,7 @@ export default {
         /* width: 100%; */
         height: 720px;
         /* height: 100%; */
+        background-color: #f3f4f7;
     }
 
     .orderList{
@@ -71,13 +72,14 @@ export default {
         float: left;
         width: 50%;
         height: 60%;
+        margin-top: 0px;
         background-color: #f3f4f7;
     }
 
     .goodsNpay{
         float: right;
         width: 50%;
-        height: 100% !important;
+        height: 100%;
         background-color: #f3f4f7;
     }
 

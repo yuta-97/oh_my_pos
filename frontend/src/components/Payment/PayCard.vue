@@ -82,11 +82,13 @@ export default {
 <style scoped>
     .container {
         display: block;
+        background-color: #f3f4f7;
     }
 
     .top {
         margin-top: 10px;
         height: 10%;
+        background-color: #f3f4f7;
     }
 
     .body {
@@ -95,10 +97,12 @@ export default {
         padding-right: 20px;
         display: block;
         height: 90%;
+        background-color: #f3f4f7;
     }
 
     .pay {
         text-align: right;
+        background-color: #f3f4f7;
     }
 
 </style>

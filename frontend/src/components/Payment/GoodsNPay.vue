@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div style="display: block; background-color: #f3f4f7;">
     <component v-bind:is="selmenus">
       <GoodsPay>
         <div>
           <b-card no-body
-            style="height: 70%;"
+            :height="217"
           >
             <b-tabs card>
               <b-tab
@@ -27,7 +27,8 @@
             </b-tabs>
           </b-card>
         </div>
-        <div style="margin-top: 30px">
+
+        <div style="padding-top: 50px;">
           <div style="float: left; width: 50%">
             <b-button
               @click="applyorder"
@@ -42,7 +43,7 @@
           </div>
         </div>
 
-        <div style="margin-top: 100px; display: flex">
+        <div style="margin-top: 390px; display: flex">
           <div style="flex: 1">
             <b-button
               type="button"
