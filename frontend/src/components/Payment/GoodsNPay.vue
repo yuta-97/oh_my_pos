@@ -22,20 +22,46 @@
             </div>
           </div>
 
-          <div style = "margin-top: 100px;">
-            <div style="float: left; width: 50%">
+          <div style = "margin-top: 100px; display: flex;">
+            <div style="flex: 1;">
+              <b-button type="button" class="btn btn-secondary btn-lg btn-block" @click="openModal">
+                할 인
+              </b-button>
+            </div>
+            <div style="flex: 1;">
               <b-button type="button" class="btn btn-secondary btn-lg btn-block" @click="selmenus='PayCash'">
                 현 금
               </b-button>
             </div>
-            <div style="float: right; width: 50%">
+            <div style="flex: 1;">
               <b-button type="button" class="btn btn-secondary btn-lg btn-block" @click="selmenus='PayCard'">
-                  카 드
+                카 드
               </b-button>
             </div>
           </div>
       </GoodsPay>
     </component>
+
+    <Discount @close="closeModal" v-if="modal">
+      <div>
+        결제 금액 : 
+        <br/>
+        <b-dropdown id="dropdown-1" text="할 인" class="m-md-2">
+          <b-dropdown-item>First Action</b-dropdown-item>
+          <b-dropdown-item>Second Action</b-dropdown-item>
+          <b-dropdown-item>Third Action</b-dropdown-item>
+          <b-dropdown-item active>Active action</b-dropdown-item>
+          <b-dropdown-item disabled>Disabled action</b-dropdown-item>
+        </b-dropdown>
+        <br/>
+        할인명 : 
+        <br/>
+        할인 금액 : 
+        <br/>
+        <b-button>확 인</b-button>
+      </div>
+    </Discount>
+
   </div>
 </template>
 
@@ -43,24 +69,27 @@
 
 import axios from "axios";
 import EventBus from './EventBus';
-import PayCash from "../Payment/PayCash"
-import PayCard from "../Payment/PayCard"
-import GoodsPay from "../Payment/GoodsNPay"
+import PayCash from "../Payment/PayCash";
+import PayCard from "../Payment/PayCard";
+import Discount from "../Payment/Discount";
+import GoodsPay from "../Payment/GoodsNPay";
 
 export default {
     data() {
       return{
         added_order:[],
-        selmenus: 'GoodsPay'
+        selmenus: 'GoodsPay',
+        modal: false
       }  
     },
 
     components: {
       PayCash,
       PayCard,
-      GoodsPay
+      GoodsPay,
+      Discount
     },
-    
+
     watch:{
       added_order: function(){
         EventBus.$emit('added', this.added_order);
@@ -117,6 +146,14 @@ export default {
         alert("주문 완료");
         this.$router.go(-1);
       },
+
+      openModal() {
+        this.modal= true;
+      },
+
+      closeModal() {
+        this.modal= false;
+      }
     },
 }
 </script>

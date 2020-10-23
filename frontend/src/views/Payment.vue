@@ -10,7 +10,6 @@
 
         <div class="orderCalc">
             <OrderCalc></OrderCalc>
-
         </div>
 
     </div>
@@ -29,7 +28,7 @@ export default {
     },
     data() {
         return{
-            //
+            
         }
     },
     computed: {
