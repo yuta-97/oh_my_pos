@@ -48,6 +48,22 @@ function getstorebyID(req,res){
         res.json({error});
     });
 }
+
+function getdiscount(req,res){
+    models.Store.findAll({
+        where:{
+            store_name: req.body.store_name
+        },
+        attributes: ['dis_name','dis_rate']
+    }).then((result)=>{
+        var data = JSON.parse(JSON.stringify(result));
+        res.json(data);
+    }).catch(function(error){
+        console.log(error);
+        res.json({error});
+    });
+}
+
 function gettablenum(req,res){
     models.Store.findOne({
         where:{
@@ -60,7 +76,7 @@ function gettablenum(req,res){
     }).catch(function(error){
         console.log(error);
         res.json({error});
-    })
+    });
 }
 
 
@@ -167,4 +183,5 @@ module.exports = {
     updatestore,
     deletestore,
     gettablenum,
+    getdiscount,
 }

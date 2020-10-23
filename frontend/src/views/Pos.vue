@@ -64,6 +64,7 @@ import axios from 'axios'
       this.$store.commit("setstore", this.$route.params.storename);
       this.$store.commit("setgoods", this.$route.params.storename);
       this.$store.commit("setcate", this.$route.params.storename);
+      this.$store.commit("setdiscount", this.$route.params.storename);
     },
     methods:{
       cancle(order){
