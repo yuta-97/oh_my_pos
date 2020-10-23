@@ -57,7 +57,7 @@
           <b-icon icon="arrow-left"></b-icon>
         </b-button>
       </div>
-      <div class="button" style="width: 100%;">
+      <div class="button" style="width: 100%; ">
         <b-button squared @click="sendcur()">확인</b-button>
       </div>
     </div>

@@ -3,7 +3,6 @@
         <div class="orderList">
             <OrderList :order="orderlist"></OrderList>
         </div>
-
         <div class="goodsNpay">
             <GoodsNPay></GoodsNPay>
         </div>
@@ -50,21 +49,26 @@ export default {
 <style scoped>
     .main-container{
         display: block;
-        width: 100%;
-        height: 100%;
+        width: 1024px;
+        /* width: 100%; */
+        height: 720px;
+        /* height: 100%; */
     }
 
     .orderList{
         float: left;
-        width: 50%;
-        height: 50%;
+        width: 50% !important;
+        /* min-height: 300px; */
+        height: 40% !important;
+        /* max-height: 320px; */
+        font-size: 14px !important;
     }
 
     .orderCalc{
         clear: left;
         float: left;
         width: 50%;
-        height: 50%;
+        height: 60%;
     }
 
     .goodsNpay{
