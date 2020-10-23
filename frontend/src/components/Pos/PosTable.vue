@@ -71,7 +71,7 @@
             <b-card no-body>
               <b-tabs card> 
                 <b-tab v-for="cate in catelist" v-bind:key="cate" :title="cate.category_name">
-                  <b-card-text style="float: left;" v-for="goods in goodslist" v-bind:key="goods"> 
+                  <b-card-text style="float: left; margin-right: 3px; margin-bottom: 3px;" v-for="goods in goodslist" v-bind:key="goods"> 
                     <b-button @click="addorder(goods)" v-if="goods.category_name == cate.category_name">{{goods.goods_name}}</b-button>&nbsp;&nbsp;
                   </b-card-text>
                 </b-tab>

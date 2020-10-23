@@ -38,7 +38,6 @@ export default new Vuex.Store({
         }
       }).then((res)=>{
         state.order = res.data;
-        console.log("vuex 성공..!!");
         console.log(state.order);
       }).catch(function(error){
         console.log(error);
