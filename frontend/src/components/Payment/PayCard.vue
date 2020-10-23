@@ -1,22 +1,28 @@
 <template>
     <div class="container">
-        <div class="wrapper">
             <div class="top">
-                <div style="width: 50%; float: left; text-align: left;">
-                    카 드 결 제
-                </div>
-                <div style="width: 50%; float: right; text-align: right;">
+                <div style="float: right; text-align: right;">
                     <b-icon icon="x-circle" scale="2" variant="danger"></b-icon>
                 </div>
-                <br/>
-                <br/>
-                <hr/>
             </div>
 
             <div class="body">
-               
+                <div class="cash-img">
+                    <b-img 
+                        width= "300px"
+                        hegih= "300px"
+                        src="https://raw.githubusercontent.com/Cozy-Ho/oh_my_pos/master/frontend/src/assets/card.png">
+                    </b-img><br/><br/>
+                </div>
+
+                <div class="cash">
+                  <p style="font-weight: bold; font-size: x-large;"> 결제가 정상 승인 되었습니다. </p> 
+                  <br/>
+                  <b-button>완 료</b-button>
+                </div>
             </div> 
-        </div>
+
+            
     </div>
 </template>
 
@@ -35,19 +41,28 @@ export default {
 
 <style scoped>
     .container {
-        display: flex;
+        display: block;
     }
 
     .top {
-        flex: 1;
-        width: 100%;
+        margin-top: 10px;
         height: 10%;
     }
 
     .body {
-        flex: 1;
-        width: 100%;
+        padding-top: 160px;
+        padding-left: 20px;
+        padding-right: 20px;
+        display: block;
         height: 90%;
+    }
+
+    /* .cash-recipt{
+        padding: 50px;
+    } */
+
+    .pay {
+        text-align: right;
     }
 
 </style>
