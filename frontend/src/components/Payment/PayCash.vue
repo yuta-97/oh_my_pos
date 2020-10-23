@@ -102,6 +102,7 @@ export default {
     },
   },
   mounted: function () {
+      EventBus.$emit("focus-payment");
     EventBus.$on("pay-price", (data) => {
       this.pay_price = data;
     });
