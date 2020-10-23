@@ -77,7 +77,9 @@ export default {
         }
     },
     watch:{
-        //
+        tot_price: function(){
+            EventBus.$emit('tot-change', this.tot_price);
+        }
     },
     computed:{
         table_num(){

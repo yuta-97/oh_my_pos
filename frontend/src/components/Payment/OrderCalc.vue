@@ -12,13 +12,13 @@
                     <tr height="40">
                         <th bgcolor="gray" width="225">할 인 액</th>
                         <td width="200" align="center">
-                        {{tot_price}}
+                            {{dis_amount}}
                         </td>
                     </tr>
                     <tr height="40">
                         <th bgcolor="gray" width="225">받 을 금 액</th>
                         <td width="200" align="center">
-                        {{tot_price}}
+                        {{pay_price}}
                         </td>
                     </tr>
                 </thead>
@@ -27,6 +27,7 @@
 
         <div style="float: right; width: 50%;">
             <div class="display">
+                <input class="form-control" type="text" readonly :value="input_link"> 
                 <input class="form-control" type="text" readonly :value="current || '0'"> 
             </div>
             <div class="button">
@@ -56,17 +57,63 @@
 </template>
 
 <script>
+import EventBus from './EventBus';
 
 export default {
     data: function () {
         return {
-            current: ''
+            current: '',
+            tot_price: 0,
+            dis_amount: 0,
+            dis_rate:0,
+            input_link: '할인액 적용',
+            at: 'dis_amount',
+            focus: 1, // 1 = 할인액, 2 = 할인율
         }
+    },
+    computed:{
+        pay_price() {
+            return this.tot_price - this.dis_amount;
+        }
+    },
+    watch:{
+        //
+    },
+    mounted: function(){
+        EventBus.$on('tot-change', (data)=>{
+            this.tot_price = data;
+        });
+        EventBus.$on('focus-payment', (data)=>{
+            this.input_link = '할인율 적용';
+            this.focus = 'payment';
+            console.log(data);
+            //
+        })
     },
 
     methods: { 
         addOutput(num) {
             this.current = `${this.current}${num}`;
+            if( this.focus == 1){
+                if( parseInt(this.current) < this.tot_price){
+                    this.dis_amount = parseInt(this.current);
+                }else{
+                    this.dis_amount=0;
+                    this.current='';
+                    alert("할인액은 총 금액을 넘을 수 없습니다!!");
+                    
+                }
+                
+            }else if( this.focus == 2){
+                if( parseInt(this.current) < this.tot_price){
+                    this.dis_amount = parseInt(this.current);
+                }else{
+                    this.dis_amount=0;
+                    this.current='';
+                    alert("할인액은 총 금액을 넘을 수 없습니다!!");
+                }
+            }
+            
         },
 
         reset() {
