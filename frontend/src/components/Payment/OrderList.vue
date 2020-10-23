@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="display: block">
     <vue-good-table
       @on-selected-rows-change="selectionChanged"
       :line-numbers="true"
@@ -14,15 +14,9 @@
         mode: 'records',
         perPage: 5,
         position: 'top',
-        perPageDropdown: [3, 7, 9],
-        dropdownAllowAll: false,
         setCurrentPage: 1,
         nextLabel: 'next',
         prevLabel: 'prev',
-        rowsPerPageLabel: 'Rows per page',
-        ofLabel: 'of',
-        pageLabel: 'page', // for 'pages' mode
-        allLabel: 'All',
       }"
     >
       <div slot="selected-row-actions">

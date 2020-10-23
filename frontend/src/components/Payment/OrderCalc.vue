@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div style="float: left; width: 50%">
+  <div style="display: flex">
+    <div style="flex: 1; float: left; width: 50%">
       <table class="table table-bordered">
         <thead>
           <tr height="40">
@@ -25,7 +25,7 @@
       </table>
     </div>
 
-    <div style="float: right; width: 50%">
+    <div style="flex: 1; float: right; width: 50%">
       <div class="display">
         <input class="form-control" type="text" readonly :value="input_link" />
         <input
