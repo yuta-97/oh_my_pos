@@ -62,7 +62,6 @@ export default {
         width: 50% !important;
         /* min-height: 300px; */
         height: 40% !important;
-        /* max-height: 320px; */
         font-size: 14px !important;
         background-color: #f3f4f7;
     }

@@ -5,7 +5,8 @@
       :line-numbers="true"
       :columns="columns"
       :rows="rows"
-      max-height="100%"
+      max-height="275px"
+      :fixed-header="true"
       :select-options="{
         enabled: true,
         index: false,
@@ -152,7 +153,17 @@ export default {
 </script>
 
 <style scoped>
-  .vue-good-table {
-    height: 100%;
-  }
+table.vgt-table.vgt-fixed-header {
+    position: relative !important;
+}
+
+table.vgt-table.vgt-fixed-header th:last-child {
+    /* Offset for the scrollbar, you may have to adjust this */
+    width: calc(100% + 17px) !important;
+}
+
+table.vgt-table:not(.vgt-fixed-header) > thead {
+    /* Collapse the first row which is the un-fixed table header */
+    visibility: collapse !important;
+}
 </style>
