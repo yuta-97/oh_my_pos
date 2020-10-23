@@ -23,6 +23,7 @@
               </div>
           </ul>
           </p>
+          <a @click="cancle(order)" class="btn btn-secondary" style="border-right: 3px;">취 소</a>
           <a @click="done(order)" class="btn btn-secondary">완 료</a>
         </div>
       </div> <br/><br>
@@ -65,7 +66,7 @@ import axios from 'axios'
       this.$store.commit("setcate", this.$route.params.storename);
     },
     methods:{
-      done(order){
+      cancle(order){
         axios({
           method: "delete",
           url: "/api/order",
@@ -74,12 +75,17 @@ import axios from 'axios'
           }
         }).then((res)=>{
           if(res.data){
-            alert("완료되었습니다.");
+            alert("취소 되었습니다.");
           }
+          this.$store.commit("setorder", this.$route.params.storename);
         }).catch(function(error){
           console.log(error);
         });
-        this.$router.go();
+        // this.$router.go();
+      },
+      done(order){
+        console.log(order);
+        this.$store.commit("setorder", this.$route.params.storename);
       }
     }
   }
