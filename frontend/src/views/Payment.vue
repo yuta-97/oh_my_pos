@@ -1,7 +1,7 @@
 <template>
     <div class="main-container">
         <div class="orderList">
-            <OrderList></OrderList>
+            <OrderList :order="orderlist"></OrderList>
         </div>
 
         <div class="goodsNpay">
@@ -27,10 +27,24 @@ export default {
         OrderCalc,
         GoodsNPay
     },
-
-    methods: {
-    
+    data() {
+        return{
+            //
+        }
+    },
+    computed: {
+        table_num(){
+            return this.$route.params.num;
+        },
+        storename() {
+            return this.$store.state.store_name;
+        },
+        orderlist(){
+            return this.$store.state.order;
+        },
     }
+
+
 }
 </script>
 

@@ -5,7 +5,7 @@
     v-for="num in tablenum"
     v-bind:key="num"
     >
-      <div class="card bg-light custom" @click="openModal(num)">
+      <div class="card bg-light custom" @click="payment(num)">
         <div class="card-header">{{num}}번</div>
         <div v-for="data in recive_order" v-bind:key="data">
           <li v-if="data.table_num==num">{{data.goods_name}} X {{data.count}}</li>
@@ -152,6 +152,9 @@ export default {
   },
 
   methods: {
+    payment(num){
+      this.$router.push({name: 'Payment', params: {num: num}});
+    },
     openModal(num) {
       this.modal = true;
       this.sel_num = num;
@@ -214,13 +217,7 @@ export default {
         });
     },
     delorder() {
-      if (
-        confirm(
-          "총 " +
-            this.rowselected.length +
-            " 개의 주문이 취소됩니다!!\n삭제 하시겠습니까?"
-        ) == true
-      ) {
+      if (confirm("총 " +this.rowselected.length +" 개의 주문이 취소됩니다!!\n삭제 하시겠습니까?") == true) {
         var s_list = [];
         for (var i = 0; i < this.rowselected.length; i++) {
           s_list.push(this.rowselected[i].order_id);
