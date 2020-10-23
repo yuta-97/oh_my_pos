@@ -47,7 +47,9 @@
             <div class="button">
                 <b-button squared @click="reset()">C</b-button>
                 <b-button squared @click="addOutput(0)">0</b-button>
-                <b-button squared @click="del()"></b-button>
+                <b-button type="button" squared @click="del()">
+                    <b-icon icon="arrow-left"></b-icon>
+                </b-button>
             </div>
         </div>
     </div>
@@ -71,7 +73,7 @@ export default {
         },
 
         del() {
-            this.current.value = this.current.value.substring(0, this.current.value.length - 1);
+            this.current = this.current.substring(0, this.current.length - 1);
         }
 
     }
@@ -94,7 +96,7 @@ export default {
     }
     
     .button button {
-        width: 100px;
+        width: 50%;
         height: 80px;
         font-size: 20px;
         padding: 10px;
