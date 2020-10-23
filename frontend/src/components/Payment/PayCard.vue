@@ -18,7 +18,7 @@
                 <div class="cash">
                   <p style="font-weight: bold; font-size: x-large;"> 결제가 정상 승인 되었습니다. </p> 
                   <br/>
-                  <b-button>완 료</b-button>
+                  <b-button @click="pay">완 료</b-button>
                 </div>
             </div> 
 
@@ -28,14 +28,52 @@
 
 <script>
 import EventBus from "./EventBus";
+import axios from "axios";
 
 export default {
   data() {
     return {};
   },
+  computed:{
+    storename() {
+      return this.$store.state.store_name;
+    },
+    orderlist() {
+      return this.$store.state.s_order;
+    },
+  },
   methods: {
     close() {
       EventBus.$emit("sel-menu-goods");
+    },
+    pay() {
+      if (this.orderlist.length == 0) {
+        alert("주문 내역이 없습니다!");
+      } else {
+        var s_list = [];
+        for (var i = 0; i < this.orderlist.length; i++) {
+          s_list.push(this.orderlist[i].order_id);
+        }
+        console.log(this.orderlist);
+        console.log(s_list);
+        axios({
+          method: "delete",
+          url: "/api/order",
+          data: { id: s_list },
+        })
+          .then((res) => {
+            if (res.data) {
+              this.$store.commit("setstore", this.storename);
+              this.$router.go(-1);
+            } else {
+              alert("DB 에러!");
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+            alert("결제를 실패했습니다!\n다시 시도해 주세요.");
+          });
+      }
     },
   },
 };

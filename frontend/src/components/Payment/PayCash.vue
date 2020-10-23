@@ -32,7 +32,7 @@
             <tr @click="focuspayment" height="40">
               <th bgcolor="gray" width="225">받은금액</th>
               <td width="200" align="center">
-                {{ recv_cash }}
+                {{ recv_cash || "터치해서 입력하기" }}
               </td>
             </tr>
             <tr height="40">
@@ -52,9 +52,9 @@
         <table class="table table-bordered">
           <thead>
             <tr @click="focusphone" height="40">
-              <th bgcolor="gray" width="225">확인번호</th>
+              <th bgcolor="gray" width="225">현금영수증 번호</th>
               <td width="200" align="center">
-                {{ phone }}
+                {{ phone || "터치해서 입력하기"}}
               </td>
             </tr>
             <tr height="40">
@@ -89,7 +89,7 @@ export default {
     return {
       pay_price: 0,
       recv_cash: 0,
-      phone: 0,
+      phone: '',
     };
   },
   computed: {
