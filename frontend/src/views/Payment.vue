@@ -4,7 +4,6 @@
             <OrderList :order="orderlist"></OrderList>
             <hr/>
         </div>
-
         <div class="goodsNpay">
             <GoodsNPay></GoodsNPay>
         </div>
@@ -51,14 +50,19 @@ export default {
 <style scoped>
     .main-container{
         display: block;
-        width: 100%;
-        height: 100%;
+        width: 1024px;
+        /* width: 100%; */
+        height: 720px;
+        /* height: 100%; */
     }
 
     .orderList{
         float: left;
-        width: 50%;
-        height: 50% !important;
+        width: 50% !important;
+        /* min-height: 300px; */
+        height: 40% !important;
+        /* max-height: 320px; */
+        font-size: 14px !important;
         background-color: #f3f4f7;
     }
 
@@ -66,7 +70,7 @@ export default {
         clear: left;
         float: left;
         width: 50%;
-        height: 50% !important;
+        height: 60%;
         background-color: #f3f4f7;
     }
 

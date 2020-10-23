@@ -17,7 +17,7 @@
                   v-for="goods in goodslist"
                   v-bind:key="goods"
                 >
-                  <b-button
+                  <b-button class="btnsize"
                     @click="addorder(goods)"
                     v-if="goods.category_name == cate.category_name"
                     >{{ goods.goods_name }}</b-button
@@ -217,5 +217,10 @@ export default {
 .pay {
   width: 100%;
   height: 100%;
+}
+.btnsize{
+  width: 100px;
+  height: 80px;
+  margin: 1px;
 }
 </style>

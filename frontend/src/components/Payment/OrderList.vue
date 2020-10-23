@@ -5,29 +5,19 @@
       :line-numbers="true"
       :columns="columns"
       :rows="rows"
+      max-height="100%"
       :select-options="{
         enabled: true,
+        index: false,
       }"
-      :pagination-options="{
-        enabled: true,
-        mode: 'records',
-        perPage: 3,
-        position: 'top',
-        perPageDropdown: [3],
-        dropdownAllowAll: false,
-        setCurrentPage: 1,
-        nextLabel: 'next',
-        prevLabel: 'prev',
-        rowsPerPageLabel: 'Rows per page',
-        ofLabel: 'of',
-        pageLabel: 'page', // for 'pages' mode
-        allLabel: 'All',
-      }"
+      compactMode
+      styleClass="vgt-table condensed"
     >
       <div slot="selected-row-actions">
         <b-button
           @click="delorder"
           variant="outline-primary"
+          size="sm"
           v-if="rowselected.length > 0"
           >삭제</b-button>
       </div>
