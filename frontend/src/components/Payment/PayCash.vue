@@ -1,17 +1,18 @@
 <template>
     <div class="container">
             <div class="top">
-                <div style="width: 50%; float: left; text-align: left;">
-                    현 금 결 제
-                </div>
-                <div style="width: 50%; float: right; text-align: right;">
+                <div style="float: right; text-align: right;">
                     <b-icon icon="x-circle" scale="2" variant="danger"></b-icon>
                 </div>
             </div>
 
             <div class="body">
                 <div class="cash-img">
-                    <b-img src="/home/lee/git/oh_my_pos/frontend/src/assets/cash.png"></b-img>
+                    <b-img 
+                        width= "200px"
+                        hegih= "200px"
+                        src="https://raw.githubusercontent.com/Cozy-Ho/oh_my_pos/master/frontend/src/assets/cash.png">
+                    </b-img><br/><br/>
                 </div>
                 <div class="cash">
                     <table class="table table-bordered">
@@ -35,7 +36,7 @@
                                 </td>
                             </tr>
                         </thead>
-                    </table> <br/><br/><br/>
+                    </table> <br/><br/>
                 </div>
 
                 <div class="cash-receipt">
@@ -53,15 +54,15 @@
                                     <th bgcolor="gray" width="225">사용구분</th>
                                     <td style="width= 200; align=center; display: flex;" >
                                         <div style="flex: 1; text-align: left;">
-                                            <b-form-checkbox>개인</b-form-checkbox>
+                                            <b-radio v-model="radio" name="name">개인</b-radio>
                                         </div>
-                                        <div style="flex: 1; text-align: right;">
-                                            <b-form-checkbox>사업자</b-form-checkbox>
+                                        <div style="flex: 1; text-align: left;">
+                                            <b-radio v-model="radio" name="name">사업자</b-radio>
                                         </div>
                                     </td>
                                 </tr>
                             </thead>
-                        </table>   <br/><br/>
+                        </table>   <br/>
                 </div>
 
                 <div class="pay">
@@ -95,7 +96,7 @@ export default {
     }
 
     .body {
-        padding-top: 100px;
+        padding-top: 50px;
         padding-left: 20px;
         padding-right: 20px;
         display: block;
