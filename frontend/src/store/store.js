@@ -23,8 +23,6 @@ export default new Vuex.Store({
       }).then((res)=>{
         state.tablenum = res.data[0].table_num;
         state.store_name = res.data[0].store_name;
-        console.log("vuex set store data!!");
-        console.log(state.tablenum);
       }).catch((error)=>{
         console.log(error);
       });
@@ -38,7 +36,6 @@ export default new Vuex.Store({
         }
       }).then((res)=>{
         state.order = res.data;
-        console.log(state.order);
       }).catch(function(error){
         console.log(error);
       });
@@ -56,7 +53,6 @@ export default new Vuex.Store({
           s_list.push(res.data[i]);
         }
         state.goods = s_list;
-        console.log("vuex set goods data!!");
       })
       .catch(function (error) {
         console.log(error);
@@ -70,7 +66,6 @@ export default new Vuex.Store({
       })
       .then((res) => {
         state.catelist = res.data;
-        console.log("vuex set catelist data!!");
       })
       .catch(function (error) {
         console.log(error);

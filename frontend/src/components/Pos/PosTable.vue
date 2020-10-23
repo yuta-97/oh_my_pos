@@ -183,7 +183,6 @@ export default {
 
     selectionChanged(params) {
       this.rowselected = params.selectedRows;
-      console.log(this.rowselected);
     },
     addorder(goods) {
       this.rows.push({
@@ -206,7 +205,6 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
           if (res) {
             console.log("success");
           }
