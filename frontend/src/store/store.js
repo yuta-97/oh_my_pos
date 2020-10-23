@@ -12,6 +12,7 @@ export default new Vuex.Store({
     goods: [],
     catelist: [],
     discount:[],
+    s_order: [],
   },
   mutations: {
     setstore (state, name){
@@ -62,6 +63,9 @@ export default new Vuex.Store({
       }).catch(function(error){
         console.log(error);
       });
+    },
+    settableorder(state, order){
+      state.s_order = order;
     },
     setgoods(state, storename){
       axios({

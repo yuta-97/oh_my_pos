@@ -49,7 +49,6 @@ export default {
 
 <style scoped>
     .main-container{
-        /* display: block; */
         width: 100%;
         height: 100%;
     }
@@ -58,7 +57,6 @@ export default {
         float: left;
         width: 50%;
         height: 50%;
-        /* position: fixed; */
     }
 
     .orderCalc{
@@ -66,7 +64,6 @@ export default {
         float: left;
         width: 50%;
         height: 50%;
-        /* position: fixed; */
     }
 
     .goodsNpay{
