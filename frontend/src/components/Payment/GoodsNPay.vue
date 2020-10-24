@@ -12,7 +12,7 @@
                 :title="cate.category_name"
               >
                 <b-card-text
-                  style="float: left;"
+                  style="float: left; height: 400px;"
                   v-for="goods in goodslist"
                   v-bind:key="goods"
                 >

@@ -3,10 +3,13 @@
     <div class="side">
       <div class="top">
         <div style="flex: 1; float: center;">
-            <b-icon icon="house-door-fill" 
-                    style="color: white; width: 40px; height: 40px; float: left;" 
-                    @click="$router.push('/Manage')"> 
+          <b-button
+            type="button"
+            class="btn btn-secondary btn-lg btn-block"
+            @click="$router.push('/Manage')">
+            <b-icon icon="house-door-fill"> 
             </b-icon> 
+          </b-button>
         </div>
         <div style="flex: 1;">
             <b-button
