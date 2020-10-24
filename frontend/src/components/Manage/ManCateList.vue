@@ -199,6 +199,8 @@ export default {
         var s_list = [];
         for (var i = 0; i < this.rowselected.length; i++) {
           s_list.push(this.rowselected[i].category_name);
+          var idx = this.rows.findIndex(function(item) {return item.order_id === s_list[i]});
+          if (idx > -1) this.rows.splice(idx, 1);
         }
         axios({
           method: "delete",

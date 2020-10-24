@@ -1,4 +1,5 @@
 const models = require('../models');
+const fs = require('fs');
 
 function setgoods(req, res) {
     models.Goods.create({
@@ -103,6 +104,15 @@ function deletegoods(req, res) {
     }).catch(function (error) {
         console.log(error);
         res.send(false);
+    });
+    var path = "../uploads/goods/"+req.body.goods_name;
+
+    fs.unlink(path, (err) => {
+    if (err) {
+        console.error(err);
+    }
+
+    console.log("image deleted!")
     });
 }
 
