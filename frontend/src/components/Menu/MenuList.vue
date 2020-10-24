@@ -38,6 +38,8 @@
 
     <div class="cart">
       <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="orderopen"></b-icon>
+      <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="doneopen"></b-icon>
+
     </div>
 
     <MenuAdd @close="addclose" @add="additem" v-if="addmodal">
@@ -121,6 +123,36 @@
         <b-button block variant="primary" @click="order"> {{totprice}}원 주문하기 </b-button>
       </div>
     </MenuOrder>
+
+    <OrderDone @close="doneclose" v-if="donemodal">
+      <div
+            v-for="item in cart"
+            v-bind:key="item"
+          >
+          <div class="card bg-light custom">
+            <div class="card-header" style="text-align: right; float: right; width: 100%">
+
+            </div>
+            <div style="text-align: left; font-weight: bold; padding: 20px; font-size: large;">
+              {{item.goods_name}}({{item.price}}원) X {{item.count}} 개
+              <div v-for="option in item.options" v-bind:key="option" style="text-align: left;">
+                <li style="text-align: left; padding-top: 10px; font-size: medium;">
+                  {{option.option_name}} : {{option.option_price}} 원
+                </li>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+          <b-card style="display: flex; height: 60px;">
+              <div style="flex= 1; text-align: left; float: left;">
+               <p style="font-size: large; font-weight: bold;"> 총 주문금액</p>
+              </div>
+              <div style="flex= 2; text-align: right; float: right;">
+                <p style="font-size: large; font-weight: bold;">{{totprice}}원</p>
+              </div>
+          </b-card>
+    </OrderDone>
   </div>
 </template>
 
@@ -128,16 +160,18 @@
 import axios from "axios";
 import MenuAdd from "../Menu/MenuAdd.vue";
 import MenuOrder from "../Menu/MenuOrder.vue";
-
+import OrderDone from "../Menu/OrderDone.vue";
 
 export default {
   components: {
     MenuAdd,
     MenuOrder,
+    OrderDone,
   },
 
   data() {
     return {
+      donemodal: false,
       addmodal: false,
       ordermodal: false,
       storename: "",
@@ -157,6 +191,7 @@ export default {
       totprice:0,
     };
   },
+
   created() {
     this.storename = this.$route.params.storename;
     this.tablenum = this.$route.params.num;
@@ -267,9 +302,9 @@ export default {
           alert("실패 했습니다. 다시 시도해 주세요.");
         });
       }
-      alert("주문 완료!");
       this.ordermodal=false;
     },
+
     delorder(item){
       if(confirm("주문을 취소합니다")){
         const index = this.cart.indexOf(item);
@@ -348,6 +383,14 @@ export default {
         this.$refs.content.scrollTop = el.offsetTop;
       }
     },
+
+    doneclose() {
+      this.donemodal=false;
+    },
+
+    doneopen() {
+      this.donemodal=true;
+    }
   },
 };
 </script>

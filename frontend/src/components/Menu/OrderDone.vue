@@ -11,7 +11,7 @@
                 <b-icon icon="arrow-left" scale="2" @click="$emit('close')"></b-icon>
               </div>
               <div style="flex: 2; text-align:center; padding: 0px;">
-                <p style="font-size: x-large; font-weight: bold;">장 바 구 니</p>
+                <p style="font-size: x-large; font-weight: bold;">주 문 내 역</p>
               </div>
               <div style="flex: 1;">
                 

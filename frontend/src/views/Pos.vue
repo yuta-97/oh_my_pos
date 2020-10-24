@@ -100,7 +100,7 @@ export default {
     margin-top: 10px;
     height: 100%;
     margin-left: 350px;
-    padding: 30px;
+    padding: 20px;
     overflow-y: auto;
   }
 </style>
