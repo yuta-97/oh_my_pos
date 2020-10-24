@@ -202,10 +202,12 @@ export default {
           options: "",
           price: goods.price,
           sum_price: goods.price,
+          isdone: false,
         },
       })
         .then((res) => {
-          if (res) {
+          if (res.data) {
+            this.$store.commit("setstore", this.$route.params.storename);
             console.log("success");
           }
         })
