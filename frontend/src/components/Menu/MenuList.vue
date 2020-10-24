@@ -255,7 +255,8 @@ export default {
             count: this.cart[i].count,
             options: this.cart[i].options,
             price: this.cart[i].price,
-            sum_price: this.cart[i].sum_price
+            sum_price: this.cart[i].sum_price,
+            isdone: false,
           }
         }).then((res)=>{
           console.log(res);

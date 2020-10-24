@@ -23,6 +23,10 @@ module.exports=(sequelize, DataTypes)=>{
         sum_price:{
             type: DataTypes.STRING(30),
             allowNull: false,
+        },
+        isdone:{
+            type: Sequelize.BOOLEAN,
+            allowNull: false
         }
     });
 
