@@ -7,7 +7,7 @@
     >
       <div class="card bg-light custom" @click="payment(num)">
         <div class="card-header">{{num}}번</div>
-        <div style="padding-left: 20px" v-for="data in recive_order" v-bind:key="data">
+        <div style="padding-left: 10px; padding-top: 5px;" v-for="data in recive_order" v-bind:key="data">
           <li v-if="data.table_num==num">{{data.goods_name}} X {{data.count}}</li>
         </div>
       </div>

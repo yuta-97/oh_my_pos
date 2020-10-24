@@ -1,11 +1,5 @@
 <template>
     <div class="container">
-            <div class="top">
-                <div style="float: right; text-align: right;">
-                    <b-icon icon="x-circle" scale="2" variant="danger"></b-icon>
-                </div>
-            </div>
-
             <div class="body">
                 <div class="cash-img">
                     <b-img 
@@ -86,18 +80,12 @@ export default {
         /* height: 100%; */
     }
 
-    .top {
-        margin-top: 10px;
-        height: 10%;
-        background-color: #f3f4f7;
-    }
-
     .body {
         padding-top: 160px;
         padding-left: 20px;
         padding-right: 20px;
         display: block;
-        height: 757px;
+        height: 768px;
         background-color: #f3f4f7;
     }
 

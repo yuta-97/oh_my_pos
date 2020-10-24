@@ -452,7 +452,7 @@ export default {
 
   .m_option {
     width: 100%;
-    height: 230px;
+    height: 180px;
     text-align: left;
     border: solid 2px;
     border-color: #f1f1f1;
