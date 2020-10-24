@@ -52,6 +52,13 @@ export default {
       selmenus: "PosOrderList",
     };
   },
+  created(){
+    this.$store.commit("setorder", this.$route.params.storename);
+    this.$store.commit("setstore", this.$route.params.storename);
+    this.$store.commit("setgoods", this.$route.params.storename);
+    this.$store.commit("setcate", this.$route.params.storename);
+    this.$store.commit("setdiscount", this.$route.params.storename);
+  },
 
   components: {
     PosTable,

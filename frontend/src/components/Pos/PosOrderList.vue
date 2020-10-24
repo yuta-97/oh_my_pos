@@ -28,16 +28,20 @@ import axios from 'axios'
 export default {
     computed:{
       orders(){
-        return this.$store.state.order;
+        // 완료되지 않은 주문만 리스트에 추가.
+        var list = this.$store.state.order;
+        var s_list=[];
+        for( var i=0; i<list.length; i++){
+          if(list[i].isdone == false){
+            s_list.push(list[i]);
+          }
+        }
+        return s_list;
       }
     },
 
     created(){
-      this.$store.commit("setorder", this.$route.params.storename);
-      this.$store.commit("setstore", this.$route.params.storename);
-      this.$store.commit("setgoods", this.$route.params.storename);
-      this.$store.commit("setcate", this.$route.params.storename);
-      this.$store.commit("setdiscount", this.$route.params.storename);
+      //
     },
 
     methods:{
@@ -50,7 +54,7 @@ export default {
           }
         }).then((res)=>{
           if(res.data){
-            alert("취소 되었습니다.");
+            alert("취소처리 되었습니다.");
           }
           this.$store.commit("setorder", this.$route.params.storename);
         }).catch(function(error){
@@ -60,7 +64,24 @@ export default {
       },
       done(order){
         console.log(order);
-        this.$store.commit("setorder", this.$route.params.storename);
+        // 주문 리스트에서 삭제
+        // var idx = this.rows.findIndex(function(item) {return item.order_id === order.order_id});
+        // if (idx > -1) this.rows.splice(idx, 1);
+        axios({
+          method: "post",
+          url: "/api/updatedone",
+          data:{
+            id: order.id,
+            isdone: true,
+          }
+        }).then((res)=>{
+          if(res.data){
+            alert("완료처리 되었습니다.");
+          }
+          this.$store.commit("setorder", this.$route.params.storename);
+        }).catch(function(error){
+          console.log(error);
+        });
       }
     }
 }

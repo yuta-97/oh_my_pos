@@ -149,7 +149,6 @@ export default {
         
         
       }
-      // 테이블 데이터가 변경되면 refresh 해야함.
     },
   },
 };

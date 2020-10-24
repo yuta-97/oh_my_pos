@@ -184,6 +184,7 @@ export default {
               options: "",
               price: this.added_order[i].price,
               sum_price: this.added_order[i].price,
+              isdone: false,
             },
           })
             .then((res) => {
