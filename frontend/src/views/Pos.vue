@@ -86,9 +86,13 @@ export default {
   }
 
   .list {
-    width: 100%;
+    background-color: #333;
+    bottom: 0px;
+    left: 0px;
+    position: fixed;
     top: 51px;
-    display: flex;
+    width: 350px;
+    display: block;
     overflow-y: auto;
   }
 
