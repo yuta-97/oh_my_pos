@@ -293,7 +293,7 @@ export default {
         if (index > -1) {
           this.cart.splice(index, 1);
         }
-        this.totprice-=item.price;
+        this.totprice-=item.sum_price;
       }
     },
     additem(){
