@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize')
 module.exports=(sequelize, DataTypes)=>{
     const order = sequelize.define('Order',{
         store_name :{

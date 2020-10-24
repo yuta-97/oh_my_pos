@@ -14,8 +14,8 @@
                     </div>
                 </ul>
                 </p>
-                <a @click="cancle(order)" class="btn btn-secondary" style="border-right: 3px;">취 소</a>
-                <a @click="done(order)" class="btn btn-secondary">완 료</a>
+                <a @click="deleteorder(order)" class="btn btn-secondary" style="border-right: 3px;">삭 제</a>
+                <a @click="restore(order)" class="btn btn-secondary">복 구</a>
                 </div>
         </div>
     </div>
@@ -28,20 +28,23 @@ import axios from 'axios'
 export default {
     computed:{
       orders(){
-        return this.$store.state.order;
+        var list = this.$store.state.order;
+        var s_list=[];
+        for( var i=0; i<list.length; i++){
+          if(list[i].isdone == true){
+            s_list.push(list[i]);
+          }
+        }
+        return s_list;
       }
     },
 
     created(){
-      this.$store.commit("setorder", this.$route.params.storename);
-      this.$store.commit("setstore", this.$route.params.storename);
-      this.$store.commit("setgoods", this.$route.params.storename);
-      this.$store.commit("setcate", this.$route.params.storename);
-      this.$store.commit("setdiscount", this.$route.params.storename);
+      //
     },
 
     methods:{
-      cancle(order){
+      deleteorder(order){
         axios({
           method: "delete",
           url: "/api/order",
@@ -58,9 +61,23 @@ export default {
         });
         // this.$router.go();
       },
-      done(order){
+      restore(order){
         console.log(order);
-        this.$store.commit("setorder", this.$route.params.storename);
+        axios({
+          method: "post",
+          url: "/api/updatedone",
+          data:{
+            id: order.id,
+            isdone: false,
+          }
+        }).then((res)=>{
+          if(res.data){
+            alert("주문이 복구 되었습니다.");
+          }
+          this.$store.commit("setorder", this.$route.params.storename);
+        }).catch(function(error){
+          console.log(error);
+        });
       }
     }
 }

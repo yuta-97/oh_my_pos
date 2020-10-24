@@ -260,7 +260,7 @@ export default {
           }
         }).then((res)=>{
           console.log(res);
-          if(res){
+          if(res.data){
             console.log("success");
           }
         }).catch(function(error){

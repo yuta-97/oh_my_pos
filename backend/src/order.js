@@ -8,6 +8,7 @@ function addorder(req,res){
         count: req.body.count,
         price: req.body.price,
         sum_price: req.body.sum_price,
+        isdone: req.body.isdone,
     }).then(function(order){
         console.log(order.dataValues.id);
 
@@ -45,7 +46,7 @@ function getorder(req,res){
         where:{
             store_name: req.body.store_name,
         },
-        attributes:['id','table_num', 'goods_name', 'count','price','sum_price']
+        attributes:['id','table_num', 'goods_name', 'count','price','sum_price','isdone']
     }).then((result)=>{
         console.log("get order..");
         var data = JSON.parse(JSON.stringify(result));
@@ -54,6 +55,23 @@ function getorder(req,res){
     }).catch(function(error){
         console.log(error);
         res.send(error);
+    });
+}
+
+function updatedone(req,res){
+    models.Order.update({
+        isdone: req.body.isdone,
+    },{
+        where: 
+            {id: req.body.id}
+    })
+    .then((result) => {
+        console.log(result);
+        res.send(true);
+    })
+    .catch(function(error){
+        console.log(error);
+        res.send(false);
     });
 }
 
@@ -76,4 +94,5 @@ module.exports={
     addorder,
     getorder,
     deleteorder,
+    updatedone,
 }
