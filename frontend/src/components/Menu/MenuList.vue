@@ -125,33 +125,35 @@
     </MenuOrder>
 
     <OrderDone @close="doneclose" v-if="donemodal">
-      <div
-            v-for="order in orders"
-            v-bind:key="order"
-          >
-          <div class="card bg-light custom">
-            <div class="card-header" style="text-align: right; float: right; width: 100%">
+      <div class="ddd">
+        <div
+              v-for="order in orders"
+              v-bind:key="order"
+            >
+            <div class="card bg-light custom">
+              <div class="card-header" style="text-align: right; float: right; width: 100%">
 
-            </div>
-            <div style="text-align: left; font-weight: bold; padding: 20px; font-size: large;">
-              {{order.goods_name}}({{order.price}}원) X {{order.count}} 개
-              <div v-for="option in order.Options" v-bind:key="option" style="text-align: left;">
-                <li style="text-align: left; padding-top: 10px; font-size: medium;">
-                  {{option.option_name}} : {{option.option_price}} 원
-                </li>
+              </div>
+              <div style="text-align: left; font-weight: bold; padding: 20px; font-size: large;">
+                {{order.goods_name}}({{order.price}}원) X {{order.count}} 개
+                <div v-for="option in order.Options" v-bind:key="option" style="text-align: left;">
+                  <li style="text-align: left; padding-top: 10px; font-size: medium;">
+                    {{option.option_name}} : {{option.option_price}} 원
+                  </li>
+                </div>
               </div>
             </div>
-          </div>
         </div>
-        
-          <b-card style="display: flex; height: 60px;">
-              <div style="flex= 1; text-align: left; float: left;">
-               <p style="font-size: large; font-weight: bold;"> 총 주문금액</p>
-              </div>
-              <div style="flex= 2; text-align: right; float: right;">
-                <p style="font-size: large; font-weight: bold;">{{dis_price}}원</p>
-              </div>
-          </b-card>
+          
+            <b-card style="display: flex; height: 60px;">
+                <div style="flex= 1; text-align: left; float: left;">
+                <p style="font-size: large; font-weight: bold;"> 총 주문금액</p>
+                </div>
+                <div style="flex= 2; text-align: right; float: right;">
+                  <p style="font-size: large; font-weight: bold;">{{dis_price}}원</p>
+                </div>
+            </b-card>
+      </div>
     </OrderDone>
   </div>
 </template>
