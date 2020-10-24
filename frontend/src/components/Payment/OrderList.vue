@@ -127,6 +127,8 @@ export default {
         var s_list = [];
         for (var i = 0; i < this.rowselected.length; i++) {
           s_list.push(this.rowselected[i].order_id);
+          var idx = this.rows.findIndex(function(item) {return item.order_id === s_list[i]});
+          if (idx > -1) this.rows.splice(idx, 1);
         }
         axios({
           method: "delete",
@@ -145,6 +147,8 @@ export default {
             console.log(error);
             alert("삭제 실패.");
           });
+        
+        
       }
       // 테이블 데이터가 변경되면 refresh 해야함.
     },
