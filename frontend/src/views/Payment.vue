@@ -2,7 +2,6 @@
     <div class="main-container">
         <div class="orderList">
             <OrderList :order="orderlist"></OrderList>
-            <hr/>
         </div>
         <div class="goodsNpay">
             <GoodsNPay></GoodsNPay>
@@ -50,15 +49,16 @@ export default {
 <style scoped>
     .main-container{
         display: block;
-        width: 1024px;
-        /* width: 100%; */
-        height: 720px;
-        /* height: 100%; */
+        /* width: 1024px; */
+        width: 100%;
+        /* height: 720px; */
+        height: 100%;
         background-color: #f3f4f7;
     }
 
     .orderList{
         float: left;
+        /* position: absolute; */
         width: 50% !important;
         /* min-height: 300px; */
         height: 40% !important;
@@ -67,6 +67,7 @@ export default {
     }
 
     .orderCalc{
+        /* position: absolute; */
         clear: left;
         float: left;
         width: 50%;
@@ -76,9 +77,10 @@ export default {
     }
 
     .goodsNpay{
+        /* position: absolute; */
         float: right;
         width: 50%;
-        height: 100%;
+        height: 720px !important;
         background-color: #f3f4f7;
     }
 

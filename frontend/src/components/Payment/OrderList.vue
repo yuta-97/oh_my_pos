@@ -1,11 +1,11 @@
 <template>
-  <div style="display: block; height: 100%; background-color: #f3f4f7;">
+  <div style="display: block; height: 100%; background-color: #f3f4f7; border: 4px solid #bcbcbc; height: 307.2px;">
     <vue-good-table
       @on-selected-rows-change="selectionChanged"
       :line-numbers="true"
       :columns="columns"
       :rows="rows"
-      max-height="275px"
+      max-height="270px"
       :fixed-header="true"
       :select-options="{
         enabled: true,
@@ -14,13 +14,12 @@
       compactMode
       styleClass="vgt-table condensed"
     >
-      <div slot="selected-row-actions">
-        <b-button
+      <div style="height: 20px;" slot="selected-row-actions">
+        <button
           @click="delorder"
-          variant="outline-primary"
-          size="sm"
+          style="height: 20px;"
           v-if="rowselected.length > 0"
-          >삭제</b-button>
+          >삭제</button>
       </div>
     </vue-good-table>
   </div>
