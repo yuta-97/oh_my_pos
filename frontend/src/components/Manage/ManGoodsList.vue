@@ -270,7 +270,7 @@ export default {
           price: this.price,
           desc: this.desc,
           cur_goodsname: this.rowselected[0].goods_name,
-          img_url: "http://localhost:5000/api/getimage/" + this.uploadData.name,
+          img_url: "http://23alice.duckdns.org:5000/api/getimage/" + this.uploadData.name,
         },
       })
         .then((res) => {
