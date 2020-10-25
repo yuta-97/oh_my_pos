@@ -44,8 +44,6 @@ export default new Vuex.Store({
             value: res.data[i].dis_rate
           });
         }
-        console.log(res.data);
-        console.log(s_list);
         state.discount = s_list;
       }).catch((error)=>{
         console.log(error);
@@ -60,6 +58,7 @@ export default new Vuex.Store({
         }
       }).then((res)=>{
         state.order = res.data;
+        // console.log(res.data);
       }).catch(function(error){
         console.log(error);
       });
