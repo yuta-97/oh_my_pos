@@ -174,12 +174,12 @@ export default {
   width: 50%;
   height: 80px;
   font-size: 20px;
-  padding: 10px;
+  padding-left: 10px;
 }
 
 .okbtn button{
   width: 50%;
-  height: 80px;
+  height: 65px;
   font-size: 20px;
   padding: 10px;
 }

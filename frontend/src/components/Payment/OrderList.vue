@@ -1,11 +1,11 @@
 <template>
-  <div style="display: block; height: 100%; background-color: #f3f4f7;">
+  <div style="display: block; height: 100%; background-color: #f3f4f7; border: 4px solid #bcbcbc; height: 307.2px;">
     <vue-good-table
       @on-selected-rows-change="selectionChanged"
       :line-numbers="true"
       :columns="columns"
       :rows="rows"
-      max-height="275px"
+      max-height="270px"
       :fixed-header="true"
       :select-options="{
         enabled: true,
@@ -14,13 +14,12 @@
       compactMode
       styleClass="vgt-table condensed"
     >
-      <div slot="selected-row-actions">
-        <b-button
+      <div style="height: 20px;" slot="selected-row-actions">
+        <button
           @click="delorder"
-          variant="outline-primary"
-          size="sm"
+          style="height: 20px;"
           v-if="rowselected.length > 0"
-          >삭제</b-button>
+          >삭제</button>
       </div>
     </vue-good-table>
   </div>
@@ -127,6 +126,8 @@ export default {
         var s_list = [];
         for (var i = 0; i < this.rowselected.length; i++) {
           s_list.push(this.rowselected[i].order_id);
+          var idx = this.rows.findIndex(function(item) {return item.order_id === s_list[i]});
+          if (idx > -1) this.rows.splice(idx, 1);
         }
         axios({
           method: "delete",
@@ -145,8 +146,9 @@ export default {
             console.log(error);
             alert("삭제 실패.");
           });
+        
+        
       }
-      // 테이블 데이터가 변경되면 refresh 해야함.
     },
   },
 };

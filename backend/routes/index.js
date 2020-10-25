@@ -195,6 +195,11 @@ router.post('/api/getorder',(req,res)=>{
   order.getorder(req,res);
 });
 
+// 완료상황 업데이트
+router.post('/api/updatedone',(req,res)=>{
+  order.updatedone(req,res);
+})
+
 // 주문내역 삭제
 router.delete('/api/order', (req, res) => {
   order.deleteorder(req, res);

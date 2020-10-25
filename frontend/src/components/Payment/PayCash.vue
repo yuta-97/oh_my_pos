@@ -70,7 +70,7 @@
             </tr>
           </thead>
         </table>
-        <br /><br />
+        <br />
       </div>
 
       <div class="pay">
@@ -170,22 +170,17 @@ export default {
 
 .top {
   margin-top: 10px;
-  height: 10%;
+  height: 50px;
   background-color: #f3f4f7;
 }
 
 .body {
-  padding-top: 50px;
   padding-left: 20px;
   padding-right: 20px;
   display: block;
-  height: 90%;
+  height: 708px;
   background-color: #f3f4f7;
 }
-
-/* .cash-recipt{
-        padding: 50px;
-    } */
 
 .pay {
   text-align: right;
