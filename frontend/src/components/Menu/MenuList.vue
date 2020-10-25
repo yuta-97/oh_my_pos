@@ -37,9 +37,12 @@
     </div>
 
     <div class="cart">
-      <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="orderopen"></b-icon>
-      <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="doneopen"></b-icon>
-
+      <div style="flex: 1; padding-right: 5px;">
+        <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="orderopen"></b-icon>
+      </div>
+      <div style="flex: 1;">
+        <b-icon icon="list-ul" class="rounded-circle bg-danger p-2" variant="light" @click="doneopen"></b-icon>
+      </div>
     </div>
 
     <MenuAdd @close="addclose" @add="additem" v-if="addmodal">
@@ -391,6 +394,7 @@ export default {
     position: fixed;
     bottom: 0;
     right: 0;
+    display: flex;
   }
   /* 구분선 */
   .hr {
