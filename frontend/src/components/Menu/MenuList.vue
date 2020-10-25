@@ -37,9 +37,12 @@
     </div>
 
     <div class="cart">
-      <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="orderopen"></b-icon>
-      <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="doneopen"></b-icon>
-
+      <div style="flex: 1; padding-right: 5px;">
+        <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="orderopen"></b-icon>
+      </div>
+      <div style="flex: 1;">
+        <b-icon icon="list-ul" class="rounded-circle bg-danger p-2" variant="light" @click="doneopen"></b-icon>
+      </div>
     </div>
 
     <MenuAdd @close="addclose" @add="additem" v-if="addmodal">
@@ -130,7 +133,7 @@
               v-for="order in orders"
               v-bind:key="order"
             >
-            <div class="card bg-light custom">
+            <div class="card bg-light custom" v-if="order.table_num == tablenum">
               <div class="card-header" style="text-align: right; float: right; width: 100%">
 
               </div>
@@ -195,11 +198,13 @@ export default {
     },
     orders() {
       var list = this.$store.state.order;
+      console.log(list);
       var num = this.tablenum;
       for (var i = 0; i < list.length; i++) {
-        var idx = list.findIndex(function(item) {return item.table_num === num});
+        var idx = list.findIndex(function(item) {return item.table_num != num});
         if (idx > -1) list.splice(idx, 1);
       }
+      console.log(list);
       return list;
     },
     dis_price(){
@@ -243,9 +248,6 @@ export default {
     },
     cur_price: function(){
       this.price=parseInt(this.cur_price);
-    },
-    ordermodal: function(){
-      //this.totprice=
     },
   },
 
@@ -391,6 +393,7 @@ export default {
     position: fixed;
     bottom: 0;
     right: 0;
+    display: flex;
   }
   /* 구분선 */
   .hr {

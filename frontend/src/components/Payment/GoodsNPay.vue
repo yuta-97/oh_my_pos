@@ -190,6 +190,7 @@ export default {
             .then((res) => {
               if (res.data) {
                 console.log("success");
+                this.$store.commit("setorder", this.storename);
               }
             })
             .catch(function (error) {
