@@ -3,7 +3,7 @@
     <div>
       <h2>QR CODE</h2><br/>
       <b-button @click="loading">QR 생성하기</b-button>
-      <b-button @click="download">전체 다운로드</b-button><br/>
+      <b-button @click="download">전체 다운로드</b-button><br/><br/>
     </div>
     <div class= "row" style="position: relative; overflow-y: auto; margin-left: 40px;">
       <div v-for="(data, index) in values" v-bind:key="data">

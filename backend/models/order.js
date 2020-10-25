@@ -1,3 +1,4 @@
+const Sequelize = require('sequelize')
 module.exports=(sequelize, DataTypes)=>{
     const order = sequelize.define('Order',{
         store_name :{
@@ -23,6 +24,10 @@ module.exports=(sequelize, DataTypes)=>{
         sum_price:{
             type: DataTypes.STRING(30),
             allowNull: false,
+        },
+        isdone:{
+            type: Sequelize.BOOLEAN,
+            allowNull: false
         }
     });
 

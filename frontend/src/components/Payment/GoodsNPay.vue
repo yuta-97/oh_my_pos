@@ -2,9 +2,8 @@
   <div style="display: block; background-color: #f3f4f7;">
     <component v-bind:is="selmenus">
       <GoodsPay>
-        <div>
+        <div style="border: 4px solid #bcbcbc; height: 500px;">
           <b-card no-body
-            :height="217"
           >
             <b-tabs card>
               <b-tab
@@ -13,7 +12,7 @@
                 :title="cate.category_name"
               >
                 <b-card-text
-                  style="float: left"
+                  style="float: left; height: 400px;"
                   v-for="goods in goodslist"
                   v-bind:key="goods"
                 >
@@ -28,27 +27,31 @@
           </b-card>
         </div>
 
-        <div style="padding-top: 50px;">
+        <div style="border: 4px solid #bcbcbc; height: 134px;">
           <div style="float: left; width: 50%">
             <b-button
               @click="applyorder"
               class="btn btn-primary btn-lg btn-block"
+              style="height: 130px; padding: right;"
               >주 문</b-button
             >
           </div>
           <div style="float: right; width: 50%">
             <b-button @click="cancel" class="btn btn-secondary btn-lg btn-block"
+            style="height: 130px;"
               >취 소</b-button
             >
           </div>
         </div>
 
-        <div style="margin-top: 390px; display: flex">
+        <div style="border: 4px solid #bcbcbc; height: 134px; 
+                    display: flex; background-color: #f3f4f7;">
           <div style="flex: 1">
             <b-button
               type="button"
               class="btn btn-secondary btn-lg btn-block"
               @click="openModal"
+              style="height: 130px; padding: right;"
             >
               할 인
             </b-button>
@@ -58,6 +61,7 @@
               type="button"
               class="btn btn-secondary btn-lg btn-block"
               @click="selmenus = 'PayCash'"
+              style="height: 130px; padding: right;"
             >
               현 금
             </b-button>
@@ -66,6 +70,7 @@
             <b-button
               type="button"
               class="btn btn-secondary btn-lg btn-block"
+              style="height: 130px;"
               @click="selmenus = 'PayCard'"
             >
               카 드
@@ -179,6 +184,7 @@ export default {
               options: "",
               price: this.added_order[i].price,
               sum_price: this.added_order[i].price,
+              isdone: false,
             },
           })
             .then((res) => {

@@ -7,7 +7,7 @@
     >
       <div class="card bg-light custom" @click="payment(num)">
         <div class="card-header">{{num}}번</div>
-        <div v-for="data in recive_order" v-bind:key="data">
+        <div style="padding-left: 10px; padding-top: 5px;" v-for="data in recive_order" v-bind:key="data">
           <li v-if="data.table_num==num">{{data.goods_name}} X {{data.count}}</li>
         </div>
       </div>
@@ -202,10 +202,12 @@ export default {
           options: "",
           price: goods.price,
           sum_price: goods.price,
+          isdone: false,
         },
       })
         .then((res) => {
-          if (res) {
+          if (res.data) {
+            this.$store.commit("setstore", this.$route.params.storename);
             console.log("success");
           }
         })
@@ -250,5 +252,6 @@ export default {
     height: 200px !important;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: 5px;
   }
 </style>

@@ -1,28 +1,22 @@
 <template>
     <div class="container">
-            <div class="top">
-                <div style="float: right; text-align: right;">
-                    <b-icon icon="x-circle" scale="2" variant="danger"></b-icon>
-                </div>
-            </div>
-
             <div class="body">
                 <div class="cash-img">
                     <b-img 
                         width= "300px"
                         hegih= "300px"
                         src="https://raw.githubusercontent.com/Cozy-Ho/oh_my_pos/master/frontend/src/assets/card.png">
-                    </b-img><br/><br/>
+                    </b-img><br/><br/><br/>
                 </div>
 
                 <div class="cash">
                   <p style="font-weight: bold; font-size: x-large;"> 결제가 정상 승인 되었습니다. </p> 
                   <br/>
                   <b-button @click="pay">완 료</b-button>
+                  <br/>
+                  <br/>
                 </div>
-            </div> 
-
-            
+            </div>   
     </div>
 </template>
 
@@ -83,12 +77,7 @@ export default {
     .container {
         display: block;
         background-color: #f3f4f7;
-    }
-
-    .top {
-        margin-top: 10px;
-        height: 10%;
-        background-color: #f3f4f7;
+        /* height: 100%; */
     }
 
     .body {
@@ -96,9 +85,13 @@ export default {
         padding-left: 20px;
         padding-right: 20px;
         display: block;
-        height: 90%;
+        height: 768px;
         background-color: #f3f4f7;
     }
+
+    /* .cash {
+  
+    } */
 
     .pay {
         text-align: right;

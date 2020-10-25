@@ -1,6 +1,6 @@
 <template>
   <div class="m_menu">
-    <div class="main" :key="reload">
+    <div class="main">
         <div>
           <b-card no-body>
             <b-tabs card> 
@@ -38,6 +38,8 @@
 
     <div class="cart">
       <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="orderopen"></b-icon>
+      <b-icon icon="bag-check" class="rounded-circle bg-primary p-2" variant="light" @click="doneopen"></b-icon>
+
     </div>
 
     <MenuAdd @close="addclose" @add="additem" v-if="addmodal">
@@ -121,6 +123,38 @@
         <b-button block variant="primary" @click="order"> {{totprice}}원 주문하기 </b-button>
       </div>
     </MenuOrder>
+
+    <OrderDone @close="doneclose" v-if="donemodal">
+      <div class="ddd">
+        <div
+              v-for="order in orders"
+              v-bind:key="order"
+            >
+            <div class="card bg-light custom">
+              <div class="card-header" style="text-align: right; float: right; width: 100%">
+
+              </div>
+              <div style="text-align: left; font-weight: bold; padding: 20px; font-size: large;">
+                {{order.goods_name}}({{order.price}}원) X {{order.count}} 개
+                <div v-for="option in order.Options" v-bind:key="option" style="text-align: left;">
+                  <li style="text-align: left; padding-top: 10px; font-size: medium;">
+                    {{option.option_name}} : {{option.option_price}} 원
+                  </li>
+                </div>
+              </div>
+            </div>
+        </div>
+          
+            <b-card style="display: flex; height: 60px;">
+                <div style="flex= 1; text-align: left; float: left;">
+                <p style="font-size: large; font-weight: bold;"> 총 주문금액</p>
+                </div>
+                <div style="flex= 2; text-align: right; float: right;">
+                  <p style="font-size: large; font-weight: bold;">{{dis_price}}원</p>
+                </div>
+            </b-card>
+      </div>
+    </OrderDone>
   </div>
 </template>
 
@@ -128,49 +162,66 @@
 import axios from "axios";
 import MenuAdd from "../Menu/MenuAdd.vue";
 import MenuOrder from "../Menu/MenuOrder.vue";
-
+import OrderDone from "../Menu/OrderDone.vue";
 
 export default {
   components: {
     MenuAdd,
     MenuOrder,
+    OrderDone,
   },
 
   data() {
     return {
+      donemodal: false,
       addmodal: false,
       ordermodal: false,
-      storename: "",
-      tablenum: "",
       options: [],
       selected: [],
       counter: 1,
-      catelist: [],
-      goodslist: [],
+      tablenum:"",
       cur_goodsname: "",
       cur_url: "",
       cur_desc: "",
       cur_price: "",
-      reload: 0,
       cart:[],
       price: 0,
       totprice:0,
     };
   },
+  computed: {
+    storename() {
+      return this.$store.state.store_name;
+    },
+    orders() {
+      var list = this.$store.state.order;
+      var num = this.tablenum;
+      for (var i = 0; i < list.length; i++) {
+        var idx = list.findIndex(function(item) {return item.table_num === num});
+        if (idx > -1) list.splice(idx, 1);
+      }
+      return list;
+    },
+    dis_price(){
+      var list = this.$store.state.order;
+      var ret = 0;
+      for (var i =0;i<list.length;i++){
+        if(parseInt(list[i].table_num) == this.tablenum){
+          ret+=parseInt(list[i].sum_price);
+        }
+      }
+      return ret;
+    },
+    goodslist() {
+      return this.$store.state.goods;
+    },
+    catelist() {
+      return this.$store.state.catelist;
+    },
+  },
+
   created() {
-    this.storename = this.$route.params.storename;
     this.tablenum = this.$route.params.num;
-    axios({
-      method: "post",
-      url: "/api/setstoreSession",
-      data: { store_name: this.storename },
-    })
-      .then(() => {
-        console.log("store_session saved.");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   },
 
   watch: {
@@ -182,9 +233,6 @@ export default {
       for(var i=0;i<this.selected.length;i++){
         this.price+=parseInt(this.selected[i].option_price)*this.counter;
       }
-    },
-    storename: function () {
-      this.reload += 1;
     },
     selected: function(){
       this.price=parseInt(this.cur_price)*this.counter;
@@ -202,44 +250,7 @@ export default {
   },
 
   mounted: function () {
-    axios({
-      method: "post",
-      url: "/api/getcategoryname",
-      data: { store_name: this.storename },
-    })
-      .then((res) => {
-        // DB에서 받아온 데이터를 인덱스 갯수만큼 추가, 인덱스 제거
-        var s_list = [];
-        for (var i = 0; i < res.data.length; i++) {
-          s_list.push(res.data[i]);
-        }
-        this.catelist = s_list;
-        console.log(this.catelist);
-        this.reload += 1;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    axios({
-      method: "post",
-      url: "/api/getgoods",
-      data: { store_name: this.storename },
-    })
-      .then((res) => {
-        // DB에서 받아온 데이터를 인덱스 갯수만큼 추가, 인덱스 제거
-        var s_list = [];
-        for (var i = 0; i < res.data.length; i++) {
-          s_list.push(res.data[i]);
-        }
-        this.goodslist = s_list;
-        console.log(this.goodslist);
-        this.reload += 1;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    this.reload += 1;
+    //
   },
 
   methods: {
@@ -255,28 +266,34 @@ export default {
             count: this.cart[i].count,
             options: this.cart[i].options,
             price: this.cart[i].price,
-            sum_price: this.cart[i].sum_price
+            sum_price: this.cart[i].sum_price,
+            isdone: false,
           }
         }).then((res)=>{
           console.log(res);
-          if(res){
+          if(res.data){
+            this.$store.commit("setstore", this.$route.params.storename);
+            this.cart=[];
+            this.totprice=0;
             console.log("success");
+            alert("주문 완료!!");
+            this.$router.go();
           }
         }).catch(function(error){
           console.log(error);
           alert("실패 했습니다. 다시 시도해 주세요.");
         });
       }
-      alert("주문 완료!");
       this.ordermodal=false;
     },
+
     delorder(item){
       if(confirm("주문을 취소합니다")){
         const index = this.cart.indexOf(item);
         if (index > -1) {
           this.cart.splice(index, 1);
         }
-        this.totprice-=item.price;
+        this.totprice-=item.sum_price;
       }
     },
     additem(){
@@ -290,7 +307,6 @@ export default {
         sum_price: this.price
       }
       this.cart.push(data);
-      console.log(this.cart);
       this.totprice+=parseInt(this.price);
       this.selected=[];
       this.price=0;
@@ -348,6 +364,14 @@ export default {
         this.$refs.content.scrollTop = el.offsetTop;
       }
     },
+
+    doneclose() {
+      this.donemodal=false;
+    },
+
+    doneopen() {
+      this.donemodal=true;
+    }
   },
 };
 </script>
@@ -408,7 +432,7 @@ export default {
 
   .m_option {
     width: 100%;
-    height: 230px;
+    height: 180px;
     text-align: left;
     border: solid 2px;
     border-color: #f1f1f1;

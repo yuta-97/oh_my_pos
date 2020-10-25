@@ -51,16 +51,7 @@ import Regist from '../components/Login/Regist.vue';
 <style scoped>
 
   .main-content {
-  
-        /* margin: 10px 0px;
-        text-align: center;
-        padding : 20px;
-        font-style: italic;
-        margin-top: 0px; */
-
-    /* margin-top: 0px; */
     margin: 0px 30px 0px 30px;
-    /* padding: 20px; */
     width : 200;
     background-color: white;
     
@@ -85,10 +76,6 @@ import Regist from '../components/Login/Regist.vue';
   .all-content {
     float : center;
     padding: 150px;
-    /* background-color: #333; */
   }
 
-  /* .all {
-    background-color: #333;
-  } */
 </style>
