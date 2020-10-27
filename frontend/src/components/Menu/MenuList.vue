@@ -126,7 +126,6 @@
         <b-button block variant="primary" @click="order"> {{totprice}}원 주문하기 </b-button>
       </div>
     </MenuOrder>
-
     <OrderDone @close="doneclose" v-if="donemodal">
       <div class="ddd">
         <div
