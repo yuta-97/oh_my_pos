@@ -3,7 +3,9 @@ Free Pos-system for any device and any place.
 
 # Dev team
 PM : `허강주`
+
 Front-End : `이승민`
+
 Back-End : `허강주`
 
 
