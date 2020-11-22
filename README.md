@@ -1,6 +1,8 @@
 # oh_my_pos
 Free Pos-system for any device and any place.
+
 Non-contact ordering system with QRcode.
+
 Web-base Pos-system for store which size is small.
 
 # Dev team
