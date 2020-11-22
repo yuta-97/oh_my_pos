@@ -1,10 +1,11 @@
 # oh_my_pos
 Free Pos-system for any device and any place.
+Non-contact ordering system with QRcode.
+Web-base Pos-system for store which size is small.
 
 # Dev team
-PM : `허강주`
 
-Front-End : `이승민`
+Front-End : `이승민`, `허강주`
 
 Back-End : `허강주`
 
